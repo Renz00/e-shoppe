@@ -1,7 +1,7 @@
 <template>
   <v-app-bar height="10%">
     <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-    <v-app-bar-title class="ml-10">E-Shoppe</v-app-bar-title>
+    <v-app-bar-title class="ml-10" v-if="!showLinks">E-Shoppe</v-app-bar-title>
 
     <v-row>
       <v-col>
@@ -10,7 +10,7 @@
           <v-btn variant="text">Women</v-btn>
           <v-btn variant="text">Kids</v-btn>
         </span>
-        <span v-if="showLinks">
+        <span class="ml-5" v-if="showLinks">
           <v-btn
             id="menu-activator"
             color="black"
@@ -39,14 +39,15 @@
         </span>
       </v-col>
     </v-row>
-    <v-btn icon="mdi-dots-vertical"  class="mr-5"></v-btn>
+    <v-btn icon="mdi-cart-outline"></v-btn>
+    <v-btn icon="mdi-account-circle"  class="mr-5"></v-btn>
 
   </v-app-bar>
 </template>
 
 
 <script setup>
-  import { onMounted, computed } from 'vue'
+  import { computed } from 'vue'
 import { useDisplay } from 'vuetify'
 
 const { mobile } = useDisplay()
