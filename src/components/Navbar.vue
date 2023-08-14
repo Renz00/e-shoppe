@@ -14,8 +14,8 @@
           <v-btn
             id="menu-activator"
             color="black"
-          >
-            Categories
+            icon="mdi-menu"
+          > 
           </v-btn>
           <v-menu activator="#menu-activator">
             <v-list>
@@ -39,9 +39,58 @@
         </span>
       </v-col>
     </v-row>
-    <v-btn icon="mdi-cart-outline"></v-btn>
-    <v-btn icon="mdi-account-circle"  class="mr-5"></v-btn>
-
+    <v-btn icon="mdi-cart-outline" id="menu-activator2"></v-btn>
+    <v-menu activator="#menu-activator2">
+        <v-list>
+          <v-list-item>
+            <v-list-item-title>
+              <span class="text-truncate">
+                Item 1
+              </span>
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title>
+              <span class="text-truncate">
+                Item 2
+              </span>
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title>
+              <span class="text-truncate">
+                Item 3
+              </span>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    <v-btn icon="mdi-account-circle" id="menu-activator3" class="mr-5"></v-btn>
+    <v-menu activator="#menu-activator3">
+        <v-list>
+          <v-list-item>
+            <v-list-item-title>
+              <span class="text-truncate">
+                Profile
+              </span>
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title>
+              <span class="text-truncate">
+                Account Settings
+              </span>
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title>
+              <span class="text-truncate">
+                Logout
+              </span>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
   </v-app-bar>
 </template>
 

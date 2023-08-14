@@ -2,7 +2,7 @@ import api from "./api";
 
 const url = "products"
 
-export const allProducts = () => api.get(url)
+export const allProducts = () => api.get(url+"?limit=12")
 
 // export const createTask = (task) => api.post(url, task)
 

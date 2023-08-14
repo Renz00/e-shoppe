@@ -22,6 +22,7 @@
           <v-text-field
             placeholder="Find your product"
             variant="outlined"
+            class="white--text"
           ><v-icon icon="mdi-magnify" class="mx-5"></v-icon></v-text-field>
         </v-row>
     </v-container>
