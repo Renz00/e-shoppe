@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-row>
       <v-col>
         <h1 class="pt-5 mr-3">I'm looking for <span id="menu-activator4">{{ category }} <v-icon icon="mdi-triangle-small-down"></v-icon></span></h1> 
@@ -38,14 +38,14 @@
         </v-chip-group>
       </v-col>
     </v-row>
-    <ProductCard :products="products"/>
+    <ProductCardSm :products="products"/>
     <Pagination />
-  </div>
+  </v-container>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import ProductCard from './ProductCard.vue';
+import ProductCardSm from './ProductCardSm.vue';
 import Pagination from './Pagination.vue';
 
 const props = defineProps({

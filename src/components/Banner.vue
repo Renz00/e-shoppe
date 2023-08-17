@@ -18,20 +18,47 @@
           </v-col>
           <v-spacer width="25%"></v-spacer>
         </v-row>
-        <v-row width="10%" class="mb-15 pb-15 py-10 mx-15">
-          <v-text-field
-            placeholder="Find your product"
-            variant="outlined"
-            class="white--text"
-          ><v-icon icon="mdi-magnify" class="mx-5"></v-icon></v-text-field>
+        <v-row class="mt-10 mx-15">
+          <v-spacer width="10%"></v-spacer>
+          <v-col cols='12'>
+              <v-autocomplete
+                class="text-white"
+                placeholder="Find your product"
+                variant="solo"
+                bg-color="#F5511C"
+                v-model="values"
+                :items="items"
+                dark
+                clearable
+              >
+              <template v-slot:prepend-inner>
+                <v-icon icon="mdi-magnify" color="white"></v-icon>
+              </template>
+                <template v-slot:no-data>
+                  <span class="px-5">No results</span>
+                </template>
+              </v-autocomplete>
+          </v-col>
+          <v-spacer width="10%"></v-spacer>
+        
         </v-row>
     </v-container>
   </v-img>
 </v-sheet>
 </template>
 
+<script setup>
+import { ref } from 'vue';
+
+const items = ref(['Shoes', 'Dresses', 'Shirts'])
+const values = ref('')
+</script>
+
 <style>
-/* .hero-img {
-  filter: brightness(50%);
-} */
+    .text-white input {
+      color: white !important;
+    }
 </style>
+
+
+

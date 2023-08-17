@@ -1,7 +1,11 @@
 <template>
   <v-app-bar height="10%">
     <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-    <v-app-bar-title class="ml-10" v-if="!showLinks">E-Shoppe</v-app-bar-title>
+    <v-app-bar-title class="ml-10" v-if="!showLinks">
+      <router-link style="text-decoration: none; color: black;" class="text-h6 text--black" :to="{name: 'ProductsView'}">
+        E-Shoppe
+      </router-link>
+    </v-app-bar-title>
 
     <v-row>
       <v-col>

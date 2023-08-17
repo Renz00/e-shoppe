@@ -8,6 +8,19 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      // https://rollupjs.org/guide/en/#outputmanualchunks
+      output: {
+        manualChunks: {
+          'group-products': [
+            './src/views/ProductsView',
+            './src/views/ShowProductView'
+          ],
+        },
+      },
+    },
+  },
   plugins: [
     vue({
       template: { transformAssetUrls }
