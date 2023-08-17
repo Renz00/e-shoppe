@@ -6,7 +6,6 @@
         E-Shoppe
       </router-link>
     </v-app-bar-title>
-
     <v-row>
       <v-col>
         <span v-if="!showLinks">

@@ -1,5 +1,5 @@
 <template>
-  <v-row class="justify-center text-center pt-5">
+  <v-row class="justify-center text-center">
       <v-col class="mb-5" cols="12" sm="6" lg="3" md="4" v-for="product in products" :key="product.id">
         <v-sheet>
           <v-card :to="{name: 'ShowProductView'}" variant="outlined">

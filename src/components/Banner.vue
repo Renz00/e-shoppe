@@ -25,7 +25,7 @@
                 class="text-white"
                 placeholder="Find your product"
                 variant="solo"
-                bg-color="#F5511C"
+                bg-color="#FF7043"
                 v-model="values"
                 :items="items"
                 dark

@@ -1,8 +1,8 @@
 <template>
-  <v-container>
+  <v-container class="my-10">
     <v-row>
       <v-col>
-        <h1 class="pt-5 mr-3">I'm looking for <span id="menu-activator4">{{ category }} <v-icon icon="mdi-triangle-small-down"></v-icon></span></h1> 
+        <h1 class="mr-3">I'm looking for <span id="menu-activator4">{{ category }} <v-icon icon="mdi-triangle-small-down"></v-icon></span></h1> 
         <v-menu activator="#menu-activator4">
           <v-list>
             <v-list-item @click="setCategory('Everything')" link>
