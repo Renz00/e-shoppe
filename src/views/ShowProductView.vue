@@ -1,6 +1,7 @@
 <template>
-  <v-container class="my-16 pt-5">
-    <ProductCardLg />
+  <v-container class="my-10">
+    <!-- Listening to emitCartItemCount from child component -->
+    <ProductCardLg @emitCartItemCount="setCartItemCount()"/>
   </v-container>
 </template>
 
@@ -8,10 +9,10 @@
 import ProductCardLg from '@/components/ProductCardLg.vue'
 // import { onMounted } from "vue";
 // import { storeToRefs } from "pinia";
-// import { useProductStore } from '../store/product-store'
+import { useProductStore } from '../store/product-store'
 
-// const { products } = storeToRefs(useProductStore())
-// const { fetchProduct } = useProductStore()
+// const { cartItemCount } = storeToRefs(useProductStore())
+const { setCartItemCount } = useProductStore()
 
 // onMounted ( async () => {
 //   await fetchProduct()

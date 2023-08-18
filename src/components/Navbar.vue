@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar height="10%">
+  <v-app-bar height="50">
     <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
     <v-app-bar-title class="ml-10" v-if="!showLinks">
       <router-link style="text-decoration: none; color: black;" class="text-h6 text--black" :to="{name: 'ProductsView'}">
@@ -17,8 +17,8 @@
           <v-btn
             id="menu-activator"
             color="black"
-            icon="mdi-menu"
           > 
+          <v-icon icon="mdi-menu"></v-icon>
           </v-btn>
           <v-menu activator="#menu-activator">
             <v-list>
@@ -42,69 +42,71 @@
         </span>
       </v-col>
     </v-row>
-    <v-btn icon="mdi-cart-outline" id="menu-activator2"></v-btn>
+    <div class="mr-1">
+      <v-btn icon="" id="menu-activator2">
+      <span v-if="cartItemCount>0">
+        <v-badge :content="cartItemCount" color="error">
+          <v-icon icon="mdi-cart-outline"></v-icon>
+        </v-badge>
+      </span>
+      <span v-else>
+        <v-icon icon="mdi-cart-outline"></v-icon>
+      </span>
+    </v-btn>
     <v-menu activator="#menu-activator2">
         <v-list>
-          <v-list-item>
+          <v-list-item v-for="n of cartItemCount">
             <v-list-item-title>
               <span class="text-truncate">
-                Item 1
-              </span>
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title>
-              <span class="text-truncate">
-                Item 2
-              </span>
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title>
-              <span class="text-truncate">
-                Item 3
+                Product {{ n }} added to cart!
               </span>
             </v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
-    <v-btn icon="mdi-account-circle" id="menu-activator3" class="mr-5"></v-btn>
-    <v-menu activator="#menu-activator3">
-        <v-list>
-          <v-list-item>
-            <v-list-item-title>
-              <span class="text-truncate">
-                Profile
-              </span>
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title>
-              <span class="text-truncate">
-                Account Settings
-              </span>
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title>
-              <span class="text-truncate">
-                Logout
-              </span>
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+    </div>
+    <div class="mr-5">
+      <v-btn id="menu-activator3" icon=""><v-icon icon="mdi-account-circle"></v-icon></v-btn>
+      <v-menu activator="#menu-activator3">
+          <v-list>
+            <v-list-item>
+              <v-list-item-title>
+                <span class="text-truncate">
+                  Profile
+                </span>
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-title>
+                <span class="text-truncate">
+                  Account Settings
+                </span>
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-title>
+                <span class="text-truncate">
+                  Logout
+                </span>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+    </div>
   </v-app-bar>
 </template>
 
 
 <script setup>
-  import { computed } from 'vue'
+import { computed } from 'vue'
 import { useDisplay } from 'vuetify'
 
+const props = defineProps({
+    cartItemCount: Number,
+})
 const { mobile } = useDisplay()
 
 const showLinks = computed(() => {
     return mobile.value
-  })
+})
 </script>

@@ -9,6 +9,7 @@
                 <v-img
                 class="mx-auto"
                   lazy-src="https://picsum.photos/900/400"
+                  aspect-ratio="16/9"
                   :width="400"
                   :height="150"
                   src="https://picsum.photos/900/400"
@@ -16,7 +17,7 @@
                   <template v-slot:placeholder>
                     <div class="d-flex align-center justify-center fill-height">
                       <v-progress-circular
-                        color="grey-4"
+                        color="blue"
                         indeterminate
                       ></v-progress-circular>
                     </div>

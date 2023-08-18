@@ -1,7 +1,6 @@
 <template>
   <v-app id="inspire">
-
-    <Navbar />
+    <Navbar :cartItemCount="cartItemCount"/>
     <v-main>
       <router-view />
     </v-main>
@@ -12,4 +11,10 @@
 <script setup>
 import Navbar from "./components/Navbar.vue"
 import Footer from "./components/Footer.vue"
+
+import { storeToRefs } from "pinia";
+import { useProductStore } from '@/store/product-store'
+
+const { cartItemCount } = storeToRefs(useProductStore())
+
 </script>

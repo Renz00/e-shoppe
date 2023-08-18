@@ -22,13 +22,14 @@
           <v-spacer width="10%"></v-spacer>
           <v-col cols='12'>
               <v-autocomplete
-                class="text-white"
+                class="white--text"
                 placeholder="Find your product"
-                variant="solo"
-                bg-color="#FF7043"
+                variant="outlined"
+                bg-color="#0091EA"
                 v-model="values"
                 :items="items"
-                dark
+                center-affix
+                rounded
                 clearable
               >
               <template v-slot:prepend-inner>
@@ -49,15 +50,20 @@
 
 <script setup>
 import { ref } from 'vue';
-
 const items = ref(['Shoes', 'Dresses', 'Shirts'])
 const values = ref('')
 </script>
 
-<style>
-    .text-white input {
-      color: white !important;
-    }
+<style scoped lang="scss">
+:deep(.v-field__outline) {
+  border: 2px solid #F6FDEB;
+  border-radius: 999px !important;
+
+  .v-field__outline__start,
+  .v-field__outline__end {
+    border: none !important;
+  }
+}
 </style>
 
 

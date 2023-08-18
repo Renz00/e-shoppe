@@ -3,9 +3,9 @@
         <v-overlay class="justify-center align-center" v-model="overlay">
             <v-alert
                 closable
-                icon="$vuetify"
-                title="Alert title"
-                text="..."
+                icon="mdi-check"
+                title="Info"
+                text="Item added to Cart!"
                 type="success"
                 >
                 <template v-slot:close>
@@ -15,16 +15,14 @@
         </v-overlay>
         <v-row>
             <v-col cols="12" lg="6">
-                <div class="text-overline mb-1">
-                    <v-img lazy-src="https://picsum.photos/1200/900" width="auto" height="auto"
-                        src="https://picsum.photos/1200/900">
+                <v-img lazy-src="https://picsum.photos/1200/910" aspect-ratio="16/9" width="auto" height="430"
+                    src="https://picsum.photos/1200/910">
                         <template v-slot:placeholder>
-                            <div class="d-flex align-center justify-center fill-height">
-                                <v-progress-circular color="grey-4" indeterminate></v-progress-circular>
-                            </div>
+                            <v-row  class="d-flex align-center justify-center fill-height">
+                                <v-progress-circular indeterminate color="blue"></v-progress-circular>
+                            </v-row>
                         </template>
-                    </v-img>
-                </div>
+                </v-img>
             </v-col>
             <v-col cols="12" lg="6">
                 <v-row>
@@ -35,18 +33,18 @@
                         </v-tabs>
                         <v-window v-model="tab">
                             <v-window-item value="one">
-                                <v-container class="mx-3 mt-3">
-                                    <v-row class="text-h5">
+                                <v-container>
+                                    <v-row class="text-h5 pt-2">
                                         Product Name
                                     </v-row>
                                     <v-row class="pb-5">
-                                        <span class="text-subtitle-2">
+                                        <span class="text-subtitle-1">
                                             Product Category |
                                             <v-icon v-for="n in 5" color="yellow" icon="mdi-star"
                                             size="small"></v-icon>
                                         </span>          
                                     </v-row>
-                                    <v-row class="text-h6">
+                                    <v-row class="text-subtitle-2">
                                         Product Price
                                     </v-row>
                                     <v-row class="justify-center align-center text-center">
@@ -58,7 +56,7 @@
                                         </v-col>
                                     </v-row>
                                     <v-row>
-                                        <span class="text-h6">Variant</span>
+                                        <span class="text-subtitle-2">Variant</span>
                                     </v-row>
                                     <v-row class="justify-center align-center text-center">
                                         <v-col>
@@ -78,19 +76,30 @@
                                     </v-row>
                                     <v-row>
                                         <v-col cols="12" xl="9" lg="9" md="8" sm="6">
-                                            <v-btn size="large" color="#F4511E" style="color: white;" width="100%">
+                                            <v-btn size="large" color="#F4511E" style="color: white;" width="100%" @click="addToCart()">
                                                 Add to Cart
                                             </v-btn>
                                         </v-col>
                                         <v-col cols="12" xl="3" lg="3" md="4" sm="6">
-                                            <v-btn size="large" color="#0091EA" style="color: white;" width="100%">
-                                            <v-icon icon="mdi-heart"></v-icon></v-btn>
+                                            <v-tooltip 
+                                                v-model="liked"
+                                                text="You liked this item!" 
+                                                location="top"
+                                                open-on-click
+                                                :open-on-hover="false"
+                                            >
+                                                <template v-slot:activator="{ props }">
+                                                    <v-btn v-bind="props" @click="liked=true" size="large" color="#0091EA" style="color: white;" width="100%">                                               
+                                                    <v-icon icon="mdi-heart"></v-icon></v-btn>
+                                                </template>
+                                                </v-tooltip>
+                                            
                                         </v-col>
                                     </v-row>
                                 </v-container>
                             </v-window-item>
                             <v-window-item value="two">
-                                <v-container>
+                                <v-container class="mb-3">
                                     <v-row>
                                         <v-col>
                                             <span class="text-subtitle-1">
@@ -114,23 +123,45 @@
                 </v-row>
             </v-col>
         </v-row>
+        <v-row>
+            <Products />
+        </v-row>
     </v-sheet>
 </template>
 
 <script setup>
 import { ref, watchEffect } from "vue"
+import Products from '@/components/Products.vue'
 
-const tab = ref(null)
-var overlay = ref(true)
-
-//Closes overlay alert after 2 secs
-//watchEffect will watch the value of whatever veriable is referrence within the callback function
-watchEffect(async () => {
-    setTimeout(() => {
-        overlay.value = false
-    }, 2000)
+const props = defineProps({
+    setCartItemCount: Function,
 })
 
+const tab = ref(null)
+var overlay = ref(false)
+var liked = ref(false)
+
+const emit = defineEmits(['emitCartItemCount'])
+
+const addToCart = (()=>{
+    overlay.value=true
+    emit('emitCartItemCount')
+})
+
+//Closes overlay alert after 2 secs if value is true
+//watchEffect will watch the value of whatever veriable is referrence within the callback function
+watchEffect(() => {
+    if (overlay.value){
+        setTimeout(() => {
+        overlay.value = false
+        }, 1000)
+    }
+    if (liked.value){
+        setTimeout(() => {
+        liked.value = false
+        }, 1000)
+    }
+})
 
 </script>
 
