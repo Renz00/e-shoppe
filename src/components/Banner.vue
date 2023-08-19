@@ -22,7 +22,7 @@
           <v-spacer width="10%"></v-spacer>
           <v-col cols='12'>
               <v-autocomplete
-                class="white--text"
+                class="white--text round_outline"
                 placeholder="Find your product"
                 variant="outlined"
                 bg-color="#0091EA"
@@ -41,7 +41,7 @@
               </v-autocomplete>
           </v-col>
           <v-spacer width="10%"></v-spacer>
-        
+
         </v-row>
     </v-container>
   </v-img>
@@ -55,7 +55,7 @@ const values = ref('')
 </script>
 
 <style scoped lang="scss">
-:deep(.v-field__outline) {
+.round_outline:deep(.v-field__outline) {
   border: 2px solid #F6FDEB;
   border-radius: 999px !important;
 

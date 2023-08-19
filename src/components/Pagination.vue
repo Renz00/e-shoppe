@@ -6,7 +6,7 @@
           <v-container class="max-width">
             <v-pagination
               class="my-4"
-              :length="15"
+              :length="10"
             ></v-pagination>
           </v-container>
         </v-col>

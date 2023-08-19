@@ -42,7 +42,7 @@
                                             Product Category |
                                             <v-icon v-for="n in 5" color="yellow" icon="mdi-star"
                                             size="small"></v-icon>
-                                        </span>          
+                                        </span>
                                     </v-row>
                                     <v-row class="text-subtitle-2">
                                         Product Price
@@ -81,19 +81,19 @@
                                             </v-btn>
                                         </v-col>
                                         <v-col cols="12" xl="3" lg="3" md="4" sm="6">
-                                            <v-tooltip 
+                                            <v-tooltip
                                                 v-model="liked"
-                                                text="You liked this item!" 
+                                                text="You liked this item!"
                                                 location="top"
                                                 open-on-click
                                                 :open-on-hover="false"
                                             >
                                                 <template v-slot:activator="{ props }">
-                                                    <v-btn v-bind="props" @click="liked=true" size="large" color="#0091EA" style="color: white;" width="100%">                                               
+                                                    <v-btn v-bind="props" @click="liked=true" size="large" color="#0091EA" style="color: white;" width="100%">
                                                     <v-icon icon="mdi-heart"></v-icon></v-btn>
                                                 </template>
                                                 </v-tooltip>
-                                            
+
                                         </v-col>
                                     </v-row>
                                 </v-container>
