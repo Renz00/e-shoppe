@@ -1,16 +1,30 @@
 <template>
   <div>
     <Banner />
-    <Products :products="products"/>
+    <v-container class="my-2">
+      <v-row>
+      <v-col>
+        <CatalogHeader @emitSetCategory="setCategory" :category="category"/>
+      </v-col>
+    </v-row>
+      <Products :products="products"/>
+    </v-container>
   </div>
 </template>
 
 <script setup>
 import Products from '@/components/Products.vue'
 import Banner from "@/components/Banner.vue"
-import { onMounted } from "vue";
+import CatalogHeader from "@/components/CatalogHeader.vue"
+import { ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
+
+var category = ref('Everything')
+
+const setCategory = ((selectedCategory) => {
+  category.value = selectedCategory.replace('-', ' ');
+})
 
 const { products } = storeToRefs(useProductStore())
 const { fetchAllProducts } = useProductStore()

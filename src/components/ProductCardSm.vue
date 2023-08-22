@@ -25,9 +25,12 @@
                 </v-img>
               </div>
             </v-row>
-              
+
               <div class="text-h6 mb-1">
                 {{ product.title }}
+              </div>
+              <div class="text-caption font-italic">
+                {{ product.category }}
               </div>
               <div class="text-caption text-truncate">{{ product.description }}</div>
           </v-card-item>
@@ -44,6 +47,6 @@
 
 <script setup>
 const props = defineProps({
-    products: Array,
+  products: Array,
 })
 </script>

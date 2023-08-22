@@ -123,19 +123,11 @@
                 </v-row>
             </v-col>
         </v-row>
-        <v-row>
-            <Products />
-        </v-row>
     </v-sheet>
 </template>
 
 <script setup>
 import { ref, watchEffect } from "vue"
-import Products from '@/components/Products.vue'
-
-const props = defineProps({
-    setCartItemCount: Function,
-})
 
 const tab = ref(null)
 var overlay = ref(false)

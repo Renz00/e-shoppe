@@ -18,3 +18,7 @@ import { useProductStore } from '@/store/product-store'
 const { cartItemCount } = storeToRefs(useProductStore())
 
 </script>
+
+<style lang="scss">
+  @import './styles/styles.scss';
+</style>

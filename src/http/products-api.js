@@ -4,6 +4,9 @@ const url = "products"
 
 export const allProducts = () => api.get(url+"?limit=12")
 
+
+export const similarProducts = (category) => api.get(url+'/category/'+category)
+
 // export const createTask = (task) => api.post(url, task)
 
 // export const updateTask = (id, task) => api.put(url+'/'+id, task)

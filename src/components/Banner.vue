@@ -22,14 +22,14 @@
           <v-spacer width="10%"></v-spacer>
           <v-col cols='12'>
               <v-autocomplete
-                class="white--text round_outline"
+                class="white--text rounded-outline"
                 placeholder="Find your product"
-                variant="outlined"
                 bg-color="#0091EA"
                 v-model="values"
                 :items="items"
-                center-affix
+                variant="outlined"
                 rounded
+                center-affix
                 clearable
               >
               <template v-slot:prepend-inner>
@@ -55,7 +55,7 @@ const values = ref('')
 </script>
 
 <style scoped lang="scss">
-.round_outline:deep(.v-field__outline) {
+.rounded-outline:deep(.v-field__outline) {
   border: 2px solid #F6FDEB;
   border-radius: 999px !important;
 
@@ -65,6 +65,3 @@ const values = ref('')
   }
 }
 </style>
-
-
-
