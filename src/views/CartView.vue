@@ -4,7 +4,7 @@
             <v-col cols="12" lg="8">
                 <v-row>
                     <v-col>
-                        <v-sheet border>
+                        <v-sheet>
                             <v-card
                                 class="mx-auto"
                                 prepend-icon="mdi-map-marker-outline"
