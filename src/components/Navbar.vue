@@ -43,7 +43,7 @@
       </v-col>
     </v-row>
     <div class="mr-1">
-      <v-btn icon="" id="menu-activator2">
+      <v-btn icon="" :to="{name: 'CartView'}">
       <span v-if="cartItemCount>0">
         <v-badge :content="cartItemCount" color="error">
           <v-icon icon="mdi-cart-outline"></v-icon>
@@ -53,17 +53,6 @@
         <v-icon icon="mdi-cart-outline"></v-icon>
       </span>
     </v-btn>
-    <v-menu activator="#menu-activator2">
-        <v-list>
-          <v-list-item v-for="n of cartItemCount">
-            <v-list-item-title>
-              <span class="text-truncate">
-                Product {{ n }} added to cart!
-              </span>
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
     </div>
     <div class="mr-5">
       <v-btn id="menu-activator3" icon=""><v-icon icon="mdi-account-circle"></v-icon></v-btn>

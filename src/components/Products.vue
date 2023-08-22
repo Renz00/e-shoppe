@@ -1,5 +1,5 @@
 <template>
-  <v-container class="my-2">
+  <v-container>
     <v-row>
       <v-col>
         <span class="text-h4 mr-3">I'm looking for <span id="menu-activator4">{{ category }} <v-icon icon="mdi-triangle-small-down"></v-icon></span></span>

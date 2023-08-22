@@ -164,7 +164,3 @@ watchEffect(() => {
 })
 
 </script>
-
-<style>
-
-</style>
