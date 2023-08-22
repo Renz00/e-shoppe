@@ -6,7 +6,7 @@
         <ProductCardLg @emitCartItemCount="setCartItemCount"/>
       </v-col>
     </v-row>
-    <v-row class="mt-10">
+    <v-row class="mt-5">
       <v-col>
         <div class="text-h4 mb-5">
           Similar products
