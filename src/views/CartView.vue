@@ -24,20 +24,27 @@
                 </v-row>
                 <v-row>
                     <v-col class="py-0">
-                        <span class="text-h6">Items</span>
+                        <span class="text-h6">
+                            <span v-if="cartItemCount>0">
+                                Items
+                            </span>
+                            <span v-else>
+                                No items in cart.
+                            </span>
+                        </span>
                     </v-col>
                 </v-row>
-                <v-row>
+                <v-row v-if="cartItemCount>0">
                     <v-col>
                         <v-list lines="two">
-                            <v-list-item class="pl-0 elevation-2"
-                            v-for="n in 3"
+                            <v-list-item class="pl-0 mb-3 elevation-2"
+                            v-for="n in cartItemCount"
                             :key="n"
                             >
-                                <v-card width="100%" height="100%" variant="flat">
+                                <v-card variant="flat">
                                     <v-card-text>
-                                        <v-row>
-                                            <v-col class="my-0 py-0" cols="4">
+                                        <v-row class="justify-center align-center">
+                                            <v-col class="my-0 py-0" cols="12" sm="4">
                                                 <v-img
                                                 @loadstart="imgload=true"
                                                 @load="imgload=false"
@@ -55,15 +62,43 @@
                                                     </div>
                                                 </v-img>
                                             </v-col>
-                                            <v-col cols="8">
-                                                <span class="text-subtitle-1">Product {{ n }}</span>
-                                               
+                                            <v-col cols="12" sm="6">
+                                                <v-container>
+                                                    <v-row class="text-subtitle-1">
+                                                        Product Name
+                                                    </v-row>
+                                                    <v-row class="pb-5">
+                                                        <div class="text-body">
+                                                            Product Category
+                                                        </div>
+                                                    </v-row>
+                                                    <v-row>
+                                                        <div class="text-subtitle-2">
+                                                            Size: L
+                                                        </div>
+                                                    </v-row>
+                                                    <v-row>
+                                                        <v-col cols="6" class="px-0 text-subtitle-2">
+                                                            <v-select label="Quantity"
+                                                                :items="['1', '2', '3', '4', '5']"
+                                                                variant="outlined"
+                                                                density="compact"></v-select>
+                                                        </v-col>   
+                                                    </v-row>
+                                                    <v-row>
+                                                        <v-col cols="6" class="px-0 text-subtitle-1">Product Price</v-col>
+                                                    </v-row>
+                                                </v-container>
+                                            </v-col>
+                                            <v-col cols="12" sm="2" class="d-flex justify-center align-center">
+                                                <v-btn class="mt-2" color="red" icon="mdi-cart-remove" size="large"></v-btn>
                                             </v-col>
                                         </v-row>
                                     </v-card-text>
                                 </v-card>
                             </v-list-item>
                         </v-list>
+                        
                     </v-col>
                 </v-row>
             </v-col>
@@ -77,8 +112,11 @@
 </template>
 
 <script setup>
-
 import { ref } from 'vue';
+import { storeToRefs } from "pinia";
+import { useProductStore } from '@/store/product-store'
+
+const { cartItemCount } = storeToRefs(useProductStore())
 
 var imgload = ref(false)
 

@@ -14,18 +14,24 @@
             </v-alert>
         </v-overlay>
         <v-row>
-            <v-col cols="12" lg="6">
-                <v-img @loadstart="imgload=true" @load="imgload=false" lazy-src="https://picsum.photos/1200/910" aspect-ratio="16/9" width="auto" height="auto"
-                    src="https://picsum.photos/1200/910">
-                       <div class="d-flex align-center justify-center fill-height" v-if="imgload">
-                            <v-progress-circular
-                                color="blue"
-                                indeterminate
-                            ></v-progress-circular>
-                        </div>
+            <v-col cols="12" sm="6">
+                <v-img 
+                @loadstart="imgload=true" 
+                @load="imgload=false" 
+                lazy-src="https://picsum.photos/1200/910" 
+                aspect-ratio="16/9" 
+                width="auto" 
+                height="auto"
+                src="https://picsum.photos/1200/910">
+                    <div class="d-flex align-center justify-center fill-height" v-if="imgload">
+                        <v-progress-circular
+                            color="blue"
+                            indeterminate
+                        ></v-progress-circular>
+                    </div>
                 </v-img>    
             </v-col>
-            <v-col cols="12" lg="6">
+            <v-col cols="12" sm="6">
                 <v-row>
                     <v-col>
                         <v-tabs v-model="tab" color="#0091EA" density="compact">
@@ -49,7 +55,7 @@
                                         Product Price
                                     </v-row>
                                     <v-row class="justify-center align-center text-center">
-                                        <v-col>
+                                        <v-col class="px-0">
                                             <v-select label="Vouchers"
                                                 :items="['Voucher 1', 'Voucher 2', 'Voucher 3', 'Voucher 4']"
                                                 variant="outlined"
@@ -60,13 +66,13 @@
                                         <span class="text-subtitle-2">Variant</span>
                                     </v-row>
                                     <v-row class="justify-center align-center text-center">
-                                        <v-col>
+                                        <v-col class="px-0">
                                             <v-select label="Color"
                                                 :items="['Red', 'Blue', 'Green', 'White']"
                                                 variant="outlined"
                                                 density="compact"></v-select>
                                         </v-col>
-                                        <v-col>
+                                        <v-col  class="pr-0">
                                             <v-sheet>
                                                 <v-select label="Size"
                                                     :items="['X Small', 'Small', 'Medium', 'Large', 'X Large']"
