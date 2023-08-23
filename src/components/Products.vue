@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProductCardSm :products="products"/>
+    <ProductCardSm :products="products" @emitSetCartItemCount="emits('emitSetCartItemCount')"/>
     <Pagination />
   </div>
 </template>
@@ -12,4 +12,7 @@ import Pagination from './Pagination.vue';
 const props = defineProps({
   products: Array
 })
+
+const emits = defineEmits(['emitSetCartItemCount'])
+
 </script>

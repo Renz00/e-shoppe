@@ -7,7 +7,7 @@
         <CatalogHeader @emitSetCategory="setCategory" :category="category"/>
       </v-col>
     </v-row>
-      <Products :products="products"/>
+      <Products :products="products" @emitSetCartItemCount="setCartItemCount"/>
     </v-container>
   </div>
 </template>
@@ -20,14 +20,14 @@ import { ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 
+const { products } = storeToRefs(useProductStore())
+const { fetchAllProducts, setCartItemCount } = useProductStore()
+
 var category = ref('Everything')
 
 const setCategory = ((selectedCategory) => {
   category.value = selectedCategory.replace('-', ' ');
 })
-
-const { products } = storeToRefs(useProductStore())
-const { fetchAllProducts } = useProductStore()
 
 onMounted ( async () => {
   await fetchAllProducts()

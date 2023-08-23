@@ -1,13 +1,9 @@
 # Things to do
 
-*ShowProductView
-1. Add a catalog below showing the products from the same category
-
 *CartView
-1. Show all of the products added to the cart
-2. Show delivery options
-3. Show coupon code
-2. Show running total calculation
+1. Show delivery options
+2. Show coupon code
+3. Show running total calculation
 
 # essentials
 

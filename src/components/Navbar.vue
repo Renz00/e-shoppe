@@ -22,19 +22,24 @@
           </v-btn>
           <v-menu activator="#menu-activator">
             <v-list>
-              <v-list-item>
+              <v-list-item :to="{name: 'ProductsView'}" link>
                 <v-list-item-title>
-                  <v-btn variant="plain">Men</v-btn>
+                  Home
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item>
+              <v-list-item link>
                 <v-list-item-title>
-                  <v-btn variant="plain">Women</v-btn>
+                  Men
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item>
+              <v-list-item link>
                 <v-list-item-title>
-                  <v-btn variant="plain">Kids</v-btn>
+                  Women
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item link>
+                <v-list-item-title>
+                  Kids
                 </v-list-item-title>
               </v-list-item>
             </v-list>

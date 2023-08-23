@@ -11,7 +11,7 @@
         <div class="text-h4 mb-5">
           Similar products
         </div>
-        <Products :products="simProducts"/>
+        <Products :products="simProducts" @emitSetCartItemCount="setCartItemCount"/>
       </v-col>
     </v-row>
   </v-container>
