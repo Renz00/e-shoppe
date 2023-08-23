@@ -36,7 +36,6 @@
                 <v-row v-if="cartItemCount>0">
                     <v-col>
                         <v-list lines="two"
-                                v-scroll.self="onScroll"
                                 class="overflow-y-auto"
                                 max-height="1800">
                             <v-list-item class="pa-0 mb-3"
