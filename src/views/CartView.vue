@@ -6,9 +6,8 @@
                     <v-col>
                         <v-sheet>
                             <v-card
-                                class="mx-auto"
+                                class="mx-auto elevation-2"
                                 prepend-icon="mdi-map-marker-outline"
-                                variant="outlined"
                                 link
                             >
                                 <template v-slot:title>
@@ -38,26 +37,27 @@
                                 <v-card width="100%" height="100%" variant="flat">
                                     <v-card-text>
                                         <v-row>
-                                            <v-col class="my-0 py-0" cols="4" width="auto" height="auto">
+                                            <v-col class="my-0 py-0" cols="4">
                                                 <v-img
+                                                @loadstart="imgload=true"
+                                                @load="imgload=false"
                                                 lazy-src="https://picsum.photos/800/1000"
                                                 aspect-ratio="4/3"
-                                                :width="auto"
-                                                :height="auto"
+                                                width="auto"
+                                                height="auto"
                                                 src="https://picsum.photos/800/1000"
                                                 >
-                                                <template v-slot:placeholder>
-                                                    <div class="d-flex align-center justify-center fill-height">
-                                                    <v-progress-circular
-                                                        color="blue"
-                                                        indeterminate
-                                                    ></v-progress-circular>
+                                                    <div class="d-flex align-center justify-center fill-height" v-if="imgload">
+                                                        <v-progress-circular
+                                                            color="blue"
+                                                            indeterminate
+                                                        ></v-progress-circular>
                                                     </div>
-                                                </template>
                                                 </v-img>
                                             </v-col>
-                                            <v-col cols="8" >
-                                                Product {{ n }}
+                                            <v-col cols="8">
+                                                <span class="text-subtitle-1">Product {{ n }}</span>
+                                               
                                             </v-col>
                                         </v-row>
                                     </v-card-text>
@@ -77,6 +77,10 @@
 </template>
 
 <script setup>
+
+import { ref } from 'vue';
+
+var imgload = ref(false)
 
 
 </script>

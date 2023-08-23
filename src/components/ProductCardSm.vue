@@ -2,28 +2,27 @@
   <v-row class="justify-center text-center">
       <v-col class="mb-5" cols="12" sm="6" lg="3" md="4" v-for="product in products" :key="product.id">
         <v-sheet>
-          <v-card :to="{name: 'ShowProductView'}" variant="outlined">
+          <v-card :to="{name: 'ShowProductView'}" max-width="400" variant="outlined">
           <v-card-item>
             <v-row class="justify-center align-center text-center mb-1">
-              <div class="text-overline">
+              <v-col>
                 <v-img
-                class="mx-auto"
-                  lazy-src="https://picsum.photos/900/400"
-                  aspect-ratio="16/9"
-                  :width="400"
-                  :height="150"
-                  src="https://picsum.photos/900/400"
-                >
-                  <template v-slot:placeholder>
-                    <div class="d-flex align-center justify-center fill-height">
-                      <v-progress-circular
-                        color="blue"
-                        indeterminate
-                      ></v-progress-circular>
-                    </div>
-                  </template>
+                  @loadstart="imgload=true"
+                  @load="imgload=false"
+                  lazy-src="https://picsum.photos/600/700"
+                  aspect-ratio="4/3"
+                  width="auto"
+                  height="auto"
+                  src="https://picsum.photos/600/700"
+                  >
+                  <div class="d-flex align-center justify-center fill-height" v-if="imgload">
+                    <v-progress-circular
+                      color="blue"
+                      indeterminate
+                    ></v-progress-circular>
+                  </div>
                 </v-img>
-              </div>
+              </v-col>
             </v-row>
 
               <div class="text-h6 mb-1">
@@ -46,7 +45,11 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 const props = defineProps({
   products: Array,
 })
+
+var imgload = ref(false)
 </script>

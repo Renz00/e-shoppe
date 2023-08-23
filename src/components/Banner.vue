@@ -8,15 +8,11 @@
       src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
     >
       <v-container>
-        <v-row class="justify-center align-center text-center mt-15 pt-15 mx-15">
-          <v-spacer width="25%"></v-spacer>
-          <v-col cols='auto' sm="6">
+        <v-row class="justify-center text-center mt-15 pt-15 mx-15">
             <span class="text-h3">
               Buy what you love
               <v-icon icon="mdi-heart-outline" size="small"></v-icon>
             </span>
-          </v-col>
-          <v-spacer width="25%"></v-spacer>
         </v-row>
         <v-row class="mt-10 mx-15">
           <v-spacer width="10%"></v-spacer>
