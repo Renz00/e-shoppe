@@ -36,19 +36,31 @@
     100%  {color: var(--color-1)}
   }
   
-  /* Here are just some visual styles. 🖌 */
-  
-  .container {
-    display: grid;
-    place-items: center;
-    text-align: center;
-    height: 100vh
-  }
-  
-  .title {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 800;
-    font-size: 8.5vw;
-    text-transform: uppercase;
-  }
+  /* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:#00B0FF; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #40C4FF; 
+}
+
+.left-scroll-container{
+  direction: rtl;
+}
+
+.left-scroll-content{
+  direction:ltr;
+}
   

@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar height="50">
+  <v-app-bar class="elevation-2" height="50">
     <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
     <v-app-bar-title class="ml-10" v-if="!showLinks">
       <router-link style="text-decoration: none; color: black;" class="text-h6 text--black" :to="{name: 'ProductsView'}">
@@ -50,7 +50,7 @@
     <div class="mr-1">
       <v-btn icon="" :to="{name: 'CartView'}">
       <span v-if="cartItemCount>0">
-        <v-badge :content="cartItemCount" color="red">
+        <v-badge :content="cartItemCount" color="error">
           <v-icon icon="mdi-cart-outline"></v-icon>
         </v-badge>
       </span>

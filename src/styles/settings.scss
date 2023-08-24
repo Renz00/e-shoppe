@@ -7,6 +7,8 @@
 // https://vuetifyjs.com/features/sass-variables/`
 @use 'vuetify/settings' with (
     $select-line-height: 1.75,
+    $card-border-color: #01579B,
+    $button-border-color: #01579B,
     // $button-border-width: 5
 );
 

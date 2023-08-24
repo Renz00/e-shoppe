@@ -5,7 +5,6 @@
         <v-col cols="8">
           <v-container class="max-width">
             <v-pagination
-              class="my-4"
               :length="10"
             ></v-pagination>
           </v-container>

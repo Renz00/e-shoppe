@@ -53,7 +53,7 @@
                                 Product Price
                             </v-row>
                             <v-row class="justify-center align-center text-center">
-                                <v-col class="px-0">
+                                <v-col class="px-sm-0">
                                     <v-select label="Vouchers"
                                         :items="['Voucher 1', 'Voucher 2', 'Voucher 3', 'Voucher 4']"
                                         variant="outlined"
@@ -64,13 +64,13 @@
                                 <span class="text-subtitle-2">Variant</span>
                             </v-row>
                             <v-row class="justify-center align-center text-center">
-                                <v-col class="px-0">
+                                <v-col class="px-sm-0">
                                     <v-select label="Color"
                                         :items="['Red', 'Blue', 'Green', 'White']"
                                         variant="outlined"
                                         density="compact"></v-select>
                                 </v-col>
-                                <v-col  class="pr-0">
+                                <v-col  class="pr-sm-0">
                                     <v-sheet>
                                         <v-select label="Size"
                                             :items="['X Small', 'Small', 'Medium', 'Large', 'X Large']"
@@ -80,12 +80,12 @@
                                 </v-col>
                             </v-row>
                             <v-row>
-                                <v-col cols="12" xl="9" lg="9" md="8" sm="6">
-                                    <v-btn size="large" color="#F4511E" style="color: white;" width="100%" @click="addToCart()">
+                                <v-col class="pl-sm-0" cols="12" xl="9" lg="9" md="8" sm="6">
+                                    <v-btn size="large" color="secondary" style="color: white;" width="100%" @click="addToCart()">
                                         Add to Cart
                                     </v-btn>
                                 </v-col>
-                                <v-col cols="12" xl="3" lg="3" md="4" sm="6">
+                                <v-col class="pr-sm-0" cols="12" xl="3" lg="3" md="4" sm="6">
                                     <v-tooltip
                                         v-model="liked"
                                         text="You liked this item!"
@@ -94,7 +94,7 @@
                                         :open-on-hover="false"
                                     >
                                         <template v-slot:activator="{ props }">
-                                            <v-btn v-bind="props" @click="liked=true" size="large" color="#0091EA" style="color: white;" width="100%">
+                                            <v-btn v-bind="props" @click="liked=true" size="large" color="primary" style="color: white;" width="100%">
                                             <v-icon icon="mdi-heart"></v-icon></v-btn>
                                         </template>
                                         </v-tooltip>

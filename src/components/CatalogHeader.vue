@@ -23,8 +23,8 @@
     <v-col class="d-flex justify-center align-center px-0" cols="12" lg="4" md="4" sm="6" width="auto">
       <v-btn
           id="filter-activator"
-          variant="outlined"
           width="100%"
+          variant="outlined"
         >
           Filters
           <v-icon icon="mdi-filter"></v-icon>

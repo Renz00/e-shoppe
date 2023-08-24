@@ -20,7 +20,7 @@
               <v-autocomplete
                 class="white--text rounded-outline"
                 placeholder="Find your product"
-                bg-color="#0091EA"
+                bg-color="primary"
                 v-model="values"
                 :items="items"
                 variant="outlined"

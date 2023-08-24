@@ -1,7 +1,7 @@
 <template>
   <v-row class="justify-center text-center">
       <v-col class="mb-5" cols="12" sm="6" lg="3" md="4" v-for="product in products" :key="product.id">
-          <v-card @click="router.push({ name: 'ShowProductView'})" variant="outlined">
+          <v-card @click="router.push({ name: 'ShowProductView'})">
               <div class="d-flex justify-center align-center">
                 <v-img
                   @loadstart="imgload=true"
@@ -28,16 +28,17 @@
                   {{ product.category }}
                 </div>
                 <div class="d-flex justify-center align-center text-caption text-truncate">
-                  <v-icon icon="mdi-star" color="yellow"></v-icon>{{ product.rating+' | ₱ '+product.price.toLocaleString() }}
+                  <v-icon icon="mdi-star" color="yellow"></v-icon>{{ product.rating+' | ₱'+product.price.toLocaleString() }}
                 </div>
               </div>
-          <v-card-actions>
             <!-- click.stop prevents child click from triggering parent click -->
-            <v-btn @click.stop="emits('emitSetCartItemCount')" width="100%" variant="outlined">
-              <v-icon icon="mdi-cart-plus"></v-icon>
+            <v-btn class="rounded-0" @click.stop="emits('emitSetCartItemCount')" width="100%" color="secondary">
+              <span style="color: white;">
+                Add to Cart
+              </span>
             </v-btn>
-          </v-card-actions>
         </v-card>
+        
       </v-col>
     </v-row>
 </template>
