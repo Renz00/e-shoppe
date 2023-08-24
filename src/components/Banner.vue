@@ -26,7 +26,6 @@
                 variant="outlined"
                 rounded
                 center-affix
-                clearable
               >
               <template v-slot:prepend-inner>
                 <v-icon icon="mdi-magnify" color="white"></v-icon>

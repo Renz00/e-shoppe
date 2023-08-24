@@ -27,11 +27,11 @@
                 <div class="text-caption font-italic">
                   {{ product.category }}
                 </div>
-                <div class="text-caption text-truncate">{{ product.description }}</div>
-              </div>         
+                <div class="text-caption text-truncate">{{ product.rating+' | ₱ '+product.price }}</div>
+              </div>
           <v-card-actions>
             <!-- click.stop prevents child click from triggering parent click -->
-            <v-btn @click.stop="emits('emitSetCartItemCount')" variant="outlined">
+            <v-btn @click.stop="emits('emitSetCartItemCount')" width="100%" variant="outlined">
               <v-icon icon="mdi-cart-plus"></v-icon>
             </v-btn>
           </v-card-actions>

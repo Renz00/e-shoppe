@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
     <Navbar :cartItemCount="cartItemCount"/>
     <v-main>
       <router-view />

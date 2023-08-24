@@ -9,9 +9,9 @@
     <v-row>
       <v-col>
         <span v-if="!showLinks">
-          <v-btn variant="text">Men</v-btn>
-          <v-btn variant="text">Women</v-btn>
-          <v-btn variant="text">Kids</v-btn>
+          <v-btn variant="text">Men Apparel</v-btn>
+          <v-btn variant="text">Women Apparel</v-btn>
+          <v-btn variant="text">Gadgets</v-btn>
         </span>
         <span class="ml-5" v-if="showLinks">
           <v-btn
@@ -29,17 +29,17 @@
               </v-list-item>
               <v-list-item link>
                 <v-list-item-title>
-                  Men
+                  Men Apparel
                 </v-list-item-title>
               </v-list-item>
               <v-list-item link>
                 <v-list-item-title>
-                  Women
+                  Women Apparel
                 </v-list-item-title>
               </v-list-item>
               <v-list-item link>
                 <v-list-item-title>
-                  Kids
+                  Gadgets
                 </v-list-item-title>
               </v-list-item>
             </v-list>
@@ -50,7 +50,7 @@
     <div class="mr-1">
       <v-btn icon="" :to="{name: 'CartView'}">
       <span v-if="cartItemCount>0">
-        <v-badge :content="cartItemCount" color="error">
+        <v-badge :content="cartItemCount" color="red">
           <v-icon icon="mdi-cart-outline"></v-icon>
         </v-badge>
       </span>
