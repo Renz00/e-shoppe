@@ -27,7 +27,9 @@
                 <div class="text-caption font-italic">
                   {{ product.category }}
                 </div>
-                <div class="text-caption text-truncate">{{ product.rating+' | ₱ '+product.price }}</div>
+                <div class="d-flex justify-center align-center text-caption text-truncate">
+                  <v-icon icon="mdi-star" color="yellow"></v-icon>{{ product.rating+' | ₱ '+product.price.toLocaleString() }}
+                </div>
               </div>
           <v-card-actions>
             <!-- click.stop prevents child click from triggering parent click -->
