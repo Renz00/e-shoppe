@@ -1,13 +1,18 @@
 <template>
-<v-sheet height="500" width="auto" color='black'>
+<v-sheet height="500" width="auto" color='black' class="stack-container">
+  <div class="stack">
     <v-img
+      class="img-blur"
       height="100%"
       width="100%"
       aspect-ratio="16/9"
       cover
       src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
     >
-      <v-container>
+    </v-img>
+  </div>
+  <div class="stack stack-front">
+    <v-container>
         <v-row class="justify-center text-center mt-15 pt-15 mx-15">
             <span class="text-h3">
               Buy what you love
@@ -39,7 +44,7 @@
 
         </v-row>
     </v-container>
-  </v-img>
+  </div>
 </v-sheet>
 </template>
 
