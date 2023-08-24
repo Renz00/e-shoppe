@@ -35,15 +35,9 @@
                 </v-row>
                 <v-row v-if="cartItemCount>0">
                     <v-col>
-<<<<<<< HEAD
                         <v-list lines="two" 
                                 class="overflow-y-auto"
-                                max-height="2000">
-=======
-                        <v-list lines="two"
-                                class="overflow-y-auto"
                                 max-height="1800">
->>>>>>> 6d131b0138b83058d8988a425204c762029cd520
                             <v-list-item class="pa-0 mb-3"
                             variant="outlined"
                             v-for="n in cartItemCount"
