@@ -14,22 +14,25 @@
             </v-alert>
         </v-overlay>
         <v-row>
-            <v-col cols="12" sm="6" class="d-flex align-center">
-                <v-img 
-                @loadstart="imgload=true" 
-                @load="imgload=false" 
-                lazy-src="https://picsum.photos/1200/910" 
-                aspect-ratio="16/9" 
-                width="auto" 
-                height="auto"
-                src="https://picsum.photos/1200/910">
-                    <div class="d-flex justify-center" v-if="imgload">
-                        <v-progress-circular
-                            color="blue"
+            <v-col cols="12" sm="6">
+                <v-img
+                @loadstart="imgload=true"   
+                @load="imgload=false"
+                lazy-src="https://picsum.photos/1200/910"
+                aspect-ratio="16/9"
+                width="auto"
+                :height="imgload ? 450 : auto"
+                src="https://picsum.photos/1200/910"
+                >
+                    <template v-slot:placeholder>
+                        <div class="d-flex align-center justify-center fill-height">
+                            <v-progress-circular
+                            color="primary"
                             indeterminate
-                        ></v-progress-circular>
-                    </div>
-                </v-img>    
+                            ></v-progress-circular>
+                        </div>
+                    </template>    
+                </v-img>  
             </v-col>
             <v-col cols="12" sm="6">
                 <v-tabs v-model="tab" color="#0091EA" density="compact">

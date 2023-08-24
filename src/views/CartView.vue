@@ -39,11 +39,15 @@
                                             <v-img @loadstart="imgload = true" @load="imgload = false"
                                                 lazy-src="https://picsum.photos/800/1000" aspect-ratio="4/3" width="auto"
                                                 height="auto" src="https://picsum.photos/800/1000">
-                                                <div class="d-flex align-center justify-center fill-height py-5"
-                                                    v-if="imgload">
-                                                    <v-progress-circular color="primary"
-                                                        indeterminate></v-progress-circular>
-                                                </div>
+                                                <template v-slot:placeholder>
+                                                    <div class="d-flex align-center justify-center fill-height">
+                                                        <v-progress-circular
+                                                        style="height:300px;"
+                                                        color="primary"
+                                                        indeterminate
+                                                        ></v-progress-circular>
+                                                    </div>
+                                                </template>    
                                             </v-img>
                                         </div>
                                     </v-col>

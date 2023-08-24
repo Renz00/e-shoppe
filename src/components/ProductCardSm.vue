@@ -2,22 +2,24 @@
   <v-row class="justify-center text-center">
       <v-col class="mb-5" cols="12" sm="6" lg="3" md="4" v-for="product in products" :key="product.id">
           <v-card @click="router.push({ name: 'ShowProductView'})">
-              <div class="d-flex justify-center align-center">
+              <div class="d-flex">
                 <v-img
                   @loadstart="imgload=true"
                   @load="imgload=false"
                   lazy-src="https://picsum.photos/600/700"
                   aspect-ratio="4/3"
                   width="auto"
-                  height="auto"
+                  height="320"
                   src="https://picsum.photos/600/700"
                   >
-                  <div class="d-flex align-center justify-center fill-height py-5" v-if="imgload">
-                    <v-progress-circular
-                      color="blue"
-                      indeterminate
-                    ></v-progress-circular>
-                  </div>
+                  <template v-slot:placeholder>
+                    <div class="d-flex align-center justify-center fill-height">
+                      <v-progress-circular
+                        color="primary"
+                        indeterminate
+                      ></v-progress-circular>
+                    </div>
+                  </template>    
                 </v-img>
               </div>
               <div class="pa-2">
