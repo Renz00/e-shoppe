@@ -3,20 +3,6 @@
         <v-row>
             <v-col cols="12" lg="8">
                 <v-row>
-                    <v-col>
-                        <v-card class="mx-auto" prepend-icon="mdi-map-marker-outline" link>
-                            <template v-slot:title>
-                                <span class="text-subtitle-1">
-                                    Delivery Address
-                                </span>
-                                <div class="text-subtitle-2">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                </div>
-                            </template>
-                        </v-card>
-                    </v-col>
-                </v-row>
-                <v-row>
                     <v-col class="py-0">
                         <span class="text-h6">
                             <span v-if="cartItemCount > 0">
@@ -29,12 +15,12 @@
                     </v-col>
                 </v-row>
                 <v-row v-if="cartItemCount > 0">
-                    <v-col>
-                        <v-list lines="two" class="left-scroll-container overflow-y-auto py-0" max-height="1800">
+                    <v-col class="d-flex justify-center align-center">
+                        <v-list lines="two" class="left-scroll-container overflow-y-auto py-0" width="700" max-height="800">
                             <v-list-item class="left-scroll-content pa-0 mb-3 elevation-2" v-for="n in cartItemCount"
                                 :key="n">
                                 <v-row class="justify-center align-center">
-                                    <v-col cols="12" sm="4">
+                                    <v-col cols="4">
                                         <div class="d-flex justify-center align-center">
                                             <v-img @loadstart="imgload = true" @load="imgload = false"
                                                 lazy-src="https://picsum.photos/800/1000" aspect-ratio="4/3" width="auto"
@@ -47,11 +33,11 @@
                                                         indeterminate
                                                         ></v-progress-circular>
                                                     </div>
-                                                </template>    
+                                                </template>
                                             </v-img>
                                         </div>
                                     </v-col>
-                                    <v-col cols="12" sm="6">
+                                    <v-col cols="8">
                                         <v-container class="mx-3">
                                             <v-row class="text-subtitle-1">
                                                 Product Name
@@ -87,6 +73,20 @@
                 </v-row>
             </v-col>
             <v-col cols="12" lg="4">
+              <v-row>
+                    <v-col>
+                        <v-card class="mx-auto" prepend-icon="mdi-map-marker-outline" link>
+                            <template v-slot:title>
+                                <span class="text-subtitle-1">
+                                    Delivery Address
+                                </span>
+                                <div class="text-subtitle-2">
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                </div>
+                            </template>
+                        </v-card>
+                    </v-col>
+                </v-row>
                 <v-row>
                     <v-col>
                         <v-card>

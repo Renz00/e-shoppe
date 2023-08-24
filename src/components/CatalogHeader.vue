@@ -39,6 +39,7 @@
                     multiple
                     density="compact"
                     variant="outlined"
+                    clearable
                   >
                 </v-select>
             </v-list-item>
@@ -65,7 +66,7 @@
     </v-col>
   </v-row>
   </v-container>
-  
+
 </template>
 
 <script setup>
