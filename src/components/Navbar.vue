@@ -12,9 +12,11 @@
       </v-col>
       <v-col class="d-flex justify-start justify-lg-center align-center">
         <div v-if="!showLinks">
-          <v-btn variant="text">Men Apparel</v-btn>
-          <v-btn variant="text">Women Apparel</v-btn>
-          <v-btn variant="text">Gadgets</v-btn>
+          <v-row>
+            <v-btn variant="text">Men Apparel</v-btn>
+            <v-btn variant="text">Women Apparel</v-btn>
+            <v-btn variant="text">Gadgets</v-btn>
+          </v-row>
         </div>
         <div class="ml-5" v-if="showLinks">
           <v-btn id="menu-activator" color="black">

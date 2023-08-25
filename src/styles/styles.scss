@@ -50,6 +50,14 @@
     z-index: 9;
 }
 
+.gradient{
+  background: rgb(255,61,0);
+  background: -moz-linear-gradient(151deg, rgba(255,61,0,1) 0%, rgba(0,145,234,1) 100%);
+  background: -webkit-linear-gradient(151deg, rgba(255,61,0,1) 0%, rgba(0,145,234,1) 100%);
+  background: linear-gradient(151deg, rgba(255,61,0,1) 0%, rgba(0,145,234,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff3d00",endColorstr="#0091ea",GradientType=1); 
+}
+
 .b-red {
   border: 2px solid red;
 }
