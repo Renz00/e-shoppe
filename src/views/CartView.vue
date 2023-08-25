@@ -1,12 +1,13 @@
 <template>
     <v-container class="my-5">
+
         <v-row>
             <v-col cols="12" lg="8">
                 <v-row>
                     <v-col class="py-0">
                         <span class="text-h6">
                             <span v-if="cartItemCount > 0">
-                                Items
+                                Items in Cart
                             </span>
                             <span v-else>
                                 No items in cart.
@@ -15,35 +16,34 @@
                     </v-col>
                 </v-row>
                 <v-row v-if="cartItemCount > 0">
-                    <v-col class="d-flex justify-center align-center">
-                        <v-list lines="two" class="left-scroll-container overflow-y-auto py-0" width="700" max-height="800">
-                            <v-list-item class="left-scroll-content pa-0 mb-3 elevation-2" v-for="n in cartItemCount"
-                                :key="n">
-                                <v-row class="justify-center align-center">
-                                    <v-col cols="4">
-                                        <div class="d-flex justify-center align-center">
-                                            <v-img @loadstart="imgload = true" @load="imgload = false"
-                                                lazy-src="https://picsum.photos/800/1000" aspect-ratio="4/3" width="auto"
-                                                height="auto" src="https://picsum.photos/800/1000">
-                                                <template v-slot:placeholder>
-                                                    <div class="d-flex align-center justify-center fill-height">
-                                                        <v-progress-circular
-                                                        style="height:300px;"
-                                                        color="primary"
-                                                        indeterminate
-                                                        ></v-progress-circular>
-                                                    </div>
-                                                </template>
-                                            </v-img>
-                                        </div>
+                    <v-col class="d-flex justify-center align-center px-10 px-md-0">
+                        <v-list lines="two" class="py-0 my-0 overflow-y-auto" width="auto" max-height="1000">
+                            <v-list-item class="pa-0 mb-3 elevation-2" v-for="n in cartItemCount" :key="n">
+                                <v-row>
+                                    <v-col cols="12" sm="4">
+                                        <v-img @loadstart="imgload = true" @load="imgload = false"
+                                            lazy-src="https://picsum.photos/800/1000" aspect-ratio="4/3" width="500"
+                                            height="200" cover src="https://picsum.photos/800/1000">
+                                            <div class="ma-1">
+                                                <v-btn color="error" size="small">Remove</v-btn>
+                                            </div>
+                                            <template v-slot:placeholder>
+                                                <div class="d-flex align-center justify-center fill-height">
+                                                    <v-progress-circular style="height:300px;" color="primary"
+                                                        indeterminate></v-progress-circular>
+                                                </div>
+                                            </template>
+                                        </v-img>
                                     </v-col>
-                                    <v-col cols="8">
-                                        <v-container class="mx-3">
+                                    <v-col class="px-5 px-sm-0" cols="12" sm="8">
+                                        <v-container>
                                             <v-row class="text-subtitle-1">
-                                                Product Name
+                                                <v-col class="px-0">
+                                                    Product Name
+                                                </v-col>
                                             </v-row>
-                                            <v-row class="pb-5">
-                                                <div class="text-body">
+                                            <v-row>
+                                                <div class="text-subtitle-2">
                                                     Product Category
                                                 </div>
                                             </v-row>
@@ -52,35 +52,34 @@
                                                     Size: L
                                                 </div>
                                             </v-row>
-                                            <v-row>
-                                                <v-col cols="6" class="px-0 text-subtitle-2">
+                                            <v-row class="justify-center align-center">
+                                                <v-col cols="6" sm="6" class="px-0 text-subtitle-2">
                                                     <v-select label="Quantity" :items="['1', '2', '3', '4', '5']"
                                                         variant="outlined" density="compact"></v-select>
                                                 </v-col>
-                                            </v-row>
-                                            <v-row>
-                                                <v-col cols="6" class="px-0 text-subtitle-1">Product Price</v-col>
+                                                <v-col cols="6" sm="6" class="pb-10 text-subtitle-2">Product Price</v-col>
                                             </v-row>
                                         </v-container>
                                     </v-col>
-                                    <v-col class="d-flex justify-center align-center my-3" cols="12" sm="2">
-                                        <v-btn class="mt-2" color="error" icon="mdi-cart-remove" size="large"></v-btn>
-                                    </v-col>
+
                                 </v-row>
                             </v-list-item>
                         </v-list>
                     </v-col>
                 </v-row>
             </v-col>
-            <v-col cols="12" lg="4">
-              <v-row>
-                    <v-col>
-                        <v-card class="mx-auto" prepend-icon="mdi-map-marker-outline" link>
+            <v-col>
+                <v-row>
+                    <v-col class="px-5 px-md-0" cols="12">
+                        <v-card class="mx-0" link>
+                            <template v-slot:prepend>
+                               <v-icon icon="mdi-map-marker-outline"></v-icon>
+                            </template>
                             <template v-slot:title>
                                 <span class="text-subtitle-1">
                                     Delivery Address
                                 </span>
-                                <div class="text-subtitle-2">
+                                <div class="text-subtitle-2 text-truncate">
                                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                                 </div>
                             </template>
@@ -88,7 +87,7 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col>
+                    <v-col class="px-5 px-md-0">
                         <v-card>
                             <v-container>
                                 <v-row>
@@ -124,11 +123,23 @@
                                     </v-row>
                                 </div>
                                 <div class="pa-2">
-                                    <v-dialog v-model="dialog" persistent max-width="500">
+                                    <v-dialog v-model="voucherDialog" persistent max-width="500">
                                         <template v-slot:activator="{ props }">
-                                            <v-btn color="primary" width="100%" variant="outlined" v-bind="props">
-                                                See Vouchers
-                                            </v-btn>
+                                            <v-card width="100%" variant="outlined" v-bind="props" link>
+                                                <v-container>
+                                                    <v-row>
+                                                        <v-col class="text-subtitle-2" cols="8">
+                                                            Total Discount
+                                                            <div class="text-uppercase text-body-2 mt-2">
+                                                                See Vouchers
+                                                            </div>
+                                                        </v-col>
+                                                        <v-col class="d-flex justify-center align-center text-subtitle-1"
+                                                            cols="4">Saved 30%</v-col>
+                                                    </v-row>
+
+                                                </v-container>
+                                            </v-card>
                                         </template>
                                         <v-card>
                                             <v-card-title>
@@ -137,18 +148,27 @@
                                             <v-card-text>
                                                 <v-container>
                                                     <v-row>
-                                                        <v-col>
-
+                                                        <v-col class="my-0 py-0" cols="12">
+                                                            <div class="text-subtitle-2 pb-2">Voucher Code</div>
+                                                            <v-text-field density="compact" variant="outlined"></v-text-field>
+                                                        </v-col>
+                                                        <v-col class="my-0 py-0" cols="12">
+                                                            <div class="text-subtitle-2 pb-2">Vouchers</div>
+                                                            <v-select
+                                                            :items="['Voucher 1', 'Voucher 2', 'Voucher 3', 'Voucher 4']"
+                                                            variant="outlined"
+                                                            density="compact">
+                                                            </v-select>
                                                         </v-col>
                                                     </v-row>
                                                 </v-container>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
-                                                <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+                                                <v-btn color="blue-darken-1" variant="text" @click="voucherDialog = false">
                                                     Close
                                                 </v-btn>
-                                                <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+                                                <v-btn color="blue-darken-1" variant="text" @click="voucherDialog = false">
                                                     Save
                                                 </v-btn>
                                             </v-card-actions>
@@ -156,31 +176,46 @@
                                     </v-dialog>
                                 </div>
                                 <div class="pa-2">
-                                    <v-dialog v-model="dialog" persistent max-width="500">
+                                    <v-dialog v-model="shippingDialog" persistent max-width="500">
                                         <template v-slot:activator="{ props }">
-                                            <v-btn color="secondary" width="100%" variant="outlined" v-bind="props">
-                                                Shipping
-                                            </v-btn>
+                                            <v-card width="100%" variant="outlined" v-bind="props" link>
+                                                <v-container>
+                                                    <v-row>
+                                                        <v-col class="text-subtitle-2" cols="8">
+                                                            Shipping: J&T Express
+                                                            <div class="text-uppercase text-body-2 mt-2">
+                                                                Change Shipping Details
+                                                            </div>
+                                                        </v-col>
+                                                        <v-col class="d-flex justify-center align-center text-subtitle-1"
+                                                            cols="4">₱50</v-col>
+                                                    </v-row>
+
+                                                </v-container>
+                                            </v-card>
                                         </template>
                                         <v-card>
                                             <v-card-title>
-                                                Select or Enter Voucher
+                                                Shipping Details
                                             </v-card-title>
                                             <v-card-text>
                                                 <v-container>
                                                     <v-row>
-                                                        <v-col>
-
+                                                        <v-col cols="12">
+                                                            <v-radio-group v-model="courier" column>
+                                                                <v-radio label="J&T - ₱50" :value="0"></v-radio>
+                                                                <v-radio label="LBC - ₱65" :value="1"></v-radio>
+                                                            </v-radio-group>
                                                         </v-col>
                                                     </v-row>
                                                 </v-container>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
-                                                <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+                                                <v-btn color="blue-darken-1" variant="text" @click="shippingDialog = false">
                                                     Close
                                                 </v-btn>
-                                                <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+                                                <v-btn color="blue-darken-1" variant="text" @click="shippingDialog = false">
                                                     Save
                                                 </v-btn>
                                             </v-card-actions>
@@ -192,10 +227,10 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                <v-col>
-                    <v-btn color="black" width="100%">Proceed</v-btn>
-                </v-col>
-        </v-row>
+                    <v-col class="px-5 px-md-0" cols="12">
+                        <v-btn color="black" width="100%">Proceed to Checkout</v-btn>
+                    </v-col>
+                </v-row>
             </v-col>
         </v-row>
     </v-container>
@@ -208,9 +243,10 @@ import { useProductStore } from '@/store/product-store'
 
 const { cartItemCount } = storeToRefs(useProductStore())
 
-var imgload = ref(false)
-const dialog = ref(false)
-
+const imgload = ref(false)
+const shippingDialog = ref(false)
+const voucherDialog = ref(false)
+const courier = ref(0)
 
 </script>
 

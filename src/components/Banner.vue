@@ -22,23 +22,7 @@
         <v-row class="mt-10 mx-15">
           <v-spacer width="10%"></v-spacer>
           <v-col cols='12'>
-              <v-autocomplete
-                class="white--text rounded-outline"
-                placeholder="Find your product"
-                bg-color="primary"
-                v-model="values"
-                :items="items"
-                variant="outlined"
-                rounded
-                center-affix
-              >
-              <template v-slot:prepend-inner>
-                <v-icon icon="mdi-magnify" color="white"></v-icon>
-              </template>
-                <template v-slot:no-data>
-                  <span class="px-5">No results</span>
-                </template>
-              </v-autocomplete>
+             
           </v-col>
           <v-spacer width="10%"></v-spacer>
 
@@ -50,18 +34,7 @@
 
 <script setup>
 import { ref } from 'vue';
-const items = ref(['Shoes', 'Dresses', 'Shirts'])
-const values = ref('')
+
 </script>
 
-<style scoped lang="scss">
-.rounded-outline:deep(.v-field__outline) {
-  border: 2px solid #F6FDEB;
-  border-radius: 999px !important;
 
-  .v-field__outline__start,
-  .v-field__outline__end {
-    border: none !important;
-  }
-}
-</style>

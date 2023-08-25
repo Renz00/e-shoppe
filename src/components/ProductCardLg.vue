@@ -21,7 +21,8 @@
                 lazy-src="https://picsum.photos/1200/910"
                 aspect-ratio="16/9"
                 width="auto"
-                :height="imgload ? 450 : auto"
+                height="450"
+                cover
                 src="https://picsum.photos/1200/910"
                 >
                     <template v-slot:placeholder>

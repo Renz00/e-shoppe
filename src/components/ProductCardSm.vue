@@ -10,6 +10,7 @@
                   aspect-ratio="4/3"
                   width="auto"
                   height="320"
+                  cover
                   src="https://picsum.photos/600/700"
                   >
                   <template v-slot:placeholder>
