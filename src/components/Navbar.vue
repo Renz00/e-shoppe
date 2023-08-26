@@ -19,7 +19,7 @@
           </v-row>
         </div>
         <div class="ml-5" v-if="showLinks">
-          <v-btn id="menu-activator" color="black">
+          <v-btn icon="" id="menu-activator" color="black">
             <v-icon icon="mdi-menu"></v-icon>
           </v-btn>
           <v-menu activator="#menu-activator" :close-on-content-click="false">

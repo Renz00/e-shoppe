@@ -19,9 +19,8 @@
         :src="'src/assets/'+slide"
       >
       <div class="d-flex fill-height justify-center align-center text-center">
-          <div class="text-h2" style="color: white; filter: blur(0px);">
-            Buy What You Love
-            <v-icon icon="mdi-heart"></v-icon>
+          <div class="text-h2 px-10 px-md-0" style="color: white; filter: blur(0px);">
+            {{ text[i] }}
           </div>
 
         </div>
@@ -35,6 +34,7 @@
 import {ref} from "vue"
 
 const slides = ref(['img1.jpg', 'img2.jpg', 'img3.png'])
+const text = ref(['Check Our Products', 'Buy What You Love', 'Come Back for More'])
 
 </script>
 

@@ -16,15 +16,15 @@
                     </v-col>
                 </v-row>
                 <v-row v-if="cartItemCount > 0">
-                    <v-col class="d-flex justify-center align-center px-10 px-md-0">
-                        <v-list lines="two" class="py-0 my-0 overflow-y-auto" width="auto" max-height="1000">
+                    <v-col class="d-flex justify-center align-center">
+                        <v-list lines="two" class="py-0 my-0 mx-2 overflow-y-auto" width="auto" max-height="1500">
                             <v-list-item class="pa-0 mb-3 elevation-2" v-for="n in cartItemCount" :key="n">
                                 <v-row>
-                                    <v-col cols="12" sm="4">
+                                    <v-col class="px-0 px-sm-3" cols="6" sm="4">
                                         <v-img @loadstart="imgload = true" @load="imgload = false"
-                                            lazy-src="https://picsum.photos/800/1000" aspect-ratio="4/3" width="500"
+                                            lazy-src="https://picsum.photos/800/1000" aspect-ratio="4/3" width="auto"
                                             height="200" cover src="https://picsum.photos/800/1000">
-                                            <div class="ma-1">
+                                            <div class="ml-4 mt-1 ml-sm-1">
                                                 <v-btn color="error" size="small">Remove</v-btn>
                                             </div>
                                             <template v-slot:placeholder>
@@ -35,7 +35,7 @@
                                             </template>
                                         </v-img>
                                     </v-col>
-                                    <v-col class="px-5 px-sm-0" cols="12" sm="8">
+                                    <v-col class="pa-0 pa-sm-3" cols="6" sm="8">
                                         <v-container>
                                             <v-row class="text-subtitle-1">
                                                 <v-col class="px-0">
