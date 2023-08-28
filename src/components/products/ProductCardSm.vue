@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <v-row class="justify-center text-center">
+    <v-sheet height="1500">
+      <v-row class="justify-center text-center">
       <v-col class="mb-5" cols="12" sm="6" lg="3" md="4" v-for="product in products" :key="product.id">
           <v-card @click="router.push({ name: 'ShowProductView'})">
               <div class="d-flex">
@@ -45,6 +46,7 @@
 
       </v-col>
     </v-row>
+  </v-sheet>
   </v-container>
 
 </template>

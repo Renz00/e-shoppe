@@ -7,7 +7,7 @@
 
 <script setup>
 import ProductCardSm from './ProductCardSm.vue';
-import Pagination from './Pagination.vue';
+import Pagination from '../layout/Pagination.vue';
 
 const props = defineProps({
   products: Array

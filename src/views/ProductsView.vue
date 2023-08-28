@@ -13,9 +13,9 @@
 </template>
 
 <script setup>
-import Products from '@/components/Products.vue'
-import Banner from "@/components/Banner.vue"
-import CatalogHeader from "@/components/CatalogHeader.vue"
+import Products from '@/components/products/Products.vue'
+import Banner from "@/components/layout/Banner.vue"
+import CatalogHeader from "@/components/products/CatalogHeader.vue"
 import { ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'

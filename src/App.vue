@@ -9,8 +9,8 @@
 </template>
 
 <script setup>
-import Navbar from "./components/Navbar.vue"
-import Footer from "./components/Footer.vue"
+import Navbar from "./components/layout/Navbar.vue"
+import Footer from "./components/layout/Footer.vue"
 
 import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'

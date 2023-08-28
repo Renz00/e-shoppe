@@ -23,12 +23,14 @@ const routes = [
   {
     path: '/cart',
     name: 'CartView',
-    component: CartView
+    component: CartView,
+    props: { disableOrderSummaryButtons: false}
   },
   {
     path: '/orders',
     name: 'TrackOrdersView',
-    component: TrackOrdersView
+    component: TrackOrdersView,
+    props: { disableOrderSummaryButtons: true}
   },
   {
     path: '/:notFound(.*)',
