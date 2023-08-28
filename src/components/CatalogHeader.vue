@@ -1,26 +1,10 @@
 <template>
   <v-container>
-  <v-row>
-    <v-col class="pt-0 px-0" cols="12" lg="8" md="8">
-        <span class="text-h4 mr-3">I'm looking for <span id="menu-activator4">{{ category }} <v-icon icon="mdi-triangle-small-down"></v-icon></span></span>
-        <v-menu activator="#menu-activator4">
-          <v-list>
-            <v-list-item @click="emit('emitSetCategory', 'Everything')" link>
-              <v-list-item-title>Everything</v-list-item-title>
-            </v-list-item>
-            <v-list-item @click="emit('emitSetCategory', 'Women\'s Dresses')" link>
-              <v-list-item-title>Women's Dresses</v-list-item-title>
-            </v-list-item>
-            <v-list-item @click="emit('emitSetCategory', 'Men\'s Shirts')" link>
-              <v-list-item-title>Men's Shirts</v-list-item-title>
-            </v-list-item>
-            <v-list-item @click="emit('emitSetCategory', 'Kids Apparel')" link>
-              <v-list-item-title>Kids Apparel</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+  <v-row class="align-center">
+    <v-col class="px-0" cols="12" lg="8" md="8">
+        <span class="text-h4 mr-3">Our Products</span>
       </v-col>
-    <v-col class="d-flex justify-center align-center px-0" cols="12" lg="4" md="4" sm="6" width="auto">
+    <v-col cols="12" lg="4" md="4" sm="6" width="auto">
       <v-btn
           id="filter-activator"
           width="100%"
@@ -31,6 +15,16 @@
         </v-btn>
         <v-menu activator="#filter-activator" :close-on-content-click="false">
           <v-list density="compact">
+            <v-list-item>
+              <span class="text-subtitle-2">Select Category</span>
+              <v-select
+                    chips
+                    :items="['Men\'s Apparel','Women\'s Apparel', 'Gadgets']"
+                    density="compact"
+                    variant="outlined"
+                  >
+                </v-select>
+            </v-list-item>
             <v-list-item>
               <span class="text-subtitle-2">Select Filter</span>
               <v-select
@@ -60,6 +54,9 @@
                     <span class="text-subtitle-2" style="width: 50px;">₱{{range[1].toLocaleString()}}</span>
                   </template>
                 </v-range-slider>
+            </v-list-item>
+            <v-list-item class="mt-3 mb-5">
+              <v-btn color="success" width="100%">Apply</v-btn>
             </v-list-item>
           </v-list>
         </v-menu>

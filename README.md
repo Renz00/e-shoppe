@@ -1,9 +1,8 @@
 # Things to do
 
-*CartView
-1. Show delivery options
-2. Show coupon code
-3. Show running total calculation
+*Add order tracking page
+*Add search functionality
+*Add pages for Womens'/Mens' Apparel and Gadgets
 
 # essentials
 

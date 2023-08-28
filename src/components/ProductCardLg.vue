@@ -16,7 +16,7 @@
         <v-row>
             <v-col cols="12" sm="6">
                 <v-img
-                @loadstart="imgload=true"   
+                @loadstart="imgload=true"
                 @load="imgload=false"
                 lazy-src="https://picsum.photos/1200/910"
                 aspect-ratio="16/9"
@@ -32,8 +32,8 @@
                             indeterminate
                             ></v-progress-circular>
                         </div>
-                    </template>    
-                </v-img>  
+                    </template>
+                </v-img>
             </v-col>
             <v-col cols="12" sm="6">
                 <v-tabs v-model="tab" color="#0091EA" density="compact">
@@ -49,22 +49,40 @@
                             <v-row class="pb-5">
                                 <span class="text-subtitle-1">
                                     Product Category |
-                                    <v-icon v-for="n in 5" color="yellow" icon="mdi-star"
+                                    <v-icon v-for="n in 5" :key="n" color="yellow" icon="mdi-star"
                                     size="small"></v-icon>
                                 </span>
                             </v-row>
                             <v-row class="text-subtitle-2">
                                 Product Price
                             </v-row>
-                            <v-row class="justify-center align-center text-center">
-                                <v-col class="px-sm-0">
-                                    <v-select label="Vouchers"
-                                        :items="['Voucher 1', 'Voucher 2', 'Voucher 3', 'Voucher 4']"
-                                        variant="outlined"
-                                        density="compact"></v-select>
+                            <v-row>
+                                <v-col class="mx-sm-0 px-sm-0 py-sm-0">
+                                  <v-list lines="one" height="105" width="50%">
+                                    <v-list-item
+                                      class="px-2 my-2 green-list-item"
+                                      v-for="n in 5"
+                                      :key="n"
+                                      link
+                                    >
+                                    <div class="text-body-2">
+                                      <v-row>
+                                        <v-col cols="12">
+                                          <div>
+                                            Voucher {{ n }}
+                                          </div>
+                                          <div class="text-body-1">
+                                            ...
+                                          </div>
+                                        </v-col>
+                                      </v-row>
+                                    </div>
+
+                                    </v-list-item>
+                                  </v-list>
                                 </v-col>
                             </v-row>
-                            <v-row>
+                            <v-row class="mt-5">
                                 <span class="text-subtitle-2">Variant</span>
                             </v-row>
                             <v-row class="justify-center align-center text-center">
@@ -165,6 +183,15 @@ watchEffect(() => {
 
 </script>
 
-<style>
+<style scoped>
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #FF6E40;
+}
 
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #FF3D00;
+}
 </style>
+

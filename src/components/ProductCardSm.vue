@@ -1,5 +1,6 @@
 <template>
-  <v-row class="justify-center text-center">
+  <v-container>
+    <v-row class="justify-center text-center">
       <v-col class="mb-5" cols="12" sm="6" lg="3" md="4" v-for="product in products" :key="product.id">
           <v-card @click="router.push({ name: 'ShowProductView'})">
               <div class="d-flex">
@@ -20,7 +21,7 @@
                         indeterminate
                       ></v-progress-circular>
                     </div>
-                  </template>    
+                  </template>
                 </v-img>
               </div>
               <div class="pa-2">
@@ -41,9 +42,11 @@
               </span>
             </v-btn>
         </v-card>
-        
+
       </v-col>
     </v-row>
+  </v-container>
+
 </template>
 
 <script setup>

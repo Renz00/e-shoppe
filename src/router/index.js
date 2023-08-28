@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ProductsView from '@/views/ProductsView.vue'
 import ShowProductView from '@/views/ShowProductView.vue'
 import CartView from '@/views/CartView.vue'
+import TrackOrdersView from '@/views/TrackOrdersView.vue'
 import Error404 from '@/views/404.vue'
 
 const routes = [
@@ -23,6 +24,11 @@ const routes = [
     path: '/cart',
     name: 'CartView',
     component: CartView
+  },
+  {
+    path: '/orders',
+    name: 'TrackOrdersView',
+    component: TrackOrdersView
   },
   {
     path: '/:notFound(.*)',

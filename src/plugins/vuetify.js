@@ -20,6 +20,7 @@ export default createVuetify({
           primary: '#0091EA',
           secondary: '#FF3D00',
           error: '#F44336',
+          success: "#00BFA5"
         },
       },
     },

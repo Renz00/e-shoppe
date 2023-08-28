@@ -94,36 +94,38 @@
               </v-autocomplete>
             </div>
             <div class="ml-1">
-              <v-btn icon="" :to="{ name: 'CartView' }">
-                <span v-if="cartItemCount > 0">
+              <v-btn icon="" :to="{ name: 'CartView' }" v-if="cartItemCount > 0">
                   <v-badge :content="cartItemCount" color="error">
                     <v-icon icon="mdi-cart-outline"></v-icon>
                   </v-badge>
-                </span>
-                <span v-else>
-                  <v-icon icon="mdi-cart-outline"></v-icon>
-                </span>
               </v-btn>
+
+              <v-tooltip
+                  v-model="showCartTooltip"
+                  text="No Items in Cart."
+                  location="top"
+                  open-on-click
+                  :open-on-hover="false"
+                  v-else
+              >
+                  <template v-slot:activator="{ props }">
+                    <v-btn v-bind="props" icon="mdi-cart-outline" @click="showCartTooltip=true">
+                    </v-btn>
+                  </template>
+              </v-tooltip>
             </div>
             <div class="mr-5">
               <v-btn id="menu-activator3" icon=""><v-icon icon="mdi-account-circle"></v-icon></v-btn>
               <v-menu activator="#menu-activator3">
                 <v-list>
-                  <v-list-item>
+                  <v-list-item link>
                     <v-list-item-title>
                       <span class="text-truncate">
-                        Profile
+                        Track Orders
                       </span>
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item>
-                    <v-list-item-title>
-                      <span class="text-truncate">
-                        Account Settings
-                      </span>
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item>
+                  <v-list-item link>
                     <v-list-item-title>
                       <span class="text-truncate">
                         Logout
@@ -142,7 +144,7 @@
 
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import { useDisplay } from 'vuetify'
 
 const props = defineProps({
@@ -150,11 +152,21 @@ const props = defineProps({
 })
 const searchItems = ref(['Shoes', 'Dresses', 'Shirts'])
 const searchValues = ref('')
+const showCartTooltip = ref(false)
 const { mobile } = useDisplay()
 
 const showLinks = computed(() => {
   return mobile.value
 })
+
+watchEffect(() => {
+  if (showCartTooltip.value){
+      setTimeout(() => {
+        showCartTooltip.value = false
+      }, 1000)
+  }
+})
+
 </script>
 
 
