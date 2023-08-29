@@ -25,7 +25,7 @@ import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 
 //simProducts - array of products with similar category
-const { products, simProducts, selectedProduct } = storeToRefs(useProductStore())
+const { simProducts } = storeToRefs(useProductStore())
 const { setCartItemCount, fetchSimilarProducts, fetchSelectedProduct } = useProductStore()
 
 onMounted ( async () => {

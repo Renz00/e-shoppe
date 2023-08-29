@@ -1,6 +1,5 @@
 <template>
     <v-container class="my-5">
-
         <v-row>
             <v-col cols="12" lg="8">
                 <v-row>
@@ -17,7 +16,7 @@
                 </v-row>
                 <v-row v-if="cartItemCount > 0">
                     <v-col class="d-flex justify-center align-center">
-                        <v-list lines="two" class="py-0 my-0 mx-2 overflow-y-auto" width="800" max-height="1500">
+                        <v-list lines="two" class="py-0 my-0 mx-2 overflow-y-auto" width="800" max-height="1000">
                             <v-list-item class="pa-0 mb-3 elevation-2" v-for="n in cartItemCount" :key="n">
                                 <v-row>
                                     <v-col class="px-0 px-sm-3" cols="6" sm="4">
@@ -71,63 +70,7 @@
             <v-col>
                 <v-row>
                     <v-col class="px-5 px-md-0" cols="12">
-                      <v-dialog v-model="addressDialog" persistent max-width="500">
-                        <template v-slot:activator="{ props }">
-                          <v-card class="mx-0" v-bind="props" link>
-                            <template v-slot:prepend>
-                               <v-icon icon="mdi-map-marker-outline"></v-icon>
-                            </template>
-                            <template v-slot:title>
-                                <span class="text-subtitle-1">
-                                    Delivery Address
-                                </span>
-                                <div class="text-subtitle-2 text-truncate">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                </div>
-                            </template>
-                        </v-card>
-                        </template>
-                        <v-card>
-                            <v-card-title>
-                                Set Shipping Address
-                            </v-card-title>
-                            <v-card-text>
-                                <v-container>
-                                  <v-row>
-                                      <v-col class="my-0 py-0" cols="12">
-                                          <div class="text-subtitle-2 pb-2">House No./Unit/Building</div>
-                                          <v-text-field density="compact" variant="outlined"></v-text-field>
-                                      </v-col>
-                                      <v-col class="my-0 py-0" cols="12">
-                                          <div class="text-subtitle-2 pb-2">City</div>
-                                          <v-text-field density="compact" variant="outlined"></v-text-field>
-                                      </v-col>
-                                      <v-col class="my-0 py-0" cols="12">
-                                          <div class="text-subtitle-2 pb-2">Province</div>
-                                          <v-text-field density="compact" variant="outlined"></v-text-field>
-                                      </v-col>
-                                      <v-col class="my-0 py-0" cols="12">
-                                          <div class="text-subtitle-2 pb-2">Zip Code</div>
-                                          <v-text-field density="compact" variant="outlined"></v-text-field>
-                                      </v-col>
-                                      <v-col class="my-0 py-0" cols="12">
-                                          <div class="text-subtitle-2 pb-2">Additional Notes</div>
-                                          <v-textarea clearable variant="outlined" auto-grow></v-textarea>
-                                      </v-col>
-                                  </v-row>
-                                </v-container>
-                            </v-card-text>
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn color="blue-darken-1" variant="text" @click="addressDialog = false">
-                                    Close
-                                </v-btn>
-                                <v-btn color="blue-darken-1" variant="text" @click="addressDialog = false">
-                                    Save
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-dialog>
+                        <ShippingAddress />
                     </v-col>
 
                 </v-row>
@@ -138,7 +81,7 @@
                 </v-row>
                 <v-row>
                     <v-col class="px-5 px-md-0" cols="12">
-                        <v-btn color="black" size="large" :to="{name: 'TrackOrdersView'}" width="100%">Checkout</v-btn>
+                        <v-btn color="black" size="large" :to="{name: 'OrderView'}" width="100%">Checkout</v-btn>
                     </v-col>
                 </v-row>
             </v-col>
@@ -147,12 +90,13 @@
 </template>
 
 <script setup>
-import OrderSummary from '@/components/ordersummary/OrderSummary.vue';
+import OrderSummary from '@/components/orders/OrderSummary.vue';
+import ShippingAddress from '@/components/orders/ShippingAddress.vue';
 import { ref } from 'vue';
-import { storeToRefs } from "pinia";
-import { useProductStore } from '@/store/product-store'
 
-const { cartItemCount } = storeToRefs(useProductStore())
+const props = defineProps({
+    cartItemCount: Number
+})
 
 const imgload = ref(false)
 

@@ -22,46 +22,29 @@
           <v-btn icon="" id="menu-activator" color="black">
             <v-icon icon="mdi-menu"></v-icon>
           </v-btn>
-          <v-menu activator="#menu-activator" :close-on-content-click="false">
+          <v-menu activator="#menu-activator" v-model="showHamburgerMenu" :close-on-content-click="false">
             <v-list>
               <v-list-item>
                 <v-list-item-title>
-                  <v-autocomplete
-                    class="white--text rounded-outline pt-2"
-                    v-model="searchValues"
-                    style="width: 300px;"
-                    :items="searchItems"
-                    variant="outlined"
-                    density="compact"
-                    rounded
-                    center-affix
-                    v-if="showLinks"
-                  >
-                    <template v-slot:prepend-inner>
-                      <v-icon icon="mdi-magnify" color="black"></v-icon>
-                    </template>
-                    <template v-slot:no-data>
-                      <span class="px-5">No results</span>
-                    </template>
-                  </v-autocomplete>
+                  <SearchBar :showLinks="showLinks"/>
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item :to="{ name: 'ProductsView' }" link>
+              <v-list-item :to="{ name: 'ProductsView' }" @click="showHamburgerMenu = false" link>
                 <v-list-item-title>
                   Home
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item link>
+              <v-list-item @click="showHamburgerMenu = false" link>
                 <v-list-item-title>
                   Men Apparel
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item link>
+              <v-list-item @click="showHamburgerMenu = false" link>
                 <v-list-item-title>
                   Women Apparel
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item link>
+              <v-list-item @click="showHamburgerMenu = false" link>
                 <v-list-item-title>
                   Gadgets
                 </v-list-item-title>
@@ -73,25 +56,8 @@
       <v-col>
         <v-row>
           <v-col class="d-flex justify-end align-center">
-            <div class="pt-5">
-              <v-autocomplete
-                class="white--text rounded-outline"
-                v-model="searchValues"
-                style="width: 300px;"
-                :items="searchItems"
-                variant="outlined"
-                density="compact"
-                rounded
-                center-affix
-                v-if="!showLinks"
-              >
-                <template v-slot:prepend-inner>
-                  <v-icon icon="mdi-magnify" color="black"></v-icon>
-                </template>
-                <template v-slot:no-data>
-                  <span class="px-5">No results</span>
-                </template>
-              </v-autocomplete>
+            <div>
+               <SearchBar :showLinks="showLinks"/>
             </div>
             <div class="ml-1">
               <v-btn icon="" :to="{ name: 'CartView' }" v-if="cartItemCount > 0">
@@ -144,20 +110,27 @@
 
 
 <script setup>
+import SearchBar from '@/components/products/SearchBar.vue'
 import { ref, computed, watchEffect } from 'vue'
 import { useDisplay } from 'vuetify'
 
 const props = defineProps({
   cartItemCount: Number,
 })
-const searchItems = ref(['Shoes', 'Dresses', 'Shirts'])
-const searchValues = ref('')
-const showCartTooltip = ref(false)
-const { mobile } = useDisplay()
 
-const showLinks = computed(() => {
-  return mobile.value
-})
+const { mobile } = useDisplay()
+const searchValues = ref('')
+const showHamburgerMenu = ref(false)
+const showCartTooltip = ref(false)
+const loading = ref(false)
+const items = ref([])
+const search = ref(null)
+const searchValue = ref(null)
+const searchProducts = [
+    'Shoes',
+    'Dresses',
+    'Gadgets'
+]
 
 watchEffect(() => {
   if (showCartTooltip.value){
@@ -165,6 +138,24 @@ watchEffect(() => {
         showCartTooltip.value = false
       }, 1000)
   }
+  //Watch changes in the value of search
+  if (search.value){
+    search.value && search.value !== searchValue.value && querySelections(search.value)
+  }
+})
+
+function querySelections (newVal) {
+  loading.value = true
+  setTimeout(() => {
+    items.value = searchProducts.filter(e => {
+      return (e || '').toLowerCase().indexOf((newVal || '').toLowerCase()) > -1
+    })
+    loading.value = false 
+  }, 500)
+}
+
+const showLinks = computed(() => {
+  return mobile.value
 })
 
 </script>

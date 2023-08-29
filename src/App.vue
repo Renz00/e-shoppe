@@ -2,7 +2,7 @@
   <v-app>
     <Navbar :cartItemCount="cartItemCount"/>
     <v-main>
-      <router-view />
+      <router-view :cartItemCount="cartItemCount"/>
     </v-main>
     <Footer />
   </v-app>

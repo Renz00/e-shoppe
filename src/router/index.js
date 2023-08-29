@@ -1,18 +1,18 @@
+import { storeToRefs } from "pinia";
+import { useProductStore } from '@/store/product-store'
+
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
 import ProductsView from '@/views/ProductsView.vue'
 import ShowProductView from '@/views/ShowProductView.vue'
 import CartView from '@/views/CartView.vue'
-import TrackOrdersView from '@/views/TrackOrdersView.vue'
+import OrderView from '@/views/OrderView.vue'
 import Error404 from '@/views/404.vue'
 
 const routes = [
   {
     path: '/',
     name: 'ProductsView',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: ProductsView
   },
   {
@@ -27,9 +27,9 @@ const routes = [
     props: { disableOrderSummaryButtons: false}
   },
   {
-    path: '/orders',
-    name: 'TrackOrdersView',
-    component: TrackOrdersView,
+    path: '/order',
+    name: 'OrderView',
+    component: OrderView,
     props: { disableOrderSummaryButtons: true}
   },
   {
@@ -44,6 +44,16 @@ const router = createRouter({
   routes,
   scrollBehavior (to, from, savedPosition) {
     return { top: 0 }
+  }
+})
+
+router.beforeEach(async (to, from) => {
+  const { cartItemCount } = storeToRefs(useProductStore())
+  //Will redirect to homepage if cart is empty
+  if (cartItemCount.value<=0) {
+    if (to.name == "CartView" || to.name == "OrderView"){
+      router.push({name: 'ProductsView'})
+    }
   }
 })
 

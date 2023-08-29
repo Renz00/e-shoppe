@@ -46,21 +46,21 @@
                             <v-row class="text-h5 pt-2">
                                 Product Name
                             </v-row>
-                            <v-row class="pb-5">
-                                <span class="text-subtitle-1">
+                            <v-row class="pb-3">
+                                <div class="text-subtitle-1">
                                     Product Category |
                                     <v-icon v-for="n in 5" :key="n" color="yellow" icon="mdi-star"
                                     size="small"></v-icon>
-                                </span>
+                                </div>
                             </v-row>
-                            <v-row class="text-subtitle-2">
+                            <v-row class="text-subtitle-2 pb-2">
                                 Product Price
                             </v-row>
                             <v-row>
                                 <v-col class="mx-sm-0 px-sm-0 py-sm-0">
                                   <v-list lines="one" height="105" width="50%">
                                     <v-list-item
-                                      class="px-2 my-2 green-list-item"
+                                      class="px-2 my-2 elevation-2 green-list-item"
                                       v-for="n in 5"
                                       :key="n"
                                       link
@@ -182,16 +182,3 @@ watchEffect(() => {
 })
 
 </script>
-
-<style scoped>
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #FF6E40;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #FF3D00;
-}
-</style>
-

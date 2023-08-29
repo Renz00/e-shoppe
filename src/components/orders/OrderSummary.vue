@@ -2,7 +2,7 @@
    <v-card>
     <v-container>
         <v-row>
-            <v-col class="text-subtitle-1 px-2 pt-2 pb-5">
+            <v-col class="text-subtitle-2 px-2 pt-2 pb-5">
                 Order Summary
             </v-col>
         </v-row>
@@ -39,14 +39,14 @@
                     <v-card width="100%" :class="disableOrderSummaryButtons ? 'disabled-events' : ''" variant="outlined" v-bind="props" link>
                         <v-container>
                             <v-row>
-                                <v-col class="text-subtitle-2" cols="8">
+                                <v-col class="text-subtitle-2" cols="6" sm="8">
                                     Total Discount
-                                    <div class="text-uppercase text-body-2 mt-2" v-if="!disableOrderSummaryButtons">
+                                    <div class="text-uppercase text-body-2 mt-2 blue-font" v-if="!disableOrderSummaryButtons">
                                         See Vouchers
                                     </div>
                                 </v-col>
-                                <v-col class="d-flex justify-center align-center text-subtitle-1"
-                                    cols="4">Saved 30%</v-col>
+                                <v-col class="d-flex justify-center align-center text-subtitle-2"
+                                    cols="6" sm="4">Saved 30%</v-col>
                             </v-row>
 
                         </v-container>
@@ -92,14 +92,14 @@
                     <v-card width="100%" :class="disableOrderSummaryButtons ? 'disabled-events' : ''" variant="outlined" v-bind="props" link>
                         <v-container>
                             <v-row>
-                                <v-col class="text-subtitle-2" cols="8">
+                                <v-col class="text-subtitle-2" cols="6" sm="8">
                                     J&T Express
-                                    <div class="text-uppercase text-body-2 mt-2" v-if="!disableOrderSummaryButtons">
+                                    <div class="text-uppercase text-body-2 mt-2 blue-font" v-if="!disableOrderSummaryButtons">
                                         Change Shipping
                                     </div>
                                 </v-col>
-                                <v-col class="d-flex justify-center align-center text-subtitle-1"
-                                    cols="4">₱50</v-col>
+                                <v-col class="d-flex justify-center align-center text-subtitle-2"
+                                cols="6" sm="4">₱50</v-col>
                             </v-row>
 
                         </v-container>
@@ -139,14 +139,14 @@
                     <v-card :class="disableOrderSummaryButtons ? 'disabled-events' : ''" width="100%" variant="outlined" v-bind="props" link>
                         <v-container>
                           <v-row>
-                                <v-col class="text-subtitle-2" cols="8">
+                                <v-col class="text-subtitle-2" cols="6" sm="8">
                                     Payment Method
-                                    <div class="text-uppercase text-body-2 mt-2" v-if="!disableOrderSummaryButtons">
+                                    <div class="text-uppercase text-body-2 mt-2 blue-font" v-if="!disableOrderSummaryButtons">
                                         Change Payment
                                     </div>
                                 </v-col>
-                                <v-col class="d-flex justify-center align-center text-center text-subtitle-1"
-                                    cols="4">Cash On Delivery</v-col>
+                                <v-col class="d-flex justify-center align-center text-center text-subtitle-2"
+                                cols="6" sm="4">Cash On Delivery</v-col>
                             </v-row>
                         </v-container>
                     </v-card>
@@ -203,4 +203,5 @@ const courier = ref(0)
 .disabled-events {
   pointer-events: none
 }
+
 </style>
