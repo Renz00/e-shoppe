@@ -1,5 +1,5 @@
 <template>
-   <v-card>
+   <v-card class="elevation-1" variant="outlined">
     <v-container>
         <v-row>
             <v-col class="text-subtitle-2 px-2 pt-2 pb-5">

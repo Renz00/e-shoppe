@@ -1,7 +1,7 @@
 <template>
      <v-dialog v-model="addressDialog" persistent max-width="500">
         <template v-slot:activator="{ props }">
-            <v-card class="mx-0" v-bind="props" link>
+            <v-card class="mx-0 elevation-2" v-bind="props" variant="outlined" link>
             <template v-slot:prepend>
                 <v-icon icon="mdi-map-marker-outline"></v-icon>
             </template>

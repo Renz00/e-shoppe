@@ -5,7 +5,7 @@
         <div class="text-h6 mb-3">Your Order #347322 is on the way!</div>
         <v-row>
           <v-col cols="12" md="6">
-            <v-card>
+            <v-card class="elevation-2" variant="outlined">
               <v-container>
                 <v-row>
                   <v-col>
@@ -22,7 +22,8 @@
                     </div>
                     <v-list lines="one" height="290">
                     <v-list-item
-                      class="mb-2 elevation-2"
+                      class="mb-2"
+                      variant="outlined"
                       v-for="n in cartItemCount"
                       :key="n"
                     >
