@@ -2,7 +2,14 @@
   <v-container class="my-5">
     <v-row class="mx-4 mx-md-2">
       <v-col>
-        <div class="text-h6 mb-3">Your Order #347322 is on the way!</div>
+        <div class="text-h6 my-3">Your Order #347322 is on the way!</div>
+        <v-row>
+          <v-col cols="12">
+            <v-card class="elevation-1" variant="outlined">
+              Order Progress
+            </v-card>
+          </v-col>
+        </v-row>
         <v-row>
           <v-col cols="12" md="6">
             <v-card class="elevation-2" variant="outlined">
@@ -20,7 +27,7 @@
                     <div class="text-subtitle-2 pb-2">
                       Items
                     </div>
-                    <v-list lines="one" height="290">
+                    <v-list lines="one" height="280">
                     <v-list-item
                       class="mb-2"
                       variant="outlined"
@@ -40,7 +47,7 @@
                   </v-list>
                   </v-col>
                 </v-row>
-             
+
               </v-container>
             </v-card>
           </v-col>

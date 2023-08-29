@@ -1,5 +1,5 @@
 <template>
-     <v-list lines="two" class="py-0 my-0 mx-2 overflow-y-auto" width="800" max-height="1000">
+     <v-list lines="two" class="py-0 my-0 mx-5 overflow-y-auto" width="auto" max-height="1000">
         <v-list-item class="pa-0 mb-3 elevation-1" v-for="n in cartItemCount" :key="n" variant="outlined">
             <v-row>
                 <v-col class="px-0 px-sm-3" cols="5" sm="4">

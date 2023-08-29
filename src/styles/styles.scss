@@ -1,8 +1,6 @@
 $success: #00BFA5;
 $primary: #0091EA;
 
-.material-icons { vertical-align: middle }
-
 //COLOR STYLES
 
 .gradient{
@@ -83,14 +81,22 @@ $primary: #0091EA;
     99%   {color: var(--color-3)}
     100%  {color: var(--color-1)}
   }
+  
+// SCROLLBAR STYLES
 
-//IMAGE STYLES
-
-.img-blur{
-  filter: blur(2px);
+.left-scroll-container{
+  direction: rtl;
 }
 
-// SCROLLBAR STYLES
+.left-scroll-content{
+  direction:ltr;
+}
+
+//Mozilla
+* {
+  scrollbar-color: $primary #f1f1f1;
+  scrollbar-width: thin;
+}
   
   /* width */
 ::-webkit-scrollbar {
@@ -110,13 +116,5 @@ $primary: #0091EA;
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #40C4FF; 
-}
-
-.left-scroll-container{
-  direction: rtl;
-}
-
-.left-scroll-content{
-  direction:ltr;
 }
   
