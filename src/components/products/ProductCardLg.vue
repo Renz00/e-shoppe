@@ -13,7 +13,7 @@
         </template>
       </v-alert>
     </v-overlay>
-    <v-card class="elevation-1" variant="outlined">
+    <v-card class="mx-5 mx-lg-0 elevation-1" variant="outlined">
       <v-row>
         <v-col cols="12" md="6" class="mx-0 px-0">
           <v-img
@@ -60,11 +60,12 @@
                     <div class="text-subtitle-2 pt-3">Product Price</div>
                   </v-col>
                 </v-row>
-                <v-row>
+                <v-row class="px-3 px-md-0">
                   <v-col>
-                    <v-btn icon="mdi-plus" size="small"></v-btn>
-                    <span class="text-body-2">5</span>
-                    <v-btn icon="mdi-minus" size="small"></v-btn>
+                    <div class="text-subtitle-2 pb-5">Quantity</div>
+                    <v-row class="mx-5 mx-sm-1">
+                      <ProductQuantity @emitDecQuantity="decQuantity" @emitIncQuantity="incQuantity" :productQuantity="productQuantity"/>
+                    </v-row>
                   </v-col>
                 </v-row>
                 <v-row class="px-3 px-md-0">
@@ -138,7 +139,7 @@
               </v-container>
             </v-window-item>
             <v-window-item value="two">
-              <v-container class="mb-3">
+              <v-container class="mb-3 pr-md-7">
                 <v-row class="px-5 px-md-2">
                   <v-col>
                     <span class="text-subtitle-1">
@@ -169,18 +170,32 @@
 </template>
 
 <script setup>
+import ProductQuantity from "./ProductQuantity.vue";
 import { ref, watchEffect } from "vue";
 
 const tab = ref(null);
-var overlay = ref(false);
-var liked = ref(false);
-var imgload = ref(false);
+const overlay = ref(false);
+const liked = ref(false);
+const imgload = ref(false);
+const productQuantity = ref(1);
 
 const emit = defineEmits(["emitCartItemCount"]);
 
 const addToCart = () => {
   overlay.value = true;
   emit("emitCartItemCount");
+};
+
+const incQuantity = () =>{
+  if (productQuantity.value<10){
+    productQuantity.value++
+  }
+};
+
+const decQuantity = () =>{
+  if (productQuantity.value>1){
+    productQuantity.value--
+  }
 };
 
 //Closes overlay alert after 2 secs if value is true

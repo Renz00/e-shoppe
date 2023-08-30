@@ -1,5 +1,5 @@
 <template>
-    <v-container class="my-5">
+    <v-container class="mt-5 mb-10">
         <v-row>
             <v-col cols="12" lg="8">
                 <v-row v-if="cartItemCount > 0">
@@ -12,7 +12,7 @@
                               No items in cart.
                           </span>
                       </div>
-                        <CartItems :cartItemCount="cartItemCount" />
+                        <CartItems :cartItemCount="cartItemCount" :cartItemsHeight="cartItemsHeight"/>
                     </v-col>
                 </v-row>
             </v-col>
@@ -44,19 +44,8 @@ import ShippingAddress from '@/components/orders/ShippingAddress.vue';
 import CartItems from '@/components/products/CartItems.vue';
 
 const props = defineProps({
-    cartItemCount: Number
+    cartItemCount: Number,
+    cartItemsHeight: Number
 })
 
 </script>
-
-<style scoped>
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #FF6E40;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #FF3D00;
-}
-</style>

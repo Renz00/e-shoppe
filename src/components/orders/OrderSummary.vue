@@ -1,5 +1,5 @@
 <template>
-   <v-card class="elevation-1" variant="outlined">
+   <v-card class="elevation-1" variant="outlined" width="100%" height="auto">
     <v-container>
         <v-row>
             <v-col class="text-subtitle-2 px-2 pt-2 pb-5">
@@ -185,10 +185,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps({
-  disableOrderSummaryButtons: Boolean
+  disableOrderSummaryButtons: Boolean,
+  cardHeight: Number
 })
 
 const shippingDialog = ref(false)
@@ -198,10 +199,3 @@ const paymethod = ref(0)
 const courier = ref(0)
 
 </script>
-
-<style scoped lang="css">
-.disabled-events {
-  pointer-events: none
-}
-
-</style>

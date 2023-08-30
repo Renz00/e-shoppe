@@ -1,5 +1,5 @@
 <template>
-  <v-container class="my-5">
+  <v-container class="mt-5 mb-10">
     <v-row>
       <v-col>
         <!-- Listening to emitCartItemCount from child component -->

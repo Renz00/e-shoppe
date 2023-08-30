@@ -26,7 +26,7 @@
             <v-list>
               <v-list-item>
                 <v-list-item-title>
-                  <SearchBar :showLinks="showLinks"/>
+                  <HamburgerSearchBar :showLinks="showLinks"/>
                 </v-list-item-title>
               </v-list-item>
               <v-list-item :to="{ name: 'ProductsView' }" @click="showHamburgerMenu = false" link>
@@ -65,7 +65,6 @@
                     <v-icon icon="mdi-cart-outline"></v-icon>
                   </v-badge>
               </v-btn>
-
               <v-tooltip
                   v-model="showCartTooltip"
                   text="No Items in Cart."
@@ -84,7 +83,7 @@
               <v-btn id="menu-activator3" icon=""><v-icon icon="mdi-account-circle"></v-icon></v-btn>
               <v-menu activator="#menu-activator3">
                 <v-list>
-                  <v-list-item link>
+                  <v-list-item :to="{name: 'TrackOrdersView'}" link>
                     <v-list-item-title>
                       <span class="text-truncate">
                         Track Orders
@@ -111,26 +110,16 @@
 
 <script setup>
 import SearchBar from '@/components/products/SearchBar.vue'
-import { ref, computed, watchEffect } from 'vue'
-import { useDisplay } from 'vuetify'
+import HamburgerSearchBar from '@/components/products/HamburgerSearchBar.vue'
+import { ref, watchEffect } from 'vue'
 
 const props = defineProps({
   cartItemCount: Number,
+  showLinks: Boolean
 })
 
-const { mobile } = useDisplay()
-const searchValues = ref('')
 const showHamburgerMenu = ref(false)
 const showCartTooltip = ref(false)
-const loading = ref(false)
-const items = ref([])
-const search = ref(null)
-const searchValue = ref(null)
-const searchProducts = [
-    'Shoes',
-    'Dresses',
-    'Gadgets'
-]
 
 watchEffect(() => {
   if (showCartTooltip.value){
@@ -138,26 +127,7 @@ watchEffect(() => {
         showCartTooltip.value = false
       }, 1000)
   }
-  //Watch changes in the value of search
-  if (search.value){
-    search.value && search.value !== searchValue.value && querySelections(search.value)
-  }
 })
-
-function querySelections (newVal) {
-  loading.value = true
-  setTimeout(() => {
-    items.value = searchProducts.filter(e => {
-      return (e || '').toLowerCase().indexOf((newVal || '').toLowerCase()) > -1
-    })
-    loading.value = false 
-  }, 500)
-}
-
-const showLinks = computed(() => {
-  return mobile.value
-})
-
 </script>
 
 

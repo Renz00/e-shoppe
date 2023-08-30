@@ -7,6 +7,7 @@ import ProductsView from '@/views/ProductsView.vue'
 import ShowProductView from '@/views/ShowProductView.vue'
 import CartView from '@/views/CartView.vue'
 import OrderView from '@/views/OrderView.vue'
+import TrackOrdersView from '@/views/TrackOrdersView.vue'
 import Error404 from '@/views/404.vue'
 
 const routes = [
@@ -16,7 +17,7 @@ const routes = [
     component: ProductsView
   },
   {
-    path: '/show-product',
+    path: '/product/id',
     name: 'ShowProductView',
     component: ShowProductView
   },
@@ -24,13 +25,18 @@ const routes = [
     path: '/cart',
     name: 'CartView',
     component: CartView,
-    props: { disableOrderSummaryButtons: false}
+    props: { disableOrderSummaryButtons: false, cartItemsHeight: 620 }
   },
   {
-    path: '/order',
+    path: '/my-orders',
+    name: 'TrackOrdersView',
+    component: TrackOrdersView
+  },
+  {
+    path: '/order/id',
     name: 'OrderView',
     component: OrderView,
-    props: { disableOrderSummaryButtons: true}
+    props: { disableOrderSummaryButtons: true, disableCartItemsButtons: true,  cartItemsHeight: 530}
   },
   {
     path: '/:notFound(.*)',

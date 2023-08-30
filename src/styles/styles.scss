@@ -1,5 +1,6 @@
 $success: #00BFA5;
 $primary: #0091EA;
+$gray: gray;
 
 //COLOR STYLES
 
@@ -28,6 +29,16 @@ $primary: #0091EA;
   color: $primary;
 }
 
+.gray-font {
+  color: $gray;
+}
+
+//EVENT STYLES
+
+.disabled-events {
+  pointer-events: none
+}
+
 //POSITION STYLES
 
 .stack-container{
@@ -43,6 +54,8 @@ $primary: #0091EA;
 .stack-front{
   z-index: 9;
 }
+
+//FOOTER STYLES
 
 .title-word {
     animation: color-animation 4s linear infinite;

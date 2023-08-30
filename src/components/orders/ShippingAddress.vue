@@ -1,7 +1,7 @@
 <template>
      <v-dialog v-model="addressDialog" persistent max-width="500">
         <template v-slot:activator="{ props }">
-            <v-card class="mx-0 elevation-2" v-bind="props" variant="outlined" link>
+            <v-card class="mx-0 elevation-2" v-bind="props" variant="outlined" :class="disableOrderSummaryButtons ? 'disabled-events' : ''" link>
             <template v-slot:prepend>
                 <v-icon icon="mdi-map-marker-outline"></v-icon>
             </template>
@@ -12,7 +12,7 @@
                 <div class="text-body-2 text-truncate">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                 </div>
-                <div class="text-uppercase text-body-2 blue-font pt-2">
+                <div class="text-uppercase text-body-2 blue-font pt-2" v-if="!disableOrderSummaryButtons">
                     Change Address
                 </div>
             </template>
@@ -63,6 +63,10 @@
 
 <script setup>
 import { ref } from 'vue';
+
+const props = defineProps({
+    disableOrderSummaryButtons: Boolean
+})
 
 const addressDialog = ref(false)
 </script>
