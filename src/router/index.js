@@ -36,7 +36,7 @@ const routes = [
     path: '/order/id',
     name: 'OrderView',
     component: OrderView,
-    props: { disableOrderSummaryButtons: true, disableCartItemsButtons: true,  cartItemsHeight: 530}
+    props: { disableOrderSummaryButtons: true, disableCartItemsButtons: true,  cartItemsHeight: 600}
   },
   {
     path: '/:notFound(.*)',

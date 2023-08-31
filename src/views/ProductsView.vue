@@ -1,7 +1,7 @@
 <template>
   <div>
     <Banner />
-    <v-container class="my-2">
+    <v-container>
       <v-row>
       <v-col>
         <CatalogHeader @emitSetCategory="setCategory" :category="category"/>

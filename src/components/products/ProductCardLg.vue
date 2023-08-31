@@ -15,7 +15,7 @@
     </v-overlay>
     <v-card class="mx-5 mx-lg-0 elevation-1" variant="outlined">
       <v-row>
-        <v-col cols="12" md="6" class="mx-0 px-0">
+        <v-col cols="12" md="6" class="mx-0 py-0 py-md-2 px-0">
           <v-img
             @loadstart="imgload = true"
             @load="imgload = false"
@@ -37,7 +37,7 @@
           </v-img>
         </v-col>
         <v-col cols="12" md="6">
-          <v-tabs class="px-8 px-md-4" v-model="tab" color="primary" density="compact">
+          <v-tabs v-model="tab" color="primary" density="compact" align-tabs="center">
             <v-tab value="one">Info</v-tab>
             <v-tab value="two">Product Details</v-tab>
           </v-tabs>
@@ -46,7 +46,7 @@
               <v-container class="pr-md-7">
                 <v-row class="px-3 px-md-0">
                   <v-col class="text-h5 pt-2">
-                    <div>Product Name</div>
+                    <div class="text-body-1">Product Name</div>
                     <div class="text-subtitle-1">
                       Product Category |
                       <v-icon

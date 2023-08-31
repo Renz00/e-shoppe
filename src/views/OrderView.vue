@@ -1,45 +1,41 @@
 <template>
   <v-container class="mt-5 mb-10">
     <v-row>
-      <v-col>
+      <v-col class="px-5 px-md-0" cols="12">
         <div class="text-h6 mb-3">Your Order #347322 is being processed</div>
-        <v-row>
-          <v-col cols="12">
-            <v-card class="elevation-1" variant="outlined" height="auto">
-              <v-container>
-                <v-row>
-                  <v-col cols="12">
-                    <v-row class="justify-center align-center text-center">
-                      <v-col cols="4">
-                        <div class="text-subtitle-2 pb-2">
-                          <v-icon icon="mdi-package-variant"></v-icon>
-                          Product is being packed by seller
-                        </div>
-                      </v-col>
-                      <v-col cols="4">
-                        <div class="text-subtitle-2 pb-2 gray-font" color="gray">
-                          <v-icon icon="mdi-truck-outline"></v-icon>
-                          Package is on the way
-                        </div>
-                      </v-col>
-                      <v-col cols="4">
-                        <div class="text-subtitle-2 pb-2 gray-font">
-                          <v-icon icon="mdi-door"></v-icon>
-                          Package has arrived!
-                        </div>
-                      </v-col>
-                    </v-row>
-                    <v-row class="mt-0">
-                      <v-col class="mx-2">
-                        <v-progress-linear model-value="30" color="secondary" height="10" striped></v-progress-linear>
-                      </v-col>
-                    </v-row>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card>
-          </v-col>
-        </v-row>
+          <v-card class="elevation-1" variant="outlined" height="auto">
+            <v-container>
+              <v-row>
+                <v-col cols="12">
+                  <v-row class="justify-center align-center text-center">
+                    <v-col cols="4">
+                      <div class="text-subtitle-2 pb-2">
+                        <v-icon icon="mdi-package-variant"></v-icon>
+                        Packing
+                      </div>
+                    </v-col>
+                    <v-col cols="4">
+                      <div class="text-subtitle-2 pb-2 gray-font" color="gray">
+                        <v-icon icon="mdi-truck-outline"></v-icon>
+                        In Transit
+                      </div>
+                    </v-col>
+                    <v-col cols="4">
+                      <div class="text-subtitle-2 pb-2 gray-font">
+                        <v-icon icon="mdi-door"></v-icon>
+                        Arrived!
+                      </div>
+                    </v-col>
+                  </v-row>
+                  <v-row class="mt-0">
+                    <v-col class="mx-2">
+                      <v-progress-linear model-value="30" color="secondary" height="10" striped></v-progress-linear>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
       </v-col>
     </v-row>
     <v-row>
@@ -60,6 +56,11 @@
           <v-col class="px-5 px-md-0">
             <OrderSummary :disableOrderSummaryButtons="disableOrderSummaryButtons"/>
           </v-col>
+        </v-row>
+        <v-row>
+            <v-col class="px-5 px-md-0" cols="12">
+                <v-btn color="secondary" size="large" width="100%">Cancel Order</v-btn>
+            </v-col>
         </v-row>
       </v-col>
     </v-row>

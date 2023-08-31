@@ -1,20 +1,16 @@
 <template>
     <v-container class="mt-5 mb-10">
         <v-row>
-            <v-col cols="12" lg="8">
-                <v-row v-if="cartItemCount > 0">
-                    <v-col>
-                        <div class="text-h6 mb-3">
-                          <span v-if="cartItemCount > 0">
-                              Items in Cart
-                          </span>
-                          <span v-else>
-                              No items in cart.
-                          </span>
-                      </div>
-                        <CartItems :cartItemCount="cartItemCount" :cartItemsHeight="cartItemsHeight"/>
-                    </v-col>
-                </v-row>
+            <v-col cols="12" lg="8" v-if="cartItemCount > 0">
+                <div class="text-h6 mb-3">
+                    <span v-if="cartItemCount > 0">
+                        Items in Cart
+                    </span>
+                    <span v-else>
+                        No items in cart.
+                    </span>
+                </div>
+                <CartItems :cartItemCount="cartItemCount" :cartItemsHeight="cartItemsHeight"/>
             </v-col>
             <v-col>
                 <v-row>
