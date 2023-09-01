@@ -1,7 +1,7 @@
 <template>
-  <v-container>
+  <v-container class="py-0 my-0" fluid>
       <v-row class="justify-center text-center">
-      <v-col class="mb-5" cols="12" sm="6" lg="3" md="4" v-for="product in products" :key="product.id">
+      <v-col class="pb-3 px-2" cols="12" sm="6" lg="3" md="4" v-for="product in products" :key="product.id">
           <v-card @click="router.push({ name: 'ShowProductView'})">
               <div class="d-flex">
                 <v-img
@@ -10,7 +10,7 @@
                   lazy-src="https://picsum.photos/600/700"
                   aspect-ratio="4/3"
                   width="auto"
-                  height="320"
+                  height="250"
                   cover
                   src="https://picsum.photos/600/700"
                   >
@@ -36,7 +36,7 @@
                 </div>
               </div>
             <!-- click.stop prevents child click from triggering parent click -->
-            <v-btn class="rounded-0" @click.stop="emits('emitSetCartItemCount')" width="100%" color="secondary">
+            <v-btn class="rounded-0" @click.stop="setCartItemCount" width="100%" color="secondary">
               <span style="color: white;">
                 Add to Cart
               </span>
@@ -51,6 +51,10 @@
 <script setup>
 import { ref } from 'vue';
 import router from '@/router/index';
+import { storeToRefs } from "pinia";
+import { useProductStore } from '@/store/product-store'
+
+const { setCartItemCount } = useProductStore()
 
 const props = defineProps({
   products: Array,
@@ -58,5 +62,4 @@ const props = defineProps({
 
 var imgload = ref(false)
 
-const emits = defineEmits(['emitSetCartItemCount'])
 </script>

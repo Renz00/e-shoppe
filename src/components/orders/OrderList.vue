@@ -20,10 +20,10 @@
                             </v-col>
                        </v-row>
                        <v-row class="my-0">
-                           <v-col cols="12" class="text-body-2 py-0">J&T Express</v-col>
+                           <v-col cols="12" class="py-0"><span class="text-subtitle-2">Courier: </span><span class="text-body-2">J&T Express</span></v-col>
                        </v-row>
                        <v-row class="my-0">
-                           <v-col cols="12" class="text-body-2 py-0">Estimated Arrival: September 9-10, 2023</v-col>
+                           <v-col cols="12" class="text-body-2 py-0"><span class="text-subtitle-2">Estimated Arrival: </span><span class="text-body-2">Sep 9 - Sep 10 2023</span></v-col>
                        </v-row>
                    </v-container>
                </v-col>

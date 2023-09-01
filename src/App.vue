@@ -1,9 +1,10 @@
 <template>
   <v-app>
-    <Navbar :cartItemCount="cartItemCount" :showLinks="showLinks"/>
+    <Navbar :cartItemCount="cartItemCount" :mobileView="mobileView"/>
     <v-main>
-      <router-view :cartItemCount="cartItemCount" :showLinks="showLinks"/>
+      <router-view :cartItemCount="cartItemCount" :mobileView="mobileView"/>
     </v-main>
+    <LoginDialog />
     <Footer />
   </v-app>
 </template>
@@ -11,6 +12,8 @@
 <script setup>
 import Navbar from "./components/layout/Navbar.vue"
 import Footer from "./components/layout/Footer.vue"
+import LoginDialog from "@/components/auth/LoginDialog.vue"
+
 import { storeToRefs } from "pinia";
 import { computed } from 'vue'
 import { useDisplay } from 'vuetify'
@@ -20,7 +23,7 @@ const { cartItemCount } = storeToRefs(useProductStore())
 
 //Used to check if display size is for mobile. mobile.value is Boolean
 const { mobile } = useDisplay()
-const showLinks = computed(() => {
+const mobileView = computed(() => {
   return mobile.value
 })
 

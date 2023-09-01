@@ -1,7 +1,7 @@
 <template>
   <v-app-bar class="elevation-2" height="50">
     <v-row>
-      <v-col class="d-flex justify-start align-center" v-if="!showLinks">
+      <v-col class="d-flex justify-start align-center" v-if="!mobileView">
         <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
         <v-app-bar-title class="ml-10">
           <router-link style="text-decoration: none; color: black;" class="text-h6 text--black"
@@ -11,14 +11,14 @@
         </v-app-bar-title>
       </v-col>
       <v-col class="d-flex justify-start justify-lg-center align-center">
-        <div v-if="!showLinks">
+        <div v-if="!mobileView">
           <v-row>
-            <v-btn variant="text">Men Apparel</v-btn>
-            <v-btn variant="text">Women Apparel</v-btn>
-            <v-btn variant="text">Gadgets</v-btn>
+            <v-btn variant="text" :to="{name: 'CatalogView', params: {productCategory: 'apparel'}}">Apparel</v-btn>
+            <v-btn variant="text" :to="{name: 'CatalogView', params: {productCategory: 'cosmetics'}}">Cosmetics</v-btn>
+            <v-btn variant="text" :to="{name: 'CatalogView', params: {productCategory: 'gadgets'}}">Gadgets</v-btn>
           </v-row>
         </div>
-        <div class="ml-5" v-if="showLinks">
+        <div class="ml-5" v-if="mobileView">
           <v-btn icon="" id="menu-activator" color="black">
             <v-icon icon="mdi-menu"></v-icon>
           </v-btn>
@@ -26,7 +26,7 @@
             <v-list>
               <v-list-item>
                 <v-list-item-title>
-                  <HamburgerSearchBar :showLinks="showLinks"/>
+                  <HamburgerSearchBar :mobileView="mobileView"/>
                 </v-list-item-title>
               </v-list-item>
               <v-list-item :to="{ name: 'ProductsView' }" @click="showHamburgerMenu = false" link>
@@ -36,12 +36,12 @@
               </v-list-item>
               <v-list-item @click="showHamburgerMenu = false" link>
                 <v-list-item-title>
-                  Men Apparel
+                  Apparel
                 </v-list-item-title>
               </v-list-item>
               <v-list-item @click="showHamburgerMenu = false" link>
                 <v-list-item-title>
-                  Women Apparel
+                  Cosmetics
                 </v-list-item-title>
               </v-list-item>
               <v-list-item @click="showHamburgerMenu = false" link>
@@ -57,7 +57,7 @@
         <v-row>
           <v-col class="d-flex justify-end align-center">
             <div>
-               <SearchBar :showLinks="showLinks"/>
+               <SearchBar :mobileView="mobileView"/>
             </div>
             <div class="ml-1">
               <v-btn icon="" :to="{ name: 'CartView' }" v-if="cartItemCount > 0">
@@ -90,10 +90,10 @@
                       </span>
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item link>
+                  <v-list-item @click="showLoginDialog=true" link>
                     <v-list-item-title>
                       <span class="text-truncate">
-                        Logout
+                        Login
                       </span>
                     </v-list-item-title>
                   </v-list-item>
@@ -112,10 +112,14 @@
 import SearchBar from '@/components/products/SearchBar.vue'
 import HamburgerSearchBar from '@/components/products/HamburgerSearchBar.vue'
 import { ref, watchEffect } from 'vue'
+import { storeToRefs } from "pinia";
+import { useAuthStore } from '@/store/auth-store'
+
+const { showLoginDialog } = storeToRefs(useAuthStore())
 
 const props = defineProps({
   cartItemCount: Number,
-  showLinks: Boolean
+  mobileView: Boolean
 })
 
 const showHamburgerMenu = ref(false)

@@ -8,6 +8,7 @@ import ShowProductView from '@/views/ShowProductView.vue'
 import CartView from '@/views/CartView.vue'
 import OrderView from '@/views/OrderView.vue'
 import TrackOrdersView from '@/views/TrackOrdersView.vue'
+import CatalogView from '@/views/CatalogView.vue'
 import Error404 from '@/views/404.vue'
 
 const routes = [
@@ -15,6 +16,12 @@ const routes = [
     path: '/',
     name: 'ProductsView',
     component: ProductsView
+  },
+  {
+    path: '/products/:productCategory',
+    name: 'CatalogView',
+    component: CatalogView,
+    props: true
   },
   {
     path: '/product/id',

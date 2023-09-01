@@ -5,7 +5,7 @@
                 <div class="text-h6">
                     My Orders
                 </div>
-                    <v-row :style="!showLinks ? 'height:70px;' : ''">
+                    <v-row :style="!mobileView ? 'height:70px;' : ''">
                         <v-col cols="12" sm="9">
                             <v-tabs
                                 v-model="tab"
@@ -94,10 +94,10 @@ import { ref } from 'vue';
 
 const props = defineProps({
     cartItemCount: Number,
-    showLinks: Boolean
+    mobileView: Boolean
 })
 
-const tab = ref(null);
+const tab = ref(0);
 const orderCount = ref(5);
 const orderFilter = ref('Newest to Oldest');
 const orderFilterItems = ref(['Newest to Oldest', 'Oldest to Newest'])

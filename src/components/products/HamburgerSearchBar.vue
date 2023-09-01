@@ -12,7 +12,7 @@
         style="width: 300px;"
         rounded
         center-affix
-        v-if="showLinks"
+        v-if="mobileView"
         >
         <template v-slot:prepend-inner>
             <v-icon icon="mdi-magnify" color="black"></v-icon>
@@ -27,7 +27,7 @@
 import { ref, watchEffect } from 'vue';
 
 const props = defineProps({
-    showLinks: Boolean
+    mobileView: Boolean
 })
 
 const selected = ref('')

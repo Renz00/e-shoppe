@@ -13,7 +13,7 @@
         </template>
       </v-alert>
     </v-overlay>
-    <v-card class="mx-5 mx-lg-0 elevation-1" variant="outlined">
+    <v-card class="mx-5 mx-lg-0 elevation-1">
       <v-row>
         <v-col cols="12" md="6" class="mx-0 py-0 py-md-2 px-0">
           <v-img
@@ -108,7 +108,7 @@
                       color="secondary"
                       style="color: white"
                       width="100%"
-                      @click="addToCart()"
+                      @click="addToCart"
                     >
                       Add to Cart
                     </v-btn>
@@ -172,6 +172,9 @@
 <script setup>
 import ProductQuantity from "./ProductQuantity.vue";
 import { ref, watchEffect } from "vue";
+import { useProductStore } from '@/store/product-store'
+
+const { setCartItemCount } = useProductStore()
 
 const tab = ref(null);
 const overlay = ref(false);
@@ -179,11 +182,9 @@ const liked = ref(false);
 const imgload = ref(false);
 const productQuantity = ref(1);
 
-const emit = defineEmits(["emitCartItemCount"]);
-
 const addToCart = () => {
   overlay.value = true;
-  emit("emitCartItemCount");
+  setCartItemCount()
 };
 
 const incQuantity = () =>{

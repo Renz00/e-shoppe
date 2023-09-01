@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <!-- Listening to emitCartItemCount from child component -->
-        <ProductCardLg @emitCartItemCount="setCartItemCount"/>
+        <ProductCardLg />
       </v-col>
     </v-row>
     <v-row class="mt-5">
@@ -11,7 +11,7 @@
         <div class="text-h4 mb-5">
           Similar products
         </div>
-        <Products :products="simProducts" @emitSetCartItemCount="setCartItemCount"/>
+        <Products :products="simProducts"/>
       </v-col>
     </v-row>
   </v-container>
@@ -26,7 +26,7 @@ import { useProductStore } from '../store/product-store'
 
 //simProducts - array of products with similar category
 const { simProducts } = storeToRefs(useProductStore())
-const { setCartItemCount, fetchSimilarProducts, fetchSelectedProduct } = useProductStore()
+const { fetchSimilarProducts, fetchSelectedProduct } = useProductStore()
 
 onMounted ( async () => {
   // await fetchSelectedProduct()

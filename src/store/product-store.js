@@ -8,7 +8,7 @@ export const useProductStore = defineStore('productStore', {
     simProducts: [],
     selectedProduct: {},
     cartItemCount: 0,
-    currentProductCategory: '',
+    currentProductCategory: ''
   }),
   actions: {
     async fetchAllProducts(){
