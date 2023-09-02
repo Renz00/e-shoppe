@@ -1,7 +1,7 @@
 This is an ecommerce website for a fictional online business. <br/>
 <strong>Author:</strong> Renz De la Torre
 
-<strong>TSpecific Objectives:</strong>
+<strong>Specific Objectives:</strong>
 <ul>
     <li>
         Create a product catalog.
