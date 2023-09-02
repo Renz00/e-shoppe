@@ -10,19 +10,32 @@ Specific Objectives:
                 Users can filter and search for products.
             </li>
             <li>
-                Users can add products to their cart.
+                Users can add, and remove products in their cart.
+            </li>
+        </ul>
+    </li>
+     <li>
+        Implement user account authentication.
+        <ul>
+            <li>
+                Users can register an account.
+            </li>
+            <li>
+                Users can login to their account using their email address and password.
+            </li>
+            <li>
+                Users can only make orders when they are logged into an account.
             </li>
         </ul>
     </li>
     <li>
+        Allow users to manage their orders.
         <ul>
             <li>
+                Users can filter their orders.
             </li>
-        </ul>
-    </li>
-    <li>
-        <ul>
             <li>
+                Users can track their orders and browse previous ones.
             </li>
         </ul>
     </li>
