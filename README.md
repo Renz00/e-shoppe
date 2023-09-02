@@ -1,7 +1,7 @@
 This is an ecommerce website for a fictional online business. <br/>
 <strong>Author:</strong> Renz De la Torre
 
-Specific Objectives:
+<strong>TSpecific Objectives:</strong>
 <ul>
     <li>
         Create a product catalog.
@@ -41,7 +41,7 @@ Specific Objectives:
     </li>
 </ul>
 
-Technologies Used: <br />
+<strong>Technologies Used:</strong><br />
 <ul>
     <li>Frontend - HTML, CSS,Vue JS 3, Vuetify</li>
     <li>Backend - Laravel 10 for the REST API</li>
