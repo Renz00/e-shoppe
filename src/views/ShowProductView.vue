@@ -12,6 +12,7 @@
           Similar products
         </div>
         <Products :products="simProducts"/>
+        <Pagination />
       </v-col>
     </v-row>
   </v-container>
@@ -21,6 +22,7 @@
 import { onMounted } from 'vue';
 import ProductCardLg from '@/components/products/ProductCardLg.vue'
 import Products from '@/components/products/Products.vue'
+import Pagination from '@/components/products/Pagination.vue';
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 

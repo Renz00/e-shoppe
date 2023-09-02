@@ -8,6 +8,7 @@
       </v-col>
     </v-row>
       <Products :products="products" @emitSetCartItemCount="setCartItemCount"/>
+      <LoadMore v-if="products.length>0"/>
     </v-container>
   </div>
 </template>
@@ -16,6 +17,7 @@
 import Products from '@/components/products/Products.vue'
 import Banner from "@/components/layout/Banner.vue"
 import CatalogHeader from "@/components/products/CatalogHeader.vue"
+import LoadMore from '@/components/products/LoadMore.vue';
 import { onMounted, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'

@@ -3,7 +3,7 @@
         <v-row>
             <v-col cols="12" class="pl-7">
                 <div class="text-h6">
-                    {{ uppercaseProductCategory }}
+                    Showing {{ uppercaseProductCategory }}
                 </div>
             </v-col>
         </v-row>
