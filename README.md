@@ -1,4 +1,4 @@
-This is an ecommerce website for a fictional online business.
+This is an ecommerce website for a fictional online business. <br/>
 <strong>Author:</strong> Renz De la Torre
 
 Specific Objectives:
