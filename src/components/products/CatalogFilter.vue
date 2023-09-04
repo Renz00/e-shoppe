@@ -9,7 +9,7 @@
         </v-btn>
         <v-menu activator="#filter-activator" width="300" :close-on-content-click="false">
             <div>
-                <FilterMenu />
+                <FilterMenu @emitSetCategory="emits('emitSetCategory', selectedCategory)"/>
             </div>
             
         </v-menu>
@@ -17,5 +17,5 @@
 
 <script setup>
 import FilterMenu from './FilterMenu.vue'
-
+const emits = defineEmits(['emitSetCategory'])
 </script>

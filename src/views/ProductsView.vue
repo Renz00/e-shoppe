@@ -4,7 +4,7 @@
     <v-container>
       <v-row>
       <v-col>
-        <CatalogHeader @emitSetCategory="setCategory"/>
+        <CatalogHeader @emitSetCategory=""/>
       </v-col>
     </v-row>
       <Products :products="products" @emitSetCartItemCount="setCartItemCount"/>
@@ -18,17 +18,12 @@ import Products from '@/components/products/Products.vue'
 import Banner from "@/components/layout/Banner.vue"
 import CatalogHeader from "@/components/products/CatalogHeader.vue"
 import LoadMore from '@/components/products/LoadMore.vue';
-import { onMounted, computed } from "vue";
+import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 
 const { products } = storeToRefs(useProductStore())
 const { fetchAllProducts, setCartItemCount } = useProductStore()
-
-const setCategory = (selectedCategory) => {
-  console.log(selectedCategory)
-}
-
 
 onMounted ( async () => {
   await fetchAllProducts()
