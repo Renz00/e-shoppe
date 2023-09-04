@@ -30,13 +30,13 @@
                             </div>
                         </v-row>
                         
-                        <v-row class="justify-center align-center">
-                            <v-col cols="6" sm="4" class="px-0 text-subtitle-2">
+                        <v-row :class="disableCartItemsButtons ? '' : 'justify-center align-center'">
+                            <v-col cols="6" sm="4" class="px-0 text-subtitle-2" v-if="!disableCartItemsButtons">
                                 <v-row class="my-2">
                                     <ProductQuantity @emitIncQuantity="incQuantity" @emitDecQuantity="decQuantity" :productQuantity="productQuantity"/>
                                 </v-row>
                             </v-col>
-                            <v-col cols="6" sm="8" class="text-subtitle-2">Product Price</v-col>
+                            <v-col cols="6" sm="8" class="px-0 text-subtitle-2">Product Price</v-col>
                         </v-row>
                     </v-container>
                 </v-col>

@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar class="elevation-2" height="50">
+  <v-app-bar class="elevation-2" height="50" color="white">
     <v-row>
       <v-col class="d-flex justify-start align-center" v-if="!mobileView">
         <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
@@ -87,6 +87,13 @@
                     <v-list-item-title>
                       <span class="text-truncate">
                         Track Orders
+                      </span>
+                    </v-list-item-title>
+                  </v-list-item>
+                  <v-list-item :to="{name: 'FavouritesView'}" link>
+                    <v-list-item-title>
+                      <span class="text-truncate">
+                        My Favourites
                       </span>
                     </v-list-item-title>
                   </v-list-item>

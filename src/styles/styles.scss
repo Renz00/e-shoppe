@@ -1,5 +1,7 @@
-$success: #00BFA5;
-$primary: #0091EA;
+$success: #48A9A6;
+$primary: #4281A4;
+$secondary: #D4B483;
+$error: #C1666B;
 $gray: gray;
 
 //COLOR STYLES
@@ -107,7 +109,7 @@ $gray: gray;
 
 //Mozilla
 * {
-  scrollbar-color: $primary #f1f1f1;
+  scrollbar-color: $error;
   scrollbar-width: thin;
 }
   
@@ -123,11 +125,11 @@ $gray: gray;
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background:#00B0FF; 
+  background: $error; 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #40C4FF; 
+  background: $error; 
 }
   

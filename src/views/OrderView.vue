@@ -29,7 +29,7 @@
                   </v-row>
                   <v-row class="mt-0">
                     <v-col class="mx-2">
-                      <v-progress-linear model-value="30" color="secondary" height="10" striped></v-progress-linear>
+                      <v-progress-linear model-value="30" color="success" height="10" striped></v-progress-linear>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -59,7 +59,7 @@
         </v-row>
         <v-row>
             <v-col class="px-5 px-md-0" cols="12">
-                <v-btn color="secondary" size="large" width="100%">Cancel Order</v-btn>
+                <v-btn color="black" size="large" width="100%">Cancel Order</v-btn>
             </v-col>
         </v-row>
       </v-col>

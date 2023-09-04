@@ -28,7 +28,7 @@
                    </v-container>
                </v-col>
                <v-col cols="12" sm="3" class="d-flex justify-center align-center py-10 py-md-2 px-10">
-                <v-btn color="secondary" width="100%">Cancel</v-btn>
+                <v-btn color="black" width="100%">Cancel</v-btn>
                </v-col>
            </v-row>
        </v-list-item>

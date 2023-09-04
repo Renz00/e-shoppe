@@ -36,7 +36,7 @@
                 </div>
               </div>
             <!-- click.stop prevents child click from triggering parent click -->
-            <v-btn class="rounded-0" @click.stop="setCartItemCount" width="100%" color="secondary">
+            <v-btn class="rounded-0" @click.stop="setCartItemCount" width="100%" color="success">
               <span style="color: white;">
                 Add to Cart
               </span>
@@ -51,7 +51,6 @@
 <script setup>
 import { ref } from 'vue';
 import router from '@/router/index';
-import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
 
 const { setCartItemCount } = useProductStore()

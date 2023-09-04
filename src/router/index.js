@@ -9,6 +9,7 @@ import CartView from '@/views/CartView.vue'
 import OrderView from '@/views/OrderView.vue'
 import TrackOrdersView from '@/views/TrackOrdersView.vue'
 import CatalogView from '@/views/CatalogView.vue'
+import FavouritesView from '@/views/FavouritesView.vue'
 import Error404 from '@/views/404.vue'
 
 const routes = [
@@ -32,7 +33,13 @@ const routes = [
     path: '/cart',
     name: 'CartView',
     component: CartView,
-    props: { disableOrderSummaryButtons: false, cartItemsHeight: 620 }
+    props: { disableOrderSummaryButtons: false, cartItemsHeight: 690 }
+  },
+  {
+    path: '/my-favourites',
+    name: 'FavouritesView',
+    component: FavouritesView,
+    props: { disableCartItemsButtons: true,  cartItemsHeight: 600}
   },
   {
     path: '/my-orders',
