@@ -7,7 +7,7 @@
             <v-row>
               <v-col>
                 <div class="text-subtitle-1 pb-3">
-                  Login to your account
+                  Create your account
                 </div>
                 <form @submit.prevent="submit">
                   <v-text-field class="pb-2" v-model="name" :rules="nameRules" placeholder="Name" variant="outlined" density='compact' required></v-text-field>

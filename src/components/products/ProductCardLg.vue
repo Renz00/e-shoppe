@@ -37,7 +37,7 @@
           </v-img>
         </v-col>
         <v-col cols="12" md="6">
-          <v-tabs v-model="tab" color="error" density="compact" align-tabs="center">
+          <v-tabs v-model="tab" color="success" density="compact" align-tabs="center">
             <v-tab value="one">Info</v-tab>
             <v-tab value="two">Product Details</v-tab>
           </v-tabs>
@@ -105,7 +105,7 @@
                   <v-col cols="12" xl="9" lg="9" md="8" sm="6">
                     <v-btn
                       size="large"
-                      color="error"
+                      color="success"
                       style="color: white"
                       width="100%"
                       @click="addToCart"
@@ -126,7 +126,7 @@
                           v-bind="props"
                           @click="liked = true"
                           size="large"
-                          color="success"
+                          color="error"
                           style="color: white"
                           width="100%"
                         >
