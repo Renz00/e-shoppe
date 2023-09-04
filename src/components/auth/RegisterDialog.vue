@@ -10,7 +10,7 @@
                   Login to your account
                 </div>
                 <form @submit.prevent="submit">
-                  <v-text-field class="pb-2" v-model="name" :rules="nameRules" label="Name" variant="outlined" density='compact' required></v-text-field>
+                  <v-text-field class="pb-2" v-model="name" :rules="nameRules" placeholder="Name" variant="outlined" density='compact' required></v-text-field>
                   <v-text-field class="pb-2" v-model="phone" :rules="phoneRules" placeholder="Phone Number" variant="outlined" density='compact' required></v-text-field>
                   <v-text-field class="pb-2" v-model="email" :rules="emailRules" placeholder="E-mail" variant="outlined" density='compact' required></v-text-field>
                   <v-text-field class="pb-2" v-model="password" :counter="8" :rules="passwordRules" placeholder="Password" variant="outlined" density='compact' required></v-text-field>
