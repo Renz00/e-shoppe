@@ -1,8 +1,8 @@
 import api from "./api";
 
-const url = "products"
+const url = "/api/v1/products"
 
-export const allProducts = () => api.get(url+"?limit=12")
+export const allProducts = () => api.get(url)
 
 
 export const similarProducts = (category) => api.get(url+'/category/'+category)

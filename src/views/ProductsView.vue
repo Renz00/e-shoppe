@@ -8,6 +8,15 @@
       </v-col>
     </v-row>
       <Products :products="products" @emitSetCartItemCount="setCartItemCount"/>
+      <v-sheet height="800" v-if="products.length == 0">
+          <div class="d-flex align-center justify-center fill-height">
+            <v-progress-circular
+              color="primary"
+              size="large"
+              indeterminate
+            ></v-progress-circular>
+          </div>
+      </v-sheet>
       <LoadMore v-if="products.length>0"/>
     </v-container>
   </div>

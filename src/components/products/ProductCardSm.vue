@@ -26,13 +26,13 @@
               </div>
               <div class="pa-2">
                 <div class="text-h6 mb-1">
-                  {{ product.title }}
+                  {{ product.product_name }}
                 </div>
                 <div class="text-caption font-italic">
-                  {{ product.category }}
+                  {{ product.product_category }}
                 </div>
                 <div class="d-flex justify-center align-center text-caption text-truncate">
-                  <v-icon icon="mdi-star" color="yellow"></v-icon>{{ product.rating+' | ₱'+product.price.toLocaleString() }}
+                  <v-icon icon="mdi-star" color="yellow"></v-icon>{{ product.product_rating+' | ₱'+product.product_price.toLocaleString() }}
                 </div>
               </div>
             <!-- click.stop prevents child click from triggering parent click -->

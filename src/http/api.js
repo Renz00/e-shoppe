@@ -1,6 +1,6 @@
 import axios from "axios"
 
-//for api auth and cors issues
+// for api auth and cors issues
 // axios.defaults.withCredentials = true
 
 const api = axios.create({
