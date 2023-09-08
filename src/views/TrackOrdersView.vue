@@ -14,9 +14,8 @@
                                 center-active
                                 show-arrows
                             >
-                            <v-tab :value="0"><span class="text-uppercase">All</span></v-tab>
-                            <v-tab :value="1"><span class="text-uppercase">Processing</span></v-tab>
-                            <v-tab :value="2"><span class="text-uppercase">Shipped</span></v-tab>
+                            <v-tab :value="1"><span class="text-uppercase">Packaging</span></v-tab>
+                            <v-tab :value="2"><span class="text-uppercase">In Transit</span></v-tab>
                             <v-tab :value="3"><span class="text-uppercase">Arrived</span></v-tab>
                             <v-tab :value="4"><span class="text-uppercase">Cancelled</span></v-tab>
                             </v-tabs>
@@ -59,15 +58,6 @@
                             </v-container>
                         </v-window-item>
                         <v-window-item value="four">
-                            <v-container fluid>
-                            <v-row>
-                                <v-col>
-                                    <OrderList :orderCount="orderCount"/>
-                                </v-col>
-                            </v-row>
-                            </v-container>
-                        </v-window-item>
-                        <v-window-item value="five">
                             <v-container fluid>
                             <v-row>
                                 <v-col>
