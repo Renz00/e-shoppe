@@ -38,8 +38,7 @@ const routes = [
   {
     path: '/my-favourites',
     name: 'FavouritesView',
-    component: FavouritesView,
-    props: { disableCartItemsButtons: true,  cartItemsHeight: 600}
+    component: FavouritesView
   },
   {
     path: '/my-orders',
