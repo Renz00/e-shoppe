@@ -97,7 +97,7 @@
                       </span>
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click="showLoginDialog=true" link>
+                  <v-list-item @click="setAuthDialog('login')" link>
                     <v-list-item-title>
                       <span class="text-truncate">
                         Login
@@ -119,10 +119,10 @@
 import SearchBar from '@/components/products/SearchBar.vue'
 import HamburgerSearchBar from '@/components/products/HamburgerSearchBar.vue'
 import { ref, watchEffect } from 'vue'
-import { storeToRefs } from "pinia";
+import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/store/auth-store'
 
-const { showLoginDialog } = storeToRefs(useAuthStore())
+const { setAuthDialog } = useAuthStore()
 
 const props = defineProps({
   cartItemCount: Number,

@@ -212,5 +212,5 @@ watchEffect(() => {
       liked.value = false;
     }, 1000);
   }
-});
+})
 </script>

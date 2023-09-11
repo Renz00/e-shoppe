@@ -1,42 +1,30 @@
 <template>
-  <v-row justify="center">
-    <v-dialog v-model="showRegisterDialog" width="500" height="600">
-      <v-card>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col>
-                <div class="text-subtitle-1 pb-3">
-                  Create your account
-                </div>
-                <form @submit.prevent="submit">
-                  <v-text-field class="pb-2" v-model="name" :rules="nameRules" placeholder="Name" variant="outlined" density='compact' required></v-text-field>
-                  <v-text-field class="pb-2" v-model="phone" :rules="phoneRules" placeholder="Phone Number" variant="outlined" density='compact' required></v-text-field>
-                  <v-text-field class="pb-2" v-model="email" :rules="emailRules" placeholder="E-mail" variant="outlined" density='compact' required></v-text-field>
-                  <v-text-field class="pb-2" v-model="password" :counter="8" :rules="passwordRules" placeholder="Password" variant="outlined" density='compact' required></v-text-field>
-                    <v-text-field v-model="confirm_password" :counter="8" :rules="confirmPasswordRules" variant="outlined" density='compact' placeholder="Confirm Password" required></v-text-field>
-                  <div class="pt-5">
-                    <v-btn class="me-4" type="submit">
-                      submit
-                    </v-btn>
-                    <v-btn @click="">
-                      clear
-                    </v-btn>
-                  </div>
-                </form>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+  <v-row>
+    <v-col>
+      <div class="text-subtitle-1 pb-3">
+        Create your account
+      </div>
+      <form @submit.prevent="submit">
+        <v-text-field class="pb-2" v-model="name" :rules="nameRules" placeholder="Name" variant="outlined" density='compact' required></v-text-field>
+        <v-text-field class="pb-2" v-model="phone" :rules="phoneRules" placeholder="Phone Number" variant="outlined" density='compact' required></v-text-field>
+        <v-text-field class="pb-2" v-model="email" :rules="emailRules" placeholder="E-mail" variant="outlined" density='compact' required></v-text-field>
+        <v-text-field class="pb-2" v-model="password" :counter="8" :rules="passwordRules" placeholder="Password" variant="outlined" density='compact' required></v-text-field>
+          <v-text-field v-model="confirm_password" :counter="8" :rules="confirmPasswordRules" variant="outlined" density='compact' placeholder="Confirm Password" required></v-text-field>
+        <div class="pt-5">
+          <v-btn class="me-4" type="submit">
+            submit
+          </v-btn>
+          <v-btn @click="">
+            clear
+          </v-btn>
+        </div>
+      </form>
+    </v-col>
   </v-row>
+
 </template>
 <script setup>
 import { ref } from 'vue'
-import { storeToRefs } from "pinia";
-import { useAuthStore } from '@/store/auth-store'
-var { showRegisterDialog } = storeToRefs(useAuthStore())
 
 const email = ref('')
 const name = ref('')

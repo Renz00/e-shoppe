@@ -1,13 +1,10 @@
 import api from "./api";
 
-const url = "/v1/products"
+const url = "/auth"
 
-export const allProducts = () => api.get(url)
+export const login = (creds) => api.post(url+'/login', creds)
 
-
-export const similarProducts = (category) => api.get(url+'/category/'+category)
-
-// export const createTask = (task) => api.post(url, task)
+export const register = (newUser) => api.post(url+'/register', newUser)
 
 // export const updateTask = (id, task) => api.put(url+'/'+id, task)
 

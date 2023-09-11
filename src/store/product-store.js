@@ -13,7 +13,7 @@ export const useProductStore = defineStore('productStore', {
   actions: {
     async fetchAllProducts(){
       const {data} = await allProducts()
-      this.products = data.products
+      this.products = data.products.data
       // this.currentProductCategory = data.products.category
     },
     async fetchSelectedProduct(){

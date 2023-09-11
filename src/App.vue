@@ -4,8 +4,7 @@
     <v-main>
       <router-view :cartItemCount="cartItemCount" :mobileView="mobileView"/>
     </v-main>
-    <LoginDialog />
-    <RegisterDialog />
+    <AuthDialog />
     <Footer />
   </v-app>
 </template>
@@ -13,8 +12,7 @@
 <script setup>
 import Navbar from "./components/layout/Navbar.vue"
 import Footer from "./components/layout/Footer.vue"
-import LoginDialog from "@/components/auth/LoginDialog.vue"
-import RegisterDialog from "./components/auth/RegisterDialog.vue";
+import AuthDialog from "./components/auth/authDialog.vue";
 
 import { storeToRefs } from "pinia";
 import { computed } from 'vue'
