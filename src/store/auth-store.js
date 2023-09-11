@@ -13,16 +13,13 @@ export const useAuthStore = defineStore("authStore", () => {
   const showLogin=ref(false)
   const showRegister=ref(false)
   const showAuthDialog = ref(false)
+  const authLoading = ref(false)
 
   //computed variable to retrieve user data and token
   const userData = computed(() => {
-    if (localStorage.getItem('user') != null && localStorage.getItem('token') != null ){
-      const decryptedUser = decryption(localStorage.getItem('user'))
-      const decryptedToken = decryption(localStorage.getItem('token'))
-      return {
-        "user": JSON.parse(decryptedUser),
-        "token": decryptedToken
-      }
+    if (localStorage.getItem('data') != null){
+      const decryptedData = decryption(localStorage.getItem('data'))
+      return JSON.parse(decryptedData)
     }
     else {
       return false
@@ -42,7 +39,7 @@ export const useAuthStore = defineStore("authStore", () => {
     showLogin.value = false
     showRegister.value = false
     //Check if a user is already logged in
-    if (localStorage.getItem('user') != null && localStorage.getItem('token') != null){
+    if (localStorage.getItem('data') != null){
       showAuthDialog.value = false
     }
     else {
@@ -59,31 +56,33 @@ export const useAuthStore = defineStore("authStore", () => {
   }
 
   const handleLogin = async(creds) => {
+    authLoading.value=true
     const {data} = await login(creds)
     user.value = data.user
     token.value = data.token
 
     //If user is logged in, encrypt data and store in localStorage
     if (user.value!=null && token.value != null){
-      const encryptedUser = encryption(JSON.stringify(user.value))
-      const encryptedToken = encryption(token.value)
-      
-      localStorage.removeItem('user')
-      localStorage.removeItem('token')
-      localStorage.setItem('user', encryptedUser)
-      localStorage.setItem('token', encryptedToken)
+
+      const data = user.value
+      //Add token to data object
+      data['token'] = token.value
+
+      const encryptedData = encryption(JSON.stringify(data))
+
+      localStorage.removeItem('data')
+      localStorage.setItem('data', encryptedData)
       showAuthDialog.value = false
-      
+      authLoading.value = false
     }
     else {
       console.log('Failed login')
     }
-
   }
 
   const handleRegister = async(newUser) => {
     const {data} = await register(newUser)
-    
+
     if (data.result == 1){
       //If user has been successfully registered, call handleLogin method
       await handleLogin({
@@ -98,12 +97,11 @@ export const useAuthStore = defineStore("authStore", () => {
 
   const handleLogout = async() => {
     const {data} = await logout()
-    
+
     if (data.result == 1){
       user.value = []
       token.value = null
-      localStorage.removeItem('user')
-      localStorage.removeItem('token')
+      localStorage.removeItem('data')
     }
     else {
       console.log('Failed logout')
@@ -121,6 +119,5 @@ export const useAuthStore = defineStore("authStore", () => {
       handleRegister,
       handleLogout
   }
-
 })
 

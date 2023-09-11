@@ -3,11 +3,10 @@
 <v-col>
     <div class="text-subtitle-1 pb-3">
         Login to your account
-        {{ userData }}
     </div>
     <form @submit.prevent="submit">
         <v-text-field class="pb-2" v-model="email" :rules="emailRules" density='compact' placeholder="E-mail" variant="outlined" required></v-text-field>
-        <v-text-field v-model="password" :rules="passwordRules" density='compact' variant="outlined" placeholder="Password" required></v-text-field>
+        <v-text-field v-model="password" :rules="passwordRules" type="password" density='compact' variant="outlined" placeholder="Password" required></v-text-field>
         <v-checkbox v-model="remember" value="1" label="Remember me"
             type="checkbox"></v-checkbox>
         <div class="">
@@ -27,12 +26,16 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/store/auth-store'
 const { handleLogin } = useAuthStore()
 
+const props = defineProps({
+  authLoading: Boolean
+})
+
 const email = ref('')
 const password = ref('')
 const remember = ref(null)
 const disableRegister = ref(false)
 
-const emits = defineEmits(['emitShowRegister'])
+const emits = defineEmits(['emitShowRegister', 'emitAuthLoading'])
 
 const emailRules = ref([
     value =>  !!value || 'Email is required.',
@@ -44,12 +47,13 @@ const passwordRules = ref([
 ])
 
 const login = (email, password) => {
-    disableRegister.value=true
+
     if (email.length>0 && password.length>0){
         const creds = {
         "email": email,
         "password": password
-        } 
+        }
+        disableRegister.value=true
         handleLogin(creds)
     }
 }
