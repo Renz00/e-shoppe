@@ -13,7 +13,7 @@
             <v-btn class="me-4" color="success" @click="login(email, password)" type="submit" :loading="authLoading">
                 submit
             </v-btn>
-            <v-btn class="me-4" variant="text" color="primary" @click="emits('emitShowRegister')" :disabled="disableRegister">
+            <v-btn class="me-4" variant="text" color="primary" @click="emits('emitShowRegister')" :disabled="authLoading">
                 Create Account
             </v-btn>
         </div>
@@ -25,10 +25,6 @@
 import { ref } from 'vue'
 import { useAuthStore } from '@/store/auth-store'
 const { handleLogin } = useAuthStore()
-
-const props = defineProps({
-  authLoading: Boolean
-})
 
 const email = ref('')
 const password = ref('')
