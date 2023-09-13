@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { computed, ref } from "vue";
 import CryptoJS from 'crypto-js'
 
-import { login } from "../http/auth-api"
+import { login, register } from "../http/auth-api"
 
 export const useAuthStore = defineStore("authStore", () => {
 
@@ -13,7 +13,10 @@ export const useAuthStore = defineStore("authStore", () => {
   const showLogin=ref(false)
   const showRegister=ref(false)
   const showAuthDialog = ref(false)
+  const showAuthErrors = ref(false)
   const authLoading = ref(false)
+  const errors = ref(null)
+  
 
   //computed variable to retrieve user data and token
   const userData = computed(() => {
@@ -36,6 +39,8 @@ export const useAuthStore = defineStore("authStore", () => {
 
   const setAuthDialog = (type) =>{
     //instantiate values
+    showAuthErrors.value = false
+    errors.value = null
     showLogin.value = false
     showRegister.value = false
     //Check if a user is already logged in
@@ -78,21 +83,31 @@ export const useAuthStore = defineStore("authStore", () => {
     else {
       console.log('Failed login')
     }
+
+    if (data.errors!=null) {
+      errors.value = data.errors
+    }
   }
 
   const handleRegister = async(newUser) => {
-    const {data} = await register(newUser)
+      const {data} = await register(newUser)
 
-    if (data.result == 1){
-      //If user has been successfully registered, call handleLogin method
-      await handleLogin({
-        'email': newUser.email,
-        'password': newUser.password
-      })
-    }
-    else {
-      console.log('Failed register')
-    }
+      if (data.errors != null){
+        // for (var key in data.errors) {
+        //   const errorValue = data.errors[key][0]
+        //   errors[`${key}`] = errorValue
+        // }
+        errors.value = data.errors
+        showAuthErrors.value = true
+      }
+
+      if (data.result == 1){
+        //If user has been successfully registered, call handleLogin method
+        await handleLogin({
+          'email': newUser.email,
+          'password': newUser.password
+        })
+      }
   }
 
   const handleLogout = async() => {
@@ -114,6 +129,9 @@ export const useAuthStore = defineStore("authStore", () => {
       showLogin,
       showRegister,
       showAuthDialog,
+      authLoading,
+      showAuthErrors,
+      errors,
       setAuthDialog,
       handleLogin,
       handleRegister,
