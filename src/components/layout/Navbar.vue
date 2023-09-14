@@ -19,10 +19,10 @@
           </v-row>
         </div>
         <div class="ml-5" v-if="mobileView">
-          <v-btn icon="" id="menu-activator" color="black">
+          <v-btn icon="" id="nav-menu1" color="black">
             <v-icon icon="mdi-menu"></v-icon>
           </v-btn>
-          <v-menu activator="#menu-activator" v-model="showHamburgerMenu" :close-on-content-click="false">
+          <v-menu activator="#nav-menu1" v-model="showHamburgerMenu" :close-on-content-click="false">
             <v-list>
               <v-list-item>
                 <v-list-item-title>
@@ -80,8 +80,9 @@
               </v-tooltip>
             </div>
             <div class="mr-5">
-              <v-btn id="menu-activator3" icon=""><v-icon icon="mdi-account-circle" :color="isLoggedIn ? 'primary' : ''"></v-icon></v-btn>
-              <v-menu activator="#menu-activator3">
+              <v-btn id="login-btn" icon="" @click="setAuthDialog('login')" v-if="!isLoggedIn"><v-icon icon="mdi-account-circle"></v-icon></v-btn>
+              <v-btn id="nav-menu2" icon="" v-if="isLoggedIn"><v-icon icon="mdi-account-circle" color="primary"></v-icon></v-btn>
+              <v-menu activator="#nav-menu2">
                 <v-list>
                   <v-list-item :to="{name: 'TrackOrdersView'}" link>
                     <v-list-item-title>
@@ -97,14 +98,7 @@
                       </span>
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click="setAuthDialog('login')" link>
-                    <v-list-item-title>
-                      <span class="text-truncate">
-                        Login
-                      </span>
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="handleLogout" link v-if="isLoggedIn">
+                  <v-list-item @click="handleLogout" link :disabled="authLoading">
                     <v-list-item-title>
                       <span class="text-truncate">
                         Logout
@@ -130,7 +124,7 @@ import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/store/auth-store'
 
 const { setAuthDialog, handleLogout } = useAuthStore()
-const { isLoggedIn } = storeToRefs(useAuthStore())
+const { isLoggedIn, authLoading } = storeToRefs(useAuthStore())
 
 const props = defineProps({
   cartItemCount: Number,

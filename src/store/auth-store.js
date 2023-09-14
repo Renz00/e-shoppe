@@ -84,7 +84,9 @@ export const useAuthStore = defineStore("authStore", () => {
   }
 
   const handleLogout = async() => {
+    authLoading.value = true
     if (localStorage.getItem('data') != null){
+      
       const decryptedData = decryption(localStorage.getItem('data'))
       const parsedData = JSON.parse(decryptedData)
       const {data} = await logout(parsedData.token)
@@ -96,9 +98,11 @@ export const useAuthStore = defineStore("authStore", () => {
       else {
         console.log('Failed logout')
       }
+      authLoading.value = false
     }
     else {
       console.log('Failed to get data, logout escaped.')
+      authLoading.value = false
     }
   }
 

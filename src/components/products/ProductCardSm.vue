@@ -28,8 +28,9 @@
                 <div class="text-h6 mb-1">
                   {{ product.product_name }}
                 </div>
-                <div class="text-caption font-italic">
-                  {{ product.product_category }}
+                <v-divider></v-divider>
+                <div class="text-caption font-weight-bold">
+                  {{ category(product.product_category) }}
                 </div>
                 <div class="d-flex justify-center align-center text-caption text-truncate">
                   <v-icon icon="mdi-star" color="yellow"></v-icon>{{ product.product_rating+' | ₱'+product.product_price.toLocaleString() }}
@@ -49,7 +50,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import router from '@/router/index';
 import { useProductStore } from '@/store/product-store'
 
@@ -60,5 +61,21 @@ const props = defineProps({
 })
 
 var imgload = ref(false)
+
+const category = (val) => {
+  switch (val){
+    case 1:
+      return 'Gadgets'
+      break
+    case 2:
+      return 'Cosmetics'
+      break
+    case 3:
+      return 'Apparel'
+      break 
+    default:
+      break
+  }
+}
 
 </script>
