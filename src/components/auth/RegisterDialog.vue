@@ -4,13 +4,7 @@
       <div class="text-subtitle-1 pb-3">
         Create your account
       </div>
-      <div class="pb-3" v-if="showAuthErrors">
-          <v-alert closable icon="mdi-alert-circle" type="error">
-            <ul>
-              <li class="text-body-2" v-for="error in errors">{{ error[0] }}</li>
-            </ul>
-          </v-alert>
-      </div>
+      <authErrors :errors="errors" :showAuthErrors="showAuthErrors"/>
       <form @submit.prevent="submit">
         <v-text-field class="pb-2" v-model="name" :rules="nameRules" placeholder="Name" variant="outlined" density='compact' required></v-text-field>
         <v-text-field class="pb-2" v-model="phone" :rules="phoneRules" placeholder="Phone Number" type="number" variant="outlined" density='compact' required>
@@ -23,7 +17,7 @@
         <v-text-field v-model="confirm_password" :counter="8" :rules="confirmPasswordRules" type="password" variant="outlined" density='compact' placeholder="Confirm Password" required></v-text-field>
         
         <div class="pt-5">
-          <v-btn class="me-4" @click="register" color="success" type="submit">
+          <v-btn class="me-4" @click="register" color="success" type="submit" :loading="authLoading">
             submit
           </v-btn>
           <v-btn class="me-4" variant="text" color="primary" @click="emits('emitShowLogin')" :disabled="authLoading">
@@ -37,6 +31,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import authErrors from './authErrors.vue';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/store/auth-store'
 const { authLoading, errors, showAuthErrors } = storeToRefs(useAuthStore())

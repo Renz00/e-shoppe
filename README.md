@@ -1,3 +1,7 @@
+# things to do
+1. Integrate products API to the frontend (filter, search)
+2. CRUD functionality in cart (add, update, and remove products in cart)
+
 This is an ecommerce website for a fictional online business. <br/>
 <strong>Author:</strong> Renz De la Torre
 
@@ -10,7 +14,7 @@ This is an ecommerce website for a fictional online business. <br/>
                 Users can filter and search for products.
             </li>
             <li>
-                Users can add, and remove products in their cart.
+                Users can add, update, and remove products in their cart.
             </li>
         </ul>
     </li>

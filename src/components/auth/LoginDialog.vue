@@ -4,6 +4,7 @@
     <div class="text-subtitle-1 pb-3">
         Login to your account
     </div>
+    <authErrors :errors="errors" :showAuthErrors="showAuthErrors" />
     <form class="form-inputs" @submit.prevent="submit">
         <v-text-field class="pb-2" v-model="email" :rules="emailRules" density='compact' placeholder="E-mail" variant="outlined" required></v-text-field>
         <v-text-field v-model="password" :rules="passwordRules" type="password" density='compact' variant="outlined" placeholder="Password" required></v-text-field>
@@ -24,11 +25,12 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import authErrors from './authErrors.vue';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/store/auth-store'
 
 const { handleLogin } = useAuthStore()
-const { authLoading, errors } = storeToRefs(useAuthStore())
+const { authLoading, errors, showAuthErrors } = storeToRefs(useAuthStore())
 
 const email = ref('')
 const password = ref('')

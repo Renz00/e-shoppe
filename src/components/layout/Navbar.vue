@@ -62,7 +62,7 @@
             <div class="ml-1">
               <v-btn icon="" :to="{ name: 'CartView' }" v-if="cartItemCount > 0">
                   <v-badge :content="cartItemCount" color="error">
-                    <v-icon icon="mdi-cart-outline"></v-icon>
+                    <v-icon icon="mdi-cart-outline" color="primary"></v-icon>
                   </v-badge>
               </v-btn>
               <v-tooltip
@@ -80,7 +80,7 @@
               </v-tooltip>
             </div>
             <div class="mr-5">
-              <v-btn id="menu-activator3" icon=""><v-icon icon="mdi-account-circle"></v-icon></v-btn>
+              <v-btn id="menu-activator3" icon=""><v-icon icon="mdi-account-circle" :color="isLoggedIn ? 'primary' : ''"></v-icon></v-btn>
               <v-menu activator="#menu-activator3">
                 <v-list>
                   <v-list-item :to="{name: 'TrackOrdersView'}" link>
@@ -104,6 +104,13 @@
                       </span>
                     </v-list-item-title>
                   </v-list-item>
+                  <v-list-item @click="handleLogout" link v-if="isLoggedIn">
+                    <v-list-item-title>
+                      <span class="text-truncate">
+                        Logout
+                      </span>
+                    </v-list-item-title>
+                  </v-list-item>
                 </v-list>
               </v-menu>
             </div>
@@ -122,7 +129,8 @@ import { ref, watchEffect } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/store/auth-store'
 
-const { setAuthDialog } = useAuthStore()
+const { setAuthDialog, handleLogout } = useAuthStore()
+const { isLoggedIn } = storeToRefs(useAuthStore())
 
 const props = defineProps({
   cartItemCount: Number,

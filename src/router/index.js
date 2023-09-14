@@ -68,10 +68,20 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   const { cartItemCount } = storeToRefs(useProductStore())
+  const cartRoutes = ['CartView', 'OrderView']
+  const authGuardRoutes = ['CartView', 'OrderView', 'FavouritesView', 'TrackOrdersView']
   //Will redirect to homepage if cart is empty
   if (cartItemCount.value<=0) {
-    if (to.name == "CartView" || to.name == "OrderView"){
+    //if the result is not false, to.name value exists in array of route names
+    if (cartRoutes.includes(to.name)!=false){
       router.push({name: 'ProductsView'})
+      console.log('route guarded: no items in cart')
+    }
+  }
+  if (localStorage.getItem('data')==null){
+    if (authGuardRoutes.includes(to.name)!=false){
+      router.push({name: 'ProductsView'})
+      console.log('route guarded: user not logged in')
     }
   }
 })
