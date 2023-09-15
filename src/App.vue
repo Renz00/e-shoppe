@@ -2,7 +2,7 @@
   <v-app>
     <Navbar :cartItemCount="cartItemCount" :mobileView="mobileView"/>
     <v-main>
-      <router-view :cartItemCount="cartItemCount" :mobileView="mobileView"/>
+        <router-view :cartItemCount="cartItemCount" :mobileView="mobileView"/>
     </v-main>
     <AuthDialog />
     <Footer />
@@ -25,6 +25,7 @@ const { isLoggedIn } = storeToRefs(useAuthStore())
 
 //Used to check if display size is for mobile. mobile.value is Boolean
 const { mobile } = useDisplay()
+
 const mobileView = computed(() => {
   return mobile.value
 })

@@ -69,7 +69,7 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
   const { cartItemCount } = storeToRefs(useProductStore())
   const cartRoutes = ['CartView', 'OrderView']
-  const authGuardRoutes = ['CartView', 'OrderView', 'FavouritesView', 'TrackOrdersView']
+  const authGuardRoutes = ['OrderView', 'FavouritesView', 'TrackOrdersView']
   //Will redirect to homepage if cart is empty
   if (cartItemCount.value<=0) {
     //if the result is not false, to.name value exists in array of route names

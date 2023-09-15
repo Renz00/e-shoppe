@@ -62,7 +62,7 @@
             <div class="ml-1">
               <v-btn icon="" :to="{ name: 'CartView' }" v-if="cartItemCount > 0">
                   <v-badge :content="cartItemCount" color="error">
-                    <v-icon icon="mdi-cart-outline" color="primary"></v-icon>
+                    <v-icon icon="mdi-cart-outline"></v-icon>
                   </v-badge>
               </v-btn>
               <v-tooltip
