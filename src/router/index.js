@@ -1,5 +1,6 @@
 import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
+import { useAuthStore } from '@/store/auth-store'
 
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
@@ -67,7 +68,8 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  const { cartItemCount } = storeToRefs(useProductStore())
+  const { cartItemCount, } = storeToRefs(useProductStore())
+  const { setAuthDialog } = useAuthStore()
   const cartRoutes = ['CartView', 'OrderView']
   const authGuardRoutes = ['OrderView', 'FavouritesView', 'TrackOrdersView']
   //Will redirect to homepage if cart is empty
@@ -80,7 +82,8 @@ router.beforeEach(async (to, from) => {
   }
   if (localStorage.getItem('data')==null){
     if (authGuardRoutes.includes(to.name)!=false){
-      router.push({name: 'ProductsView'})
+      setAuthDialog('login')
+      router.push({name: from.name})
       console.log('route guarded: user not logged in')
     }
   }

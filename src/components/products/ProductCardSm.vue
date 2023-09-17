@@ -2,7 +2,7 @@
   <v-container class="py-0 my-0" fluid>
       <v-row class="justify-center text-center">
       <v-col class="pb-3 px-2" cols="12" sm="6" lg="3" md="4" v-for="product in products" :key="product.id">
-          <v-card @click="router.push({ name: 'ShowProductView'})" variant="outlined">
+          <v-card @click="router.push({ name: 'ShowProductView'})">
               <div class="d-flex">
                 <v-img
                   @loadstart="imgload=true"
@@ -72,7 +72,7 @@ const category = (val) => {
       break
     case 3:
       return 'Apparel'
-      break 
+      break
     default:
       break
   }

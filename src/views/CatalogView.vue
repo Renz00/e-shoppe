@@ -19,17 +19,9 @@
                 </v-expansion-panels>
             </v-col>
             <v-col cols="12" lg="9" md="9">
-                <v-sheet height="700" v-if="isLoadingProducts">
-                    <div class="d-flex align-center justify-center fill-height">
-                        <v-progress-circular
-                        color="primary"
-                        size="large"
-                        indeterminate
-                        ></v-progress-circular>
-                    </div>
-                </v-sheet>
+                <Loader :isLoadingProducts="isLoadingProducts"/>
                 <Products :products="products" @emitSetCartItemCount="setCartItemCount"/>
-                <Pagination v-if="!isLoadingProducts" :productPageCount="productPageCount" @emitLoadPage="loadPage"/>
+                <Pagination v-if="!isLoadingProducts" />
             </v-col>
         </v-row>
        </v-container>
@@ -39,13 +31,14 @@
 import Products from '@/components/products/Products.vue';
 import FilterMenu from '@/components/products/FilterMenu.vue';
 import Pagination from '@/components/products/Pagination.vue';
+import Loader from '@/components/layout/Loader.vue';
 import { onMounted, computed, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 import { useDisplay } from 'vuetify'
 
-const { products, productPageCount, isLoadingProducts } = storeToRefs(useProductStore())
-const { setCartItemCount, handlePaginatedProducts, handleLoadPage } = useProductStore()
+const { products } = storeToRefs(useProductStore())
+const { setCartItemCount, handlePaginatedProducts } = useProductStore()
 
 const props = defineProps({
     productCategory: String,
@@ -69,12 +62,6 @@ const uppercaseProductCategory = computed(() => {
     //Capitalize the first letter of a string
     return props.productCategory.charAt(0).toUpperCase() + props.productCategory.slice(1)
 })
-
-const loadPage = async (page) => {
-  isLoadingProducts.value = true
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  await handleLoadPage()
-}
 
 onMounted ( async () => {
     //Get products based on productCategory prop

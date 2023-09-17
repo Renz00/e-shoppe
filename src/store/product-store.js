@@ -1,6 +1,6 @@
 // Utilities
 import { defineStore } from 'pinia'
-import { allProducts, similarProducts, loadMore, loadPaginatedProducts, loadPage } from "../http/products-api"
+import { allProducts, similarProducts, loadMore, loadPaginatedProducts, loadProductPage, filterProducts } from "../http/products-api"
 
 export const useProductStore = defineStore('productStore', {
   state: () => ({
@@ -15,6 +15,9 @@ export const useProductStore = defineStore('productStore', {
     productCurrentPage:1
   }),
   actions: {
+    setCartItemCount(){
+      this.cartItemCount++
+    },
     async fetchAllProducts(){
       this.isLoadingProducts = true
       const {data} = await allProducts()
@@ -26,7 +29,7 @@ export const useProductStore = defineStore('productStore', {
       else {
         console.log('Error loading products')
       }
-      
+
     },
     async fetchSelectedProduct(){
       // const {data} = await allProducts()
@@ -52,7 +55,7 @@ export const useProductStore = defineStore('productStore', {
     },
     async handleLoadPage(){
       this.isLoadingProducts = true
-      const {data} = await loadPage(this.productCurrentPage)
+      const {data} = await loadProductPage(this.productCurrentPage)
       if (data.products != null){
         this.products = data.products.data
         this.productPageCount = data.products.last_page
@@ -74,8 +77,17 @@ export const useProductStore = defineStore('productStore', {
         console.log('Error loading page of products')
       }
     },
-    setCartItemCount(){
-      this.cartItemCount++
+    async handleFilterProducts(filters){
+      this.isLoadingProducts = true
+      const {data} = await filterProducts(filters)
+      if (data.products != null){
+        this.products = data.products.data
+        this.productPageCount = data.products.last_page
+        this.isLoadingProducts = false
+      }
+      else {
+        console.log('Error filtering products')
+      }
     }
   }
 })

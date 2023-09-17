@@ -7,9 +7,9 @@
             <v-pagination
               v-model="productCurrentPage"
               :length="productPageCount"
-              @update:modelValue="handleLoadPage()"
-              @first="productCurrentPage = 1, handleLoadPage()"
-              @last="productCurrentPage = productPageCount, handleLoadPage()"
+              @update:modelValue="loadPage"
+              @first="productCurrentPage = 1, loadPage"
+              @last="productCurrentPage = productPageCount, loadPage"
             ></v-pagination>
           </v-container>
         </v-col>
@@ -19,21 +19,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
 
-const { productCurrentPage } = storeToRefs(useProductStore())
-
-const props = defineProps({
-  productPageCount: Number
-})
+const { productCurrentPage, productPageCount, isLoadingProducts } = storeToRefs(useProductStore())
+const { handleLoadPage } = useProductStore()
 
 const emits = defineEmits(['emitLoadPage'])
 
-const handleLoadPage = () => {
-
-  emits('emitLoadPage')
+const loadPage = async (page) => {
+  isLoadingProducts.value = true
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  await handleLoadPage()
 }
 
 </script>

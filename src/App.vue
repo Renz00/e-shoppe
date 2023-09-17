@@ -38,7 +38,6 @@ onMounted ( async () => {
     isLoggedIn.value = false
   }
 })
-
 </script>
 
 <style lang="scss">

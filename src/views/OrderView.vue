@@ -38,7 +38,7 @@
           </v-card>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row class="mb-10">
       <v-col cols="12" lg="8">
         <v-row v-if="cartItemCount > 0">
           <v-col>

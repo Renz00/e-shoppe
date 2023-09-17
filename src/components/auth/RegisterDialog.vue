@@ -15,7 +15,7 @@
         <v-text-field class="pb-2" v-model="email" :rules="emailRules" placeholder="E-mail" variant="outlined" density='compact' required></v-text-field>
         <v-text-field class="pb-2" v-model="password" :counter="8" :rules="passwordRules" type="password" placeholder="Password" variant="outlined" density='compact' required></v-text-field>
         <v-text-field v-model="confirm_password" :counter="8" :rules="confirmPasswordRules" type="password" variant="outlined" density='compact' placeholder="Confirm Password" required></v-text-field>
-        
+
         <div class="pt-5">
           <v-btn class="me-4" @click="register" color="success" type="submit" :loading="authLoading">
             submit
@@ -69,6 +69,7 @@ const confirmPasswordRules = ref([
 
 
 const register = async () => {
+  showAuthErrors.value = false
     const newUser = {
       "name": name.value,
       "email": email.value,

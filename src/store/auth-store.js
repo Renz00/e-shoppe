@@ -12,11 +12,11 @@ export const useAuthStore = defineStore("authStore", () => {
   const showAuthErrors = ref(false)
   const authLoading = ref(false)
   const isLoggedIn = ref(false)
-  const errors = ref(null)
+  const errors = ref([])
 
   const setAuthDialog = (type) =>{
     //instantiate values
-    errors.value = null
+    errors.value = []
     showAuthErrors.value = false
     showLogin.value = false
     showRegister.value = false
@@ -38,10 +38,15 @@ export const useAuthStore = defineStore("authStore", () => {
   }
 
   const handleLogin = async(creds) => {
+    errors.value = []
     authLoading.value=true
     const {data} = await login(creds)
     if (data.errors!=null) {
-      errors.value = data.errors
+      const authErrors = data.errors
+      //Checks if authErrors is an object then maps it
+      Object.keys(authErrors).map(function(key, index) {
+        errors.value.push(authErrors[key][index])
+      })
       showAuthErrors.value = true
       authLoading.value=false
     }
@@ -63,10 +68,13 @@ export const useAuthStore = defineStore("authStore", () => {
   }
 
   const handleRegister = async(newUser) => {
-      authLoading.value=true
       const {data} = await register(newUser)
       if (data.errors != null){
-        errors.value = data.errors
+        const authErrors = data.errors
+        //Checks if authErrors is an object then maps it
+        Object.keys(authErrors).map(function(key, index) {
+          errors.value.push(authErrors[key][index])
+        })
         showAuthErrors.value = true
         authLoading.value=false
       }
@@ -86,7 +94,6 @@ export const useAuthStore = defineStore("authStore", () => {
   const handleLogout = async() => {
     authLoading.value = true
     if (localStorage.getItem('data') != null){
-      
       const decryptedData = decryption(localStorage.getItem('data'))
       const parsedData = JSON.parse(decryptedData)
       const {data} = await logout(parsedData.token)

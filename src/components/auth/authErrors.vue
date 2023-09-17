@@ -8,7 +8,7 @@
             </template>
             <template v-slot:title>
                 <ul class="py-1 my-1">
-                    <li class="text-body-2" v-for="error in errors">{{ error[0] }}</li>
+                    <li class="text-body-2" v-for="(error, key) in errors" :key="key">{{ error }}</li>
                 </ul>
             </template>
           </v-alert>

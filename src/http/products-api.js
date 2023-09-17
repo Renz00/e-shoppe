@@ -6,7 +6,8 @@ export const allProducts = () => api.get(url)
 export const similarProducts = (category) => api.get(url+'/category/'+category)
 export const loadMore = (limit) => api.get(url+'/load-more/'+limit)
 export const loadPaginatedProducts = () => api.get(url+'/fetch/paginated')
-export const loadPage = (page) => api.get(url+'/fetch/paginated?page='+page)
+export const loadProductPage = (page) => api.get(url+'/fetch/paginated?page='+page)
+export const filterProducts = (filters) => api.post(url+'/filter', filters)
 
 // export const createTask = (task) => api.post(url, task)
 

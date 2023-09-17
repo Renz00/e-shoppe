@@ -1,6 +1,6 @@
 <template>
     <v-container class="mt-5 mb-10">
-        <v-row>
+        <v-row class="mb-10">
             <v-col cols="12" lg="8" v-if="cartItemCount > 0">
                 <div class="text-h6 mb-3">
                     <span v-if="cartItemCount > 0">
