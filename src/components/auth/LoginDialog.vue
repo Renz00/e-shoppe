@@ -12,7 +12,7 @@
           type="checkbox" variant="compact" ></v-checkbox>
 
           <div>
-              <v-btn class="me-4" color="success" @click="login" type="submit" :loading="authLoading">
+              <v-btn class="me-4" color="success" @click="login" :loading="authLoading">
                   submit
               </v-btn>
               <v-btn class="me-4" variant="text" @click="emits('emitShowRegister')" :disabled="authLoading">

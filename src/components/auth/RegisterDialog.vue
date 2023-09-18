@@ -17,7 +17,7 @@
         <v-text-field v-model="confirm_password" :counter="8" :rules="confirmPasswordRules" type="password" variant="outlined" density='compact' placeholder="Confirm Password" required></v-text-field>
 
         <div class="pt-5">
-          <v-btn class="me-4" @click="register" color="success" type="submit" :loading="authLoading">
+          <v-btn class="me-4" @click="register" color="success" :loading="authLoading">
             submit
           </v-btn>
           <v-btn class="me-4" variant="text" color="primary" @click="emits('emitShowLogin')" :disabled="authLoading">

@@ -1,6 +1,6 @@
 // Utilities
 import { defineStore } from 'pinia'
-import { loadPaginatedProducts, loadProductPage, filterProducts } from "../http/products-api"
+import { loadPaginatedProducts, loadProductPage, filterProducts, searchProducts } from "../http/products-api"
 
 export const useProductStore = defineStore('productStore', {
   state: () => ({
@@ -11,7 +11,8 @@ export const useProductStore = defineStore('productStore', {
     currentProductCategory: '',
     productPageCount:0,
     productCurrentPage:1,
-    productLimit:12
+    productLimit:12,
+    productSearchItems:[]
   }),
   actions: {
     setCartItemCount(){
@@ -66,6 +67,24 @@ export const useProductStore = defineStore('productStore', {
         this.products = data.products.data
         this.productPageCount = data.products.last_page
         this.isLoadingProducts = false
+      }
+      else {
+        console.log('Error filtering products')
+      }
+    },
+    async handleSearchProducts(searchText){
+      this.searchProducts = []
+      // this.isLoadingProducts = true
+      const searchSlug = searchText.replace(' ', '-')
+      const {data} = await searchProducts(searchSlug)
+      if (data.products != null){
+        const products = data.products.data
+        Object.keys(products).map((index, key)=> {
+          this.productSearchItems.push(products[index].product_name)
+        })
+        
+        // this.productSearchItems = data.products.data
+        // this.isLoadingProducts = false
       }
       else {
         console.log('Error filtering products')

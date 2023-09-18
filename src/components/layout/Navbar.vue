@@ -80,9 +80,9 @@
               </v-tooltip>
             </div>
             <div class="mr-5">
-              <v-btn id="login-btn" icon="" @click="setAuthDialog('login')" v-if="!isLoggedIn"><v-icon icon="mdi-account-circle"></v-icon></v-btn>
-              <v-btn id="nav-menu2" icon="" v-else><v-icon icon="mdi-account-circle" color="primary"></v-icon></v-btn>
-              <v-menu activator="#nav-menu2">
+              <v-btn id="nav-menu2" icon="" v-if="isLoggedIn"><v-icon icon="mdi-account-circle" color="primary"></v-icon></v-btn>
+              <v-btn id="login-btn" icon="" @click="setAuthDialog('login')" v-else><v-icon icon="mdi-account-circle"></v-icon></v-btn>
+              <v-menu activator="#nav-menu2" v-if="isLoggedIn">
                 <v-list>
                   <v-list-item :to="{name: 'TrackOrdersView'}" link>
                     <v-list-item-title>

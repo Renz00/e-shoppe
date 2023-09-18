@@ -3,8 +3,9 @@
         class="white--text rounded-outline"
         v-model="selected"
         v-model:search="search"
+        @update:search="populateAutocompleteItems"
         :loading="loading"
-        :items="items"
+        :items="productSearchItems"
         density="compact"
         hide-no-data
         hide-details
@@ -25,6 +26,11 @@
 
 <script setup>
 import { ref, watchEffect } from 'vue';
+import { useProductStore } from '@/store/product-store'
+import { storeToRefs } from 'pinia';
+
+const { handleSearchProducts } = useProductStore()
+const { productSearchItems } = storeToRefs(useProductStore())
 
 const props = defineProps({
     mobileView: Boolean
@@ -35,11 +41,6 @@ const loading = ref(false)
 const items = ref([])
 const search = ref(null)
 const searchText = ref(null)
-const searchItems = [
-    'Shoes',
-    'Dresses',
-    'Gadgets'
-]
 
 watchEffect(() => {
   //Watch changes in the value of search
@@ -48,14 +49,20 @@ watchEffect(() => {
   }
 })
 
-function querySelections (newVal) {
+const querySelections = (newVal) => {
   loading.value = true
   setTimeout(() => {
-    items.value = searchItems.filter(e => {
+    items.value = productSearchItems.value.filter(e => {
       return (e || '').toLowerCase().indexOf((newVal || '').toLowerCase()) > -1
     })
     loading.value = false 
   }, 500)
 }
 
+const populateAutocompleteItems = async () => {
+  if (search.value != null && search.value != ''){
+    await handleSearchProducts(search.value)
+  }
+    
+}
 </script>

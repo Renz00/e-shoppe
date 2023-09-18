@@ -6,6 +6,7 @@ export const loadPaginatedProducts = () => api.get(url+'/fetch/paginated')
 export const loadMore = (limit) => api.get(url+'/load-more/'+limit)
 export const loadProductPage = (page) => api.get(url+'/fetch/paginated?page='+page)
 export const filterProducts = (filters) => api.post(url+'/filter', filters)
+export const searchProducts = (searchSlug) => api.get(url+'/search-products/'+searchSlug)
 
 // export const createTask = (task) => api.post(url, task)
 

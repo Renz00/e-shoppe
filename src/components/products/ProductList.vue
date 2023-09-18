@@ -1,5 +1,4 @@
 <template>
-
      <v-list lines="two" class="py-0 my-0 mx-5 mx-md-0 overflow-y-auto" width="auto" max-height="600">
         <v-list-item class="pa-0 mb-3 elevation-1" v-for="n in cartItemCount" :key="n" variant="outlined">
             <v-row>
@@ -40,7 +39,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 
 const props = defineProps({
     cartItemCount: Number
