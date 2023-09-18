@@ -5,7 +5,7 @@
         <span class="text-h4 mr-3">Our Products</span>
       </v-col>
     <v-col cols="12" lg="4" md="4" sm="6" width="auto">
-      <CatalogFilter @emitSetCategory="setCategory"/>
+      <CatalogFilter/>
     </v-col>
   </v-row>
   </v-container>
@@ -19,12 +19,5 @@ const props = defineProps({
     category: String,
     showLinks: Boolean
 })
-
-const emits = defineEmits(['emitSetCategory'])
-
-const setCategory = (selectedCategory) =>{
-  emits('emitSetCategory', selectedCategory)
-}
-
 
 </script>

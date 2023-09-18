@@ -11,9 +11,9 @@
         <div class="text-h4 mb-5">
           Similar products
         </div>
-        <Products :products="products"/>
+        <Products :isLoadingProducts="isLoadingProducts" :products="products"/>
         <Loader :isLoadingProducts="isLoadingProducts"/>
-        <Pagination v-if="!isLoadingProducts" />
+        <Pagination v-if="!isLoadingProducts && products.length>0" />
       </v-col>
     </v-row>
   </v-container>

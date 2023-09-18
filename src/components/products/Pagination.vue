@@ -29,7 +29,13 @@ const emits = defineEmits(['emitLoadPage'])
 
 const loadPage = async (page) => {
   isLoadingProducts.value = true
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  const title = document.getElementById('title');
+  title.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+    inline: "start"
+  });
+
   await handleLoadPage()
 }
 

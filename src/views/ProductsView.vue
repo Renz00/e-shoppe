@@ -7,16 +7,15 @@
         <CatalogHeader/>
       </v-col>
     </v-row>
-      <Products :products="products" @emitSetCartItemCount="setCartItemCount"/>
+      <Products :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount"/>
       <Loader :isLoadingProducts="isLoadingProducts"/>
-      <LoadMore v-if="!isLoadingProducts" :isLoadingProducts="isLoadingProducts" :productLimit="productLimit" @emitLoadMore="loadMore"/>
+      <LoadMore v-if="!isLoadingProducts && products.length>0" :isLoadingProducts="isLoadingProducts" :productLimit="productLimit" @emitLoadMore="loadMore"/>
       <ScrollUp />
     </v-container>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import Products from '@/components/products/Products.vue'
 import Banner from "@/components/layout/Banner.vue"
 import CatalogHeader from "@/components/products/CatalogHeader.vue"
@@ -27,18 +26,19 @@ import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 
-const { products, isLoadingProducts, productLimit } = storeToRefs(useProductStore())
-const { fetchAllProducts, setCartItemCount, handleLoadMore } = useProductStore()
-
-const scrollInvoked = ref(0)
+const { products, isLoadingProducts, productCurrentPage, productLimit } = storeToRefs(useProductStore())
+const { handlePaginatedProducts, setCartItemCount, handleLoadMore } = useProductStore()
 
 const loadMore = async () => {
-  console.log('clicked')
-  await handleLoadMore()
+  console.log('loading more')
+  if (productLimit.value < 120){
+    productCurrentPage.value++
+    await handleLoadMore()
+  }
 }
 
 onMounted ( async () => {
-  await fetchAllProducts()
+  await handlePaginatedProducts()
 })
 </script>
 

@@ -5,17 +5,17 @@
           Login to your account
       </div>
       <authErrors :errors="errors" :showAuthErrors="showAuthErrors" />
-      <form ref="form" class="form-inputs" @submit.prevent="submit">
+      <form ref="loginForm" class="form-inputs">
           <v-text-field class="pb-2" v-model="email" :rules="emailRules" density='compact' placeholder="E-mail" variant="outlined" required></v-text-field>
           <v-text-field v-model="password" :rules="passwordRules" type="password" density='compact' variant="outlined" placeholder="Password" required></v-text-field>
-              <v-checkbox v-model="remember" value="1" label="Remember me"
-              type="checkbox" variant="compact" ></v-checkbox>
+          <v-checkbox v-model="remember" value="1" label="Remember me"
+          type="checkbox" variant="compact" ></v-checkbox>
 
           <div>
               <v-btn class="me-4" color="success" @click="login" type="submit" :loading="authLoading">
                   submit
               </v-btn>
-              <v-btn class="me-4" variant="text" color="primary" @click="emits('emitShowRegister')" :disabled="authLoading">
+              <v-btn class="me-4" variant="text" @click="emits('emitShowRegister')" :disabled="authLoading">
                   Create Account
               </v-btn>
           </div>
@@ -32,6 +32,7 @@ import { useAuthStore } from '@/store/auth-store'
 const { handleLogin } = useAuthStore()
 const { authLoading, errors, showAuthErrors } = storeToRefs(useAuthStore())
 
+const loginForm = ref()
 const email = ref('')
 const password = ref('')
 const remember = ref(null)

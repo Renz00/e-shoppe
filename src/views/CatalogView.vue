@@ -20,10 +20,11 @@
             </v-col>
             <v-col cols="12" lg="9" md="9">
                 <Loader :isLoadingProducts="isLoadingProducts"/>
-                <Products :products="products" @emitSetCartItemCount="setCartItemCount"/>
-                <Pagination v-if="!isLoadingProducts" />
+                <Products :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount"/>
+                <Pagination v-if="!isLoadingProducts && products.length>0"/>
             </v-col>
         </v-row>
+        <ScrollUp />
        </v-container>
 </template>
 
@@ -32,12 +33,13 @@ import Products from '@/components/products/Products.vue';
 import FilterMenu from '@/components/products/FilterMenu.vue';
 import Pagination from '@/components/products/Pagination.vue';
 import Loader from '@/components/layout/Loader.vue';
+import ScrollUp from '@/components/layout/ScrollUp.vue';
+import { useDisplay } from 'vuetify'
 import { onMounted, computed, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
-import { useDisplay } from 'vuetify'
 
-const { products } = storeToRefs(useProductStore())
+const { products, isLoadingProducts } = storeToRefs(useProductStore())
 const { setCartItemCount, handlePaginatedProducts } = useProductStore()
 
 const props = defineProps({
@@ -64,7 +66,6 @@ const uppercaseProductCategory = computed(() => {
 })
 
 onMounted ( async () => {
-    //Get products based on productCategory prop
   await handlePaginatedProducts()
 })
 </script>

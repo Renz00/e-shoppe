@@ -1,7 +1,7 @@
 <template>
      <v-overlay
       class="d-flex justify-end align-end" v-model="fab" 
-      location-strategy="static" scroll-strategy="reposition" :scrim="false">
+      location-strategy="static" scroll-strategy="reposition" persistent :scrim="false">
         <div>
           <v-btn class="mr-3 mb-3" @click="scollUp" icon="mdi-arrow-up" color="primary"></v-btn>
         </div>

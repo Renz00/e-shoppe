@@ -5,7 +5,7 @@
         Create your account
       </div>
       <authErrors :errors="errors" :showAuthErrors="showAuthErrors"/>
-      <form @submit.prevent="submit">
+      <form ref="registerForm">
         <v-text-field class="pb-2" v-model="name" :rules="nameRules" placeholder="Name" variant="outlined" density='compact' required></v-text-field>
         <v-text-field class="pb-2" v-model="phone" :rules="phoneRules" placeholder="Phone Number" type="number" variant="outlined" density='compact' required>
           <template v-slot:prepend-inner>
@@ -40,6 +40,7 @@ const { handleRegister } = useAuthStore()
 
 const emits = defineEmits(['emitShowLogin'])
 
+const registerForm = ref()
 const email = ref('')
 const name = ref('')
 const phone = ref('')

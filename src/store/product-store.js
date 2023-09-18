@@ -1,56 +1,37 @@
 // Utilities
 import { defineStore } from 'pinia'
-import { allProducts, similarProducts, loadMore, loadPaginatedProducts, loadProductPage, filterProducts } from "../http/products-api"
+import { loadPaginatedProducts, loadProductPage, filterProducts } from "../http/products-api"
 
 export const useProductStore = defineStore('productStore', {
   state: () => ({
     products: [],
-    simProducts: [],
     selectedProduct: {},
     cartItemCount: 0,
     isLoadingProducts: false,
     currentProductCategory: '',
-    productLimit:0,
     productPageCount:0,
-    productCurrentPage:1
+    productCurrentPage:1,
+    productLimit:12
   }),
   actions: {
     setCartItemCount(){
       this.cartItemCount++
     },
-    async fetchAllProducts(){
-      this.isLoadingProducts = true
-      const {data} = await allProducts()
-      if (data.products != null){
-        this.products = data.products
-        this.isLoadingProducts = false
-        this.productLimit = 12
-      }
-      else {
-        console.log('Error loading products')
-      }
-
-    },
     async fetchSelectedProduct(){
       // const {data} = await allProducts()
       // this.selectedProduct = data.products
     },
-    async fetchSimilarProducts(category){
-      const {data} = await similarProducts(category)
-      this.simProducts = data.products
-    },
     async handleLoadMore(){
       this.isLoadingProducts = true
-      if (this.productLimit <= 120){
+      if (this.products != null && this.productLimit<120){
+        const {data} = await loadProductPage(this.productCurrentPage)
+        //Concatenate the new product data to the previous array
+        this.products = this.products.concat(data.products.data)
         this.productLimit += 12
-        const {data} = await loadMore(this.productLimit)
-        if (data.products != null){
-          this.products = data.products
-          this.isLoadingProducts = false
-        }
-        else {
-          console.log('Error loading more products')
-        }
+        this.isLoadingProducts = false
+      }
+      else {
+        console.log('Error loading more products')
       }
     },
     async handleLoadPage(){
@@ -71,6 +52,7 @@ export const useProductStore = defineStore('productStore', {
       if (data.products != null){
         this.products = data.products.data
         this.productPageCount = data.products.last_page
+        this.productCurrentPage = data.products.current_page
         this.isLoadingProducts = false
       }
       else {
