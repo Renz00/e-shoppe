@@ -5,7 +5,7 @@
         Create your account
       </div>
       <authErrors :errors="errors" :showAuthErrors="showAuthErrors"/>
-      <form ref="registerForm">
+      <form ref="registerForm" @submit.prevent="register">
         <v-text-field class="pb-2" v-model="name" :rules="nameRules" placeholder="Name" variant="outlined" density='compact' required></v-text-field>
         <v-text-field class="pb-2" v-model="phone" :rules="phoneRules" placeholder="Phone Number" type="number" variant="outlined" density='compact' required>
           <template v-slot:prepend-inner>
@@ -17,7 +17,7 @@
         <v-text-field v-model="confirm_password" :counter="8" :rules="confirmPasswordRules" type="password" variant="outlined" density='compact' placeholder="Confirm Password" required></v-text-field>
 
         <div class="pt-5">
-          <v-btn class="me-4" @click="register" color="success" :loading="authLoading">
+          <v-btn class="me-4" color="success" type="submit" :loading="authLoading">
             submit
           </v-btn>
           <v-btn class="me-4" variant="text" color="primary" @click="emits('emitShowLogin')" :disabled="authLoading">

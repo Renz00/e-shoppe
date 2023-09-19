@@ -1,18 +1,6 @@
 <template>
   <v-sheet>
-    <v-overlay class="justify-center align-center" v-model="overlay">
-      <v-alert
-        closable
-        icon="mdi-check"
-        title="Info"
-        text="Item added to Cart!"
-        type="success"
-      >
-        <template v-slot:close>
-          <v-btn icon="mdi-close" @click="overlay = false"></v-btn>
-        </template>
-      </v-alert>
-    </v-overlay>
+    <AddToCart :overlay="overlay" @emitSetOverlay="overlay = false"/>
     <v-card class="mx-5 mx-lg-0 elevation-1">
       <v-row>
         <v-col cols="12" md="6" class="mx-0 py-0 py-md-2 px-0">
@@ -29,6 +17,7 @@
             <template v-slot:placeholder>
               <div class="d-flex align-center justify-center fill-height">
                 <v-progress-circular
+                  :size="50" 
                   color="primary"
                   indeterminate
                 ></v-progress-circular>
@@ -171,7 +160,8 @@
 
 <script setup>
 import ProductQuantity from "./ProductQuantity.vue";
-import { ref, watchEffect } from "vue";
+import AddToCart from "./AddToCart.vue";
+import { ref, watchEffect, computed } from "vue";
 import { useProductStore } from '@/store/product-store'
 
 const { setCartItemCount } = useProductStore()

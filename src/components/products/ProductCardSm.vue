@@ -17,6 +17,7 @@
                   <template v-slot:placeholder>
                     <div class="d-flex align-center justify-center fill-height">
                       <v-progress-circular
+                        :size="50" 
                         color="primary"
                         indeterminate
                       ></v-progress-circular>
@@ -37,7 +38,7 @@
                 </div>
               </div>
             <!-- click.stop prevents child click from triggering parent click -->
-            <v-btn class="rounded-0" @click.stop="setCartItemCount" width="100%" color="success">
+            <v-btn class="rounded-0" @click.stop="setCartItemCount()" width="100%" color="success">
               <span style="color: white;">
                 Add to Cart
               </span>

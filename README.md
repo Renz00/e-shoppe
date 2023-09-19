@@ -1,6 +1,5 @@
 # things to do
-1. Fix products search (View for search results, search text state) 
-2. CRUD functionality in cart (add, update, and remove products in cart)
+1. CRUD functionality in cart (add, update, and remove products in cart)
 
 This is an ecommerce website for a fictional online business. <br/>
 <strong>Author:</strong> Renz De la Torre

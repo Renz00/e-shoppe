@@ -31,7 +31,7 @@ const mobileView = computed(() => {
 })
 
 onMounted ( async () => {
-  if (localStorage.getItem('data')!=null){
+  if (sessionStorage.getItem('data')!=null){
     isLoggedIn.value = true
   }
   else {

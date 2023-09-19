@@ -11,6 +11,7 @@ import OrderView from '@/views/OrderView.vue'
 import TrackOrdersView from '@/views/TrackOrdersView.vue'
 import CatalogView from '@/views/CatalogView.vue'
 import FavouritesView from '@/views/FavouritesView.vue'
+import ProductSearchResultsView from '@/views/ProductSearchResultsView'
 import Error404 from '@/views/404.vue'
 
 const routes = [
@@ -40,6 +41,11 @@ const routes = [
     path: '/my-favourites',
     name: 'FavouritesView',
     component: FavouritesView
+  },
+  {
+    path: '/search-results',
+    name: 'ProductSearchResultsView',
+    component: ProductSearchResultsView
   },
   {
     path: '/my-orders',
@@ -80,12 +86,15 @@ router.beforeEach(async (to, from) => {
       console.log('route guarded: no items in cart')
     }
   }
-  if (localStorage.getItem('data')==null){
+  if (sessionStorage.getItem('data')==null){
     if (authGuardRoutes.includes(to.name)!=false){
       setAuthDialog('login')
       router.push({name: from.name})
       console.log('route guarded: user not logged in')
     }
+  }
+  if (to.name='ProductSearchResultsView' && sessionStorage.getItem==null){
+    router.push({name:'ProductsView'})
   }
 })
 

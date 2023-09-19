@@ -5,17 +5,17 @@
           Login to your account
       </div>
       <authErrors :errors="errors" :showAuthErrors="showAuthErrors" />
-      <form ref="loginForm" class="form-inputs">
+      <form ref="loginForm" @submit.prevent="login" class="form-inputs">
           <v-text-field class="pb-2" v-model="email" :rules="emailRules" density='compact' placeholder="E-mail" variant="outlined" required></v-text-field>
           <v-text-field v-model="password" :rules="passwordRules" type="password" density='compact' variant="outlined" placeholder="Password" required></v-text-field>
           <v-checkbox v-model="remember" value="1" label="Remember me"
           type="checkbox" variant="compact" ></v-checkbox>
 
           <div>
-              <v-btn class="me-4" color="success" @click="login" :loading="authLoading">
+              <v-btn class="me-4" color="success" type="submit" :loading="authLoading">
                   submit
               </v-btn>
-              <v-btn class="me-4" variant="text" @click="emits('emitShowRegister')" :disabled="authLoading">
+              <v-btn class="me-4" color="primary" variant="text" @click="emits('emitShowRegister')" :disabled="authLoading">
                   Create Account
               </v-btn>
           </div>
@@ -36,7 +36,6 @@ const loginForm = ref()
 const email = ref('')
 const password = ref('')
 const remember = ref(null)
-const form = ref()
 
 const emits = defineEmits(['emitShowRegister'])
 
@@ -49,20 +48,28 @@ const passwordRules = ref([
     value => (value && value.length >= 8) || 'Password must be at least 8 characters.',
 ])
 
+// async function validate () {
+//     const { valid } = await loginForm.value.validate()
+
+//     if (valid){
+//       login()
+//     }
+//   }
+
 const login = async() => {
-  showAuthErrors.value = false
-  if (email.value.length>0 && password.value.length>0){
-    const creds = {
-    "email": email.value,
-    "password": password.value
+    showAuthErrors.value = false
+    if (email.value.length>0 && password.value.length>0){
+      const creds = {
+      "email": email.value,
+      "password": password.value
+      }
+      await handleLogin(creds)
     }
-    await handleLogin(creds)
-  }
 }
 
-const resetValidationErrors = () => {
-  form.value.resetValidation
-}
+// const resetValidationErrors = () => {
+//   form.value.resetValidation
+// }
 </script>
 
 <style scoped>

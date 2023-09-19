@@ -6,16 +6,16 @@
         <ProductCardLg />
       </v-col>
     </v-row>
-    <v-row class="mt-5">
+    <v-row class="mt-5" id="title">
       <v-col>
         <div class="text-h4 mb-5">
           Similar products
         </div>
-        <Products :isLoadingProducts="isLoadingProducts" :products="products"/>
-        <Loader :isLoadingProducts="isLoadingProducts"/>
+        <Products :products="products" v-if="!isLoadingProducts"/>
         <Pagination v-if="!isLoadingProducts && products.length>0" />
       </v-col>
     </v-row>
+    <Loader :isLoadingProducts="isLoadingProducts" v-if="isLoadingProducts"/>
   </v-container>
 </template>
 

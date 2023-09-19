@@ -72,22 +72,38 @@ export const useProductStore = defineStore('productStore', {
         console.log('Error filtering products')
       }
     },
-    async handleSearchProducts(searchText){
-      this.searchProducts = []
-      // this.isLoadingProducts = true
-      const searchSlug = searchText.replace(' ', '-')
-      const {data} = await searchProducts(searchSlug)
-      if (data.products != null){
-        const products = data.products.data
-        Object.keys(products).map((index, key)=> {
-          this.productSearchItems.push(products[index].product_name)
-        })
-        
-        // this.productSearchItems = data.products.data
-        // this.isLoadingProducts = false
+    async handleSearchProductsAC(searchText){
+      if (searchText != null && searchText != ''){
+        this.searchProducts = []
+        const searchSlug = searchText.replace(' ', '-')
+        const {data} = await searchProducts(searchSlug)
+        if (data.products != null){
+          const products = data.products.data
+          Object.keys(products).map((index)=> {
+            this.productSearchItems.push(products[index].product_name)
+          })
+        }
+        else {
+          console.log('Error searching products')
+        }
       }
-      else {
-        console.log('Error filtering products')
+    },
+    async handleSearchProducts(searchText){
+      if (searchText != null && searchText != ''){
+        this.searchProducts = []
+        this.isLoadingProducts = true
+        const searchSlug = searchText.replace(' ', '-')
+        const {data} = await searchProducts(searchSlug)
+        if (data.products != null){
+          this.products = data.products.data
+          this.productPageCount = data.products.last_page
+          this.productCurrentPage = data.products.current_page
+          console.log(this.products)
+          this.isLoadingProducts = false
+        }
+        else {
+          console.log('Error fetching searched products')
+        }
       }
     }
   }

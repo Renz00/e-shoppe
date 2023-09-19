@@ -1,10 +1,13 @@
 <template>
-       <v-container class="mt-5 px-10" fluid>
+       <v-container class="mt-5 px-10" id="title" fluid>
         <v-row>
-            <v-col cols="12" class="pl-7">
+            <v-col cols="9" class="pl-7">
                 <div class="text-h6">
                     Showing {{ uppercaseProductCategory }}
                 </div>
+            </v-col>
+            <v-col cols="3" class="d-flex justify-end">
+                <ProductLayout @emitSetLayout="setLayout"/>
             </v-col>
         </v-row>
         <v-row>
@@ -13,14 +16,15 @@
                     <v-expansion-panel>
                         <v-expansion-panel-title>Filters <v-icon icon="mdi-filter" size="small"></v-icon></v-expansion-panel-title>
                         <v-expansion-panel-text>
-                            <FilterMenu/>
+                            <FilterMenu :productCategory="productCategory"/>
                         </v-expansion-panel-text>
                     </v-expansion-panel>
                 </v-expansion-panels>
             </v-col>
             <v-col cols="12" lg="9" md="9">
-                <Loader :isLoadingProducts="isLoadingProducts"/>
-                <Products :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount"/>
+                <Loader :isLoadingProducts="isLoadingProducts" v-if="isLoadingProducts"/>
+                <ProductList :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount" v-if="layout=='list'"/>
+                <Products :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount" v-if="layout=='grid'"/>
                 <Pagination v-if="!isLoadingProducts && products.length>0"/>
             </v-col>
         </v-row>
@@ -34,13 +38,16 @@ import FilterMenu from '@/components/products/FilterMenu.vue';
 import Pagination from '@/components/products/Pagination.vue';
 import Loader from '@/components/layout/Loader.vue';
 import ScrollUp from '@/components/layout/ScrollUp.vue';
+import ProductLayout from '@/components/layout/ProductLayout.vue';
+import ProductList from '@/components/products/ProductList.vue';
+
 import { useDisplay } from 'vuetify'
-import { onMounted, computed, ref } from "vue";
+import { onMounted, computed, ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 
 const { products, isLoadingProducts } = storeToRefs(useProductStore())
-const { setCartItemCount, handlePaginatedProducts } = useProductStore()
+const { setCartItemCount, handleFilterProducts } = useProductStore()
 
 const props = defineProps({
     productCategory: String,
@@ -49,6 +56,14 @@ const props = defineProps({
 
 const { name } = useDisplay()
 const panel = ref([0, 1])
+const rating = ref([5, 4, 3, 2, 1])
+const min = ref(0)
+const max = ref(50000)
+const layout = ref('list')
+
+const setLayout = (selectedLayout) => {
+  layout.value = selectedLayout
+}
 
 // const width = computed(() => {
 //     // name is reactive and
@@ -60,12 +75,44 @@ const panel = ref([0, 1])
 //     return '100%'
 // })
 
+watch(
+  () => props.productCategory,
+  async () => {
+    console.log('prop value changed', props.productCategory)
+    await fetchProducts()
+  }
+)
+
+const fetchProducts = async() => {
+    const category = []
+    switch (props.productCategory){
+        case 'apparel':
+            category.push(3)
+            break
+        case 'cosmetics':
+            category.push(2)
+            break
+        case 'gadgets':
+            category.push(1)
+            break
+        default:
+            break
+    }
+    const filters = {
+        'category': category,
+        'rating' : rating.value,
+        'min_price': min.value,
+        'max_price': max.value
+    }
+    await handleFilterProducts(filters)
+}
+
 const uppercaseProductCategory = computed(() => {
     //Capitalize the first letter of a string
     return props.productCategory.charAt(0).toUpperCase() + props.productCategory.slice(1)
 })
 
 onMounted ( async () => {
-  await handlePaginatedProducts()
+  await fetchProducts()
 })
 </script>

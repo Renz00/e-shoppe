@@ -8,8 +8,6 @@
               v-model="productCurrentPage"
               :length="productPageCount"
               @update:modelValue="loadPage"
-              @first="productCurrentPage = 1, loadPage"
-              @last="productCurrentPage = productPageCount, loadPage"
             ></v-pagination>
           </v-container>
         </v-col>

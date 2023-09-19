@@ -3,12 +3,12 @@
     <Banner />
     <v-container>
       <v-row>
-      <v-col>
-        <CatalogHeader/>
-      </v-col>
-    </v-row>
+        <v-col>
+          <CatalogHeader/>
+        </v-col>
+      </v-row>
       <Products :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount"/>
-      <Loader :isLoadingProducts="isLoadingProducts"/>
+      <Loader class="mt-5" :isLoadingProducts="isLoadingProducts" v-if="isLoadingProducts"/>
       <LoadMore v-if="!isLoadingProducts && products.length>0" :isLoadingProducts="isLoadingProducts" :productLimit="productLimit" @emitLoadMore="loadMore"/>
       <ScrollUp />
     </v-container>
@@ -30,7 +30,6 @@ const { products, isLoadingProducts, productCurrentPage, productLimit } = storeT
 const { handlePaginatedProducts, setCartItemCount, handleLoadMore } = useProductStore()
 
 const loadMore = async () => {
-  console.log('loading more')
   if (productLimit.value < 120){
     productCurrentPage.value++
     await handleLoadMore()
@@ -38,6 +37,7 @@ const loadMore = async () => {
 }
 
 onMounted ( async () => {
+  products.value = []
   await handlePaginatedProducts()
 })
 </script>
