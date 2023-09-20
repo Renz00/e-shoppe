@@ -26,11 +26,14 @@
                 v-else
               ></v-progress-circular>
         </template>
-        <!-- <template v-slot:item="{ parent, item }">
-            <v-list-item class="py-0 my-0 text-truncate" @click="selectedSearch(item.title)" link>
-                  {{ item.title }}
+        <template v-slot:item="{ parent, item }">
+            <v-list-item class="py-0 my-0" @click="selectedSearch(item.title)" link>
+              <v-row class="py-0 my-0">
+                <v-col>{{ item.title }}</v-col>
+                <v-col></v-col>
+              </v-row>
             </v-list-item>
-        </template> -->
+        </template>
     </v-autocomplete>   
 </template>
 
