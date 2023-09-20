@@ -3,7 +3,7 @@
     <v-row class="mt-5">
       <v-col>
         <!-- Listening to emitCartItemCount from child component -->
-        <ProductCardLg />
+        <ProductCardLg :productId="productId"/>
       </v-col>
     </v-row>
     <v-row class="mt-5" id="title">
@@ -30,10 +30,14 @@ import { useProductStore } from '../store/product-store'
 
 //simProducts - array of products with similar category
 const { products, isLoadingProducts } = storeToRefs(useProductStore())
-const { handleFilterProducts, fetchSelectedProduct } = useProductStore()
+const { handleFilterProducts } = useProductStore()
+
+const props=defineProps({
+  productId: String
+})
 
 onMounted ( async () => {
-  // await fetchSelectedProduct()
+
   const filters = {
     'category': [1], // 1 is cosmetics
     'rating' : [5, 4, 3],

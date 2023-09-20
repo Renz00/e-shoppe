@@ -8,9 +8,21 @@
       </v-overlay>
 </template>
 <script setup>
-import {ref} from "vue"
+import {ref, computed, watch} from "vue"
 const emits = defineEmits(['emitScrollUp'])
 const fab = ref(true)
+
+// watch(
+//   () => scrollAmount.value,
+//   (old, new) => console.log(new)
+// )
+
+// const scrollAmount = computed(()=>{
+//   window.addEventListener("scroll", function() {
+//     const maxHeight = document.body.scrollHeight - window.innerHeight;
+//     return (window.pageYOffset * 100) / maxHeight)
+//   })
+// })
 
 const scollUp = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });

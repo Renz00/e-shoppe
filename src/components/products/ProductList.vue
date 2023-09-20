@@ -1,8 +1,8 @@
 <template>
-        <v-list lines="two" class="py-0 my-0 mx-5 mx-md-0 overflow-y-auto" width="auto" height="800">
+        <v-list lines="two" class="py-0 my-0 mt-3 mt-sm-0 mx-md-0 overflow-y-auto" width="auto" height="800">
         <v-list-item class="pa-0 mb-3 elevation-1" v-for="(product, key) in products" :key="key">
             <v-row>
-                <v-col class="px-0 px-sm-3" cols="4" sm="3">
+                <v-col class="d-flex justify-center align-center px-0 px-sm-3" cols="12" md="4" sm="6">
                     <v-img @loadstart="imgload = true" @load="imgload = false"
                         lazy-src="https://picsum.photos/800/1000" width="auto"
                         height="180" src="https://picsum.photos/800/1000" cover>
@@ -14,26 +14,23 @@
                         </template>
                     </v-img>
                 </v-col>
-                <v-col class="pa-0 pa-sm-3" cols="6" sm="7">
+                <v-col class="justify-center align-center justify-lg-start align-lg-start  pa-0 pa-sm-3 pr-5 pl-5 pl-md-0 pr-md-0" cols="12" md="5" sm="6">
                     <v-container>
                         <v-row class="text-subtitle-1">
-                            <v-col class="px-0">
-                                {{ product.product_name }}
-                            </v-col>
+                            {{ product.product_name }}
                         </v-row>
-                        <v-row class="my-0">
+                        <v-row>
                             <div class="text-subtitle-2">
                                 {{ category(product.product_category) }} | <v-icon icon="mdi-star" color="yellow"></v-icon> {{ product.product_rating }}
                             </div>
                         </v-row>
-
-                        <v-row>
-                            <v-col cols="6" sm="8" class="px-0 text-subtitle-2">{{ '₱'+product.product_price.toLocaleString() }}</v-col>
+                        <v-row class="mt-5">
+                            <div class="px-0 text-subtitle-1">{{ '₱'+product.product_price.toLocaleString() }}</div>
                         </v-row>
                     </v-container>
                 </v-col>
-                <v-col class="d-flex justify-center align-center pr-5" cols="2" sm="2">
-                    <v-btn class="rounded-0" @click.stop="emits('emitSetCartItemCount')" width="100%" color="success" block>
+                <v-col class="d-flex justify-center align-center ma-3 ma-md-0 pr-9" cols="12" md="3">
+                    <v-btn class="rounded-0" @click.stop="emits('emitSetCartItemCount')" color="success" block>
                     <span style="color: white;">
                         Add to Cart
                     </span>

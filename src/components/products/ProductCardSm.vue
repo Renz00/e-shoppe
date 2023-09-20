@@ -1,8 +1,9 @@
 <template>
   <v-container class="py-0 my-0" fluid>
+    <v-sheet height="auto">
       <v-row class="justify-center text-center">
-      <v-col class="pb-3 px-2" cols="12" sm="6" lg="3" md="4" v-for="product in products" :key="product.id">
-          <v-card @click="router.push({ name: 'ShowProductView'})">
+      <v-col class="pb-3 px-2" cols="12" sm="6" lg="3" md="4" v-for="(product, key) in products" :key="key">
+          <v-card :to="{name: 'ShowProductView', params: {productId: product.id}}">
               <div class="d-flex">
                 <v-img
                   @loadstart="imgload=true"
@@ -10,7 +11,7 @@
                   lazy-src="https://picsum.photos/600/700"
                   aspect-ratio="4/3"
                   width="auto"
-                  height="250"
+                  height="230"
                   cover
                   src="https://picsum.photos/600/700"
                   >
@@ -26,15 +27,15 @@
                 </v-img>
               </div>
               <div class="pa-2">
-                <div class="text-h6 mb-1">
+                <div class="text-subtitle-1 mb-1">
                   {{ product.product_name }}
                 </div>
-                <v-divider></v-divider>
-                <div class="text-caption font-weight-bold">
-                  {{ category(product.product_category) }}
+                <v-divider class="mb-1"></v-divider>
+                <div class="text-caption font-weight-bold mb-1">
+                  {{ category(product.product_category)+' | '}}<v-icon icon="mdi-star" color="yellow"></v-icon>{{product.product_rating }}
                 </div>
-                <div class="d-flex justify-center align-center text-caption text-truncate">
-                  <v-icon icon="mdi-star" color="yellow"></v-icon>{{ product.product_rating+' | ₱'+product.product_price.toLocaleString() }}
+                <div class="d-flex justify-center align-center text-subtitle-2 text-truncate">
+                  {{ '₱'+product.product_price.toLocaleString() }}
                 </div>
               </div>
             <!-- click.stop prevents child click from triggering parent click -->
@@ -45,14 +46,15 @@
             </v-btn>
         </v-card>
       </v-col>
-    </v-row>
+      </v-row>
+    </v-sheet>
   </v-container>
 
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import router from '@/router/index';
+import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useProductStore } from '@/store/product-store'
 
 const { setCartItemCount } = useProductStore()

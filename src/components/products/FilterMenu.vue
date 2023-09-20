@@ -21,7 +21,7 @@
                     </v-range-slider>
                 </v-col>
             </v-row>
-            <v-btn color="success" type="submit" block>Apply</v-btn>
+            <v-btn color="success" type="submit" :loading="isLoadingProducts" block>Apply</v-btn>
         </v-form>
     </v-sheet>
 </template>
@@ -29,7 +29,9 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useProductStore } from '@/store/product-store'
+import { storeToRefs } from 'pinia';
 const { handleFilterProducts } = useProductStore()
+const { isLoadingProducts } = storeToRefs(useProductStore())
 
 const props = defineProps({
     productCategory: String

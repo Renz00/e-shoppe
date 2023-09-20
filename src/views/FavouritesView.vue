@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import ProductList from '@/components/products/ProductList.vue';
 import ProductCardSm from '@/components/products/ProductCardSm.vue';
 import ProductLayout from '@/components/layout/ProductLayout.vue';
@@ -37,4 +37,7 @@ const setLayout = (selectedLayout) => {
   layout.value = selectedLayout
 }
 
+onMounted(()=>{
+
+})
 </script>

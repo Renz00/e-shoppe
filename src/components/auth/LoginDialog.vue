@@ -1,7 +1,7 @@
 <template>
 <v-row>
   <v-col>
-      <div class="text-subtitle-1 pb-3">
+      <div class="text-subtitle-2 pb-3 text-uppercase">
           Login to your account
       </div>
       <authErrors :errors="errors" :showAuthErrors="showAuthErrors" />

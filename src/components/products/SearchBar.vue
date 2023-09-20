@@ -1,11 +1,11 @@
 <template>
     <v-autocomplete
+        ref="autoComp"
         class="white--text rounded-outline"
         v-model="selected"
         v-model:search="search"
         @update:search="populateAutocompleteItems"
         @update:modelValue="selectedSearch"
-        :loading="loading"
         :items="productSearchItems"
         density="compact"
         hide-no-data
@@ -18,52 +18,42 @@
         v-if="!mobileView"
         >
         <template v-slot:prepend-inner>
-            <v-icon icon="mdi-magnify" color="black"></v-icon>
+            <v-icon icon="mdi-magnify" color="black" v-if="!isLoadingSearchItems"></v-icon>
+            <v-progress-circular
+                indeterminate
+                color="primary"
+                size="small"
+                v-else
+              ></v-progress-circular>
         </template>
-        <template v-slot:no-data-text>
-            <span class="px-5">No results</span>
-        </template>
+        <!-- <template v-slot:item="{ parent, item }">
+            <v-list-item class="py-0 my-0 text-truncate" @click="selectedSearch(item.title)" link>
+                  {{ item.title }}
+            </v-list-item>
+        </template> -->
     </v-autocomplete>   
 </template>
 
 <script setup>
-import { ref, watchEffect, watch } from 'vue';
+import { ref } from 'vue';
 import router from '@/router';
 import { useProductStore } from '@/store/product-store'
 import { storeToRefs } from 'pinia';
 
 const { handleSearchProductsAC, handleSearchProducts } = useProductStore()
-const { productSearchItems } = storeToRefs(useProductStore())
+const { productSearchItems, isLoadingSearchItems } = storeToRefs(useProductStore())
 
 const props = defineProps({
     mobileView: Boolean
 })
 
 const selected = ref('')
-const loading = ref(false)
-const items = ref([])
 const search = ref('')
-const searchText = ref('')
 
-watchEffect(() => {
-  //Watch changes in the value of search
-  if (search.value){
-    search.value && search.value !== searchText.value && querySelections(search.value)
-  }
-})
-
-const querySelections = (newVal) => {
-  loading.value = true
-  setTimeout(() => {
-    items.value = productSearchItems.value.filter(e => {
-      return (e || '').toLowerCase().indexOf((newVal || '').toLowerCase()) > -1
-    })
-    loading.value = false 
-  }, 500)
-}
-
-const selectedSearch = async () => {
+const selectedSearch = async (value) => {
+  selected.value = value
   if (selected.value != null && selected.value != ''){
+    isLoadingSearchItems.value = false
     sessionStorage.setItem('search', selected.value)
     router.push({name: 'ProductSearchResultsView'})
     await handleSearchProducts(sessionStorage.getItem('search'))
@@ -73,10 +63,8 @@ const selectedSearch = async () => {
 }
 
 const populateAutocompleteItems = async () => {
-  // console.log('updated search')
   if (search.value != null && search.value != ''){
     await handleSearchProductsAC(search.value)
   }
-    
 }
 </script>

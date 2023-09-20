@@ -42,7 +42,7 @@ import AddToCart from '@/components/products/AddToCart.vue';
 
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
-const { products, isLoadingProducts } = storeToRefs(useProductStore())
+const { products, isLoadingProducts, isLoadingSearchItems } = storeToRefs(useProductStore())
 const { handleSearchProducts, setCartItemCount} = useProductStore()
 
 const layout = ref('list')

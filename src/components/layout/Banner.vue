@@ -1,9 +1,10 @@
 <template>
-<v-sheet height="500" width="auto" class="gradient">
+<v-sheet height="600" width="auto" class="gradient">
      <v-carousel
       cycle
       hide-delimiter-background
       show-arrows="hover"
+      height="600"
       hide-delimiters
     >
     <v-carousel-item
@@ -13,7 +14,6 @@
       <v-img
         height="100%"
         width="100%"
-        aspect-ratio="16/9"
         cover
         :lazy-src="'src/assets/'+slide"
         :src="'src/assets/'+slide"

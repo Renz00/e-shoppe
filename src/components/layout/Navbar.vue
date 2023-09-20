@@ -13,8 +13,8 @@
       <v-col class="d-flex justify-start justify-lg-center align-center">
         <div v-if="!mobileView">
           <v-row>
-            <v-btn variant="text" :to="{name: 'CatalogView', params: {productCategory: 'apparel'}}">Apparel</v-btn>
-            <v-btn variant="text" :to="{name: 'CatalogView', params: {productCategory: 'cosmetics'}}">Cosmetics</v-btn>
+            <v-btn class="mr-1" variant="text" :to="{name: 'CatalogView', params: {productCategory: 'apparel'}}">Apparel</v-btn>
+            <v-btn class="mr-1" variant="text" :to="{name: 'CatalogView', params: {productCategory: 'cosmetics'}}">Cosmetics</v-btn>
             <v-btn variant="text" :to="{name: 'CatalogView', params: {productCategory: 'gadgets'}}">Gadgets</v-btn>
           </v-row>
         </div>
@@ -34,17 +34,17 @@
                   Home
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item @click="showHamburgerMenu = false" link>
+              <v-list-item :to="{name: 'CatalogView', params: {productCategory: 'apparel'}}" @click="showHamburgerMenu = false" link>
                 <v-list-item-title>
                   Apparel
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item @click="showHamburgerMenu = false" link>
+              <v-list-item :to="{name: 'CatalogView', params: {productCategory: 'cosmetics'}}" @click="showHamburgerMenu = false" link>
                 <v-list-item-title>
                   Cosmetics
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item @click="showHamburgerMenu = false" link>
+              <v-list-item :to="{name: 'CatalogView', params: {productCategory: 'gadgets'}}" @click="showHamburgerMenu = false" link>
                 <v-list-item-title>
                   Gadgets
                 </v-list-item-title>

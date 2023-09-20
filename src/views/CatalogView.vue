@@ -21,7 +21,7 @@
                     </v-expansion-panel>
                 </v-expansion-panels>
             </v-col>
-            <v-col cols="12" lg="9" md="9">
+            <v-col cols="12" lg="9" md="9" class="px-5">
                 <Loader :isLoadingProducts="isLoadingProducts" v-if="isLoadingProducts"/>
                 <ProductList :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount" v-if="layout=='list'"/>
                 <Products :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount" v-if="layout=='grid'"/>
@@ -59,7 +59,7 @@ const panel = ref([0, 1])
 const rating = ref([5, 4, 3, 2, 1])
 const min = ref(0)
 const max = ref(50000)
-const layout = ref('list')
+const layout = ref('grid')
 
 const setLayout = (selectedLayout) => {
   layout.value = selectedLayout
@@ -75,10 +75,10 @@ const setLayout = (selectedLayout) => {
 //     return '100%'
 // })
 
+//Watching props variable
 watch(
   () => props.productCategory,
   async () => {
-    console.log('prop value changed', props.productCategory)
     await fetchProducts()
   }
 )

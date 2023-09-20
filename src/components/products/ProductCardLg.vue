@@ -26,7 +26,14 @@
           </v-img>
         </v-col>
         <v-col cols="12" md="6">
-          <v-tabs v-model="tab" color="success" density="compact" align-tabs="center">
+          <v-sheet height="451" v-if="isLoadingSelectedProduct">
+            <v-row class="justify-center align-center fill-height">
+              <v-progress-circular indeterminate color="primary">
+              </v-progress-circular>
+            </v-row>
+          </v-sheet>
+          <div v-else>
+            <v-tabs v-model="tab" color="success" density="compact" align-tabs="center">
             <v-tab value="one">Info</v-tab>
             <v-tab value="two">Product Details</v-tab>
           </v-tabs>
@@ -35,18 +42,18 @@
               <v-container class="pr-md-7">
                 <v-row class="px-3 px-md-0">
                   <v-col class="text-h5 pt-2">
-                    <div class="text-body-1">Product Name</div>
+                    <div class="text-subtitle-1">{{ selectedProduct.product_name }}</div>
                     <div class="text-subtitle-1">
-                      Product Category |
+                      {{ selectedProduct.product_category }} |
                       <v-icon
                         class="pb-1"
                         color="yellow"
                         icon="mdi-star"
                         size="small"
                       ></v-icon>
-                      4.05
+                      {{ selectedProduct.product_rating }}
                     </div>
-                    <div class="text-subtitle-2 pt-3">Product Price</div>
+                    <div class="text-h6 pt-3">{{ '₱'+selectedProduct.product_price.toLocaleString() }}</div>
                   </v-col>
                 </v-row>
                 <v-row class="px-3 px-md-0">
@@ -113,7 +120,7 @@
                       <template v-slot:activator="{ props }">
                         <v-btn
                           v-bind="props"
-                          @click="liked = true"
+                          @click="storeToFavourites(selectedProduct.id, selectedProduct.user_id)"
                           size="large"
                           color="error"
                           style="color: white"
@@ -132,13 +139,9 @@
                 <v-row class="px-5 px-md-2">
                   <v-col>
                     <span class="text-subtitle-1">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      In blanditiis dolorum necessitatibus vero earum, eius
-                      quisquam ipsa culpa. Nesciunt illum ipsum facilis,
-                      recusandae exercitationem dolorum aspernatur veritatis
-                      provident optio animi.
+                      {{ selectedProduct.product_description }}
                     </span>
-                    <div class="px-5 py-2 text-subtitle-1">
+                    <!-- <div class="px-5 py-2 text-subtitle-1">
                       <ul>
                         <li>X Small - 10cm</li>
                         <li>Small - 10cm</li>
@@ -146,12 +149,14 @@
                         <li>Large - 10cm</li>
                         <li>X Large - 10cm</li>
                       </ul>
-                    </div>
+                    </div> -->
                   </v-col>
                 </v-row>
               </v-container>
             </v-window-item>
           </v-window>
+          </div>
+       
         </v-col>
       </v-row>
     </v-card>
@@ -161,10 +166,16 @@
 <script setup>
 import ProductQuantity from "./ProductQuantity.vue";
 import AddToCart from "./AddToCart.vue";
-import { ref, watchEffect, computed } from "vue";
+import { ref, watchEffect, watch, onMounted } from "vue";
+import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
 
-const { setCartItemCount } = useProductStore()
+const { selectedProduct, isLoadingSelectedProduct } = storeToRefs(useProductStore())
+const { handleFetchSelectedProduct, handleStoreToFavourites, setCartItemCount} = useProductStore()
+
+const props = defineProps({
+    productId: String
+})
 
 const tab = ref(null);
 const overlay = ref(false);
@@ -175,19 +186,26 @@ const productQuantity = ref(1);
 const addToCart = () => {
   overlay.value = true;
   setCartItemCount()
-};
+}
 
 const incQuantity = () =>{
   if (productQuantity.value<10){
     productQuantity.value++
   }
-};
+}
 
 const decQuantity = () =>{
   if (productQuantity.value>1){
     productQuantity.value--
   }
-};
+}
+
+// const storeToFavourites = async (product_id, user_id) =>{
+//   liked.value = true
+//   const favData = {
+    
+//   }
+// }
 
 //Closes overlay alert after 2 secs if value is true
 //watchEffect will watch the value of whatever veriable is referrence within the callback function
@@ -203,4 +221,17 @@ watchEffect(() => {
     }, 1000);
   }
 })
+
+//Watching props variable
+watch(
+  () => props.productId,
+  async () => {
+    await handleFetchSelectedProduct(props.productId)
+  }
+)
+
+onMounted(async()=>{
+  await handleFetchSelectedProduct(props.productId)
+})
+
 </script>
