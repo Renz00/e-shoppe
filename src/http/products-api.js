@@ -8,7 +8,11 @@ export const loadProductPage = (page) => api.get(url+'/fetch/paginated?page='+pa
 export const filterProducts = (filters) => api.post(url+'/filter', filters)
 export const showProduct = (id) => api.get(url+'/'+id)
 export const searchProducts = (searchSlug) => api.get(url+'/search-products/'+searchSlug)
-export const storeToFavourites = (favData) => api.post(url+'/favourites/', favData)
+export const storeToFavourites = (favData, token) => api.post(url+'/favourites', favData,{
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
 
 
 // export const createTask = (task) => api.post(url, task)

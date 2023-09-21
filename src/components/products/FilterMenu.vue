@@ -50,6 +50,12 @@ const categoryRules = ref([
   ])
 
 const filterProducts = async() => {
+    if (props.productCategory != null){
+        //Capitalize the first letter of a string
+        const uppercaseCategory = props.productCategory.charAt(0).toUpperCase() + props.productCategory.slice(1)
+        category.value = []
+        category.value.push(uppercaseCategory)
+    }
     if (setCategory.value != false && setRating.value != false){
         const filters = {
         'category': setCategory.value, // 1 is cosmetics

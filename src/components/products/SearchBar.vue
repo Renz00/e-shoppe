@@ -5,8 +5,10 @@
         v-model="selected"
         v-model:search="search"
         @update:search="populateAutocompleteItems"
-        @update:modelValue="selectedSearch"
+        @update:modelValue="selectedSearch(selected)"
+        @keydown.enter="selectedSearch(search)"
         :items="productSearchItems"
+        :menu-props="{ maxWidth: 200, maxHeight:250 }"
         density="compact"
         hide-no-data
         hide-details
@@ -29,8 +31,7 @@
         <template v-slot:item="{ parent, item }">
             <v-list-item class="py-0 my-0" @click="selectedSearch(item.title)" link>
               <v-row class="py-0 my-0">
-                <v-col>{{ item.title }}</v-col>
-                <v-col></v-col>
+                <v-col cols="auto" class="text-truncate">{{ item.title }}</v-col>
               </v-row>
             </v-list-item>
         </template>

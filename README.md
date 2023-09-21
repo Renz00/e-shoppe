@@ -1,7 +1,9 @@
 # things to do
-1. CRUD functionality in cart (add, update, and remove products in cart)
+1. User favourites (add, remove)
+2. CRUD functionality in cart (add, update, and remove products in cart)
+3. Implement vouchers (discounts, free shipping, category based discounts)
 
-This is an ecommerce website for a fictional online business. <br/>
+This is an ecommerce website for a fictional online store. <br/>
 <strong>Author:</strong> Renz De la Torre
 
 <strong>Specific Objectives:</strong>

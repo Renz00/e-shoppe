@@ -2,7 +2,7 @@
     <v-container class="mt-5 mb-10">
         <AddToCart :overlay="overlay" @emitSetOverlay="overlay=false"/>
         <div v-if="!isLoadingProducts && products.length>0">
-            <v-row>
+            <v-row class="mx-5 mx-md-0">
                 <v-col cols="9">
                     <div class="text-h6">Results for "{{ searchValue }}"</div>
                 </v-col>

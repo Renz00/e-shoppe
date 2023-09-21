@@ -13,9 +13,22 @@ export const useCryptStore = defineStore("cryptStore", () => {
     return CryptoJS.enc.Utf8.stringify(CryptoJS.AES.decrypt(dataToDecrypt, cryptPassword));
   }
 
+  const getUserData = () =>{
+    if (sessionStorage.getItem('data')!=null){
+      const decryptedData = decryption(sessionStorage.getItem('data'))
+      const parsedData = JSON.parse(decryptedData)
+      return parsedData
+    }
+    else {
+      console.log('user data is null')
+      return false
+    }
+  }
+
   return {
     encryption,
-    decryption
+    decryption,
+    getUserData
   }
 })
 

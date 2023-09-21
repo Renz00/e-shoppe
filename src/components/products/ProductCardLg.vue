@@ -111,23 +111,24 @@
                   </v-col>
                   <v-col class="pl-sm-0" cols="12" xl="3" lg="3" md="4" sm="6">
                     <v-tooltip
-                      v-model="liked"
-                      text="You liked this item!"
+                      v-model="showFavTooltip"
+                      :text="likedMessage"
                       location="top"
-                      open-on-click
                       :open-on-hover="false"
                     >
                       <template v-slot:activator="{ props }">
                         <v-btn
                           v-bind="props"
-                          @click="storeToFavourites(selectedProduct.id, selectedProduct.user_id)"
+                          @click="storeToFavourites(selectedProduct.id)"
                           size="large"
                           color="error"
                           style="color: white"
                           width="100%"
+                          :loading="isLoadingLike"
                         >
-                          <v-icon icon="mdi-heart"></v-icon
-                        ></v-btn>
+                          <v-icon icon="mdi-heart" v-if="liked"></v-icon>
+                          <v-icon icon="mdi-heart-outline" v-else></v-icon>
+                        </v-btn>
                       </template>
                     </v-tooltip>
                   </v-col>
@@ -169,9 +170,16 @@ import AddToCart from "./AddToCart.vue";
 import { ref, watchEffect, watch, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
+import { useCryptStore } from '@/store/crypt-store'
+import { useAuthStore } from '@/store/auth-store'
+import { useFavouriteStore } from '@/store/favourites-store'
 
 const { selectedProduct, isLoadingSelectedProduct } = storeToRefs(useProductStore())
-const { handleFetchSelectedProduct, handleStoreToFavourites, setCartItemCount} = useProductStore()
+const { handleFetchSelectedProduct, setCartItemCount } = useProductStore()
+const { getUserData } = useCryptStore()
+const { setAuthDialog } = useAuthStore()
+const { handleStoreToFavourites } = useFavouriteStore()
+const { showFavTooltip, liked, likedMessage, isLoadingLike } = storeToRefs(useFavouriteStore())
 
 const props = defineProps({
     productId: String
@@ -179,7 +187,6 @@ const props = defineProps({
 
 const tab = ref(null);
 const overlay = ref(false);
-const liked = ref(false);
 const imgload = ref(false);
 const productQuantity = ref(1);
 
@@ -200,12 +207,19 @@ const decQuantity = () =>{
   }
 }
 
-// const storeToFavourites = async (product_id, user_id) =>{
-//   liked.value = true
-//   const favData = {
-    
-//   }
-// }
+const storeToFavourites = async (product_id) =>{
+  const userData = getUserData()
+  if (product_id!=null && userData!=false){
+    const favData = {
+      'user_id': userData.id,
+      'product_id': product_id
+    }
+    await handleStoreToFavourites(favData, userData.token)
+  }
+  else {
+    setAuthDialog('login')
+  }
+}
 
 //Closes overlay alert after 2 secs if value is true
 //watchEffect will watch the value of whatever veriable is referrence within the callback function
@@ -215,9 +229,9 @@ watchEffect(() => {
       overlay.value = false;
     }, 1000);
   }
-  if (liked.value) {
+  if (showFavTooltip.value) {
     setTimeout(() => {
-      liked.value = false;
+      showFavTooltip.value = false;
     }, 1000);
   }
 })

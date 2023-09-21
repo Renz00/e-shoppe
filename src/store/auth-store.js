@@ -1,11 +1,11 @@
 // Utilities
 import { defineStore } from 'pinia'
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { login, register, logout } from "../http/auth-api"
 import { useCryptStore } from '@/store/crypt-store'
 
 export const useAuthStore = defineStore("authStore", () => {
-  const { decryption, encryption } = useCryptStore()
+  const { encryption, getUserData } = useCryptStore()
   const showLogin=ref(false)
   const showRegister=ref(false)
   const showAuthDialog = ref(false)
@@ -94,9 +94,8 @@ export const useAuthStore = defineStore("authStore", () => {
   const handleLogout = async() => {
     authLoading.value = true
     if (sessionStorage.getItem('data') != null){
-      const decryptedData = decryption(sessionStorage.getItem('data'))
-      const parsedData = JSON.parse(decryptedData)
-      const {data} = await logout(parsedData.token)
+      const userData = getUserData()
+      const {data} = await logout(userData.token)
       if (data.result == 1){
         sessionStorage.removeItem('data')
         isLoggedIn.value = false

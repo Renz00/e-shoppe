@@ -1,6 +1,7 @@
 // Utilities
 import { defineStore } from 'pinia'
 import { loadPaginatedProducts, loadProductPage, filterProducts, searchProducts, storeToFavourites, showProduct } from "../http/products-api"
+import { useCryptStore } from '@/store/crypt-store'
 
 export const useProductStore = defineStore('productStore', {
   state: () => ({
@@ -119,9 +120,10 @@ export const useProductStore = defineStore('productStore', {
         }
       }
     },
-    async handleStoreToFavourites(favData){
+    async handleStoreToFavourites(favData, token){
       this.isLoadingProducts = false
-      const {data} = await storeToFavourites(favData)
+      const { getUserData } = useCryptStore()
+      const {data} = await storeToFavourites(favData, token)
       if (data.products != null){
         this.products = data.products.data
         this.productPageCount = data.products.last_page
