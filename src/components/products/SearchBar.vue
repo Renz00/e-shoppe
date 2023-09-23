@@ -35,7 +35,7 @@
               </v-row>
             </v-list-item>
         </template>
-    </v-autocomplete>   
+    </v-autocomplete>
 </template>
 
 <script setup>

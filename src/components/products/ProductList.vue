@@ -1,5 +1,5 @@
 <template>
-        <v-list lines="two" class="py-0 my-0 mt-3 mt-sm-0 mx-md-0 overflow-y-auto" width="auto" height="800">
+      <v-list lines="two" class="py-0 my-0 mt-3 mt-sm-0 mx-md-0 overflow-y-auto" width="auto" height="800" v-if="products.length>0">
         <v-list-item class="pa-0 mb-3 elevation-1" v-for="(product, key) in products" :key="key">
             <v-row>
                 <v-col class="d-flex justify-center align-center px-0 px-sm-3" cols="12" md="4" sm="6">
@@ -38,14 +38,19 @@
                 </v-col>
             </v-row>
         </v-list-item>
-    </v-list>
+      </v-list>
+      <v-container v-else>
+        <v-row class="justify-center align-center fill-height">
+          <div class="text-subtitle1">Sorry, no results.</div>
+        </v-row>
+      </v-container>
 </template>
 
 <script setup>
-
 const props = defineProps({
     products: Array
 })
+
 const emits = defineEmits(['emitSetCartItemCount'])
 
 const category = (val) => {

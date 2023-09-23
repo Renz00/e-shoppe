@@ -13,7 +13,7 @@
                 :width="8"
                 indeterminate
                 >
-                </v-progress-circular>     
+                </v-progress-circular>
               </v-row>
               <v-row class="justify-center align-center pt-5">
                 <div class="text-subtitle-2">Please wait...</div>
@@ -23,15 +23,12 @@
       </v-container>
       </v-card-text>
     </v-card>
-  
+
   </v-sheet>
   </v-row>
-  
+
 </template>
 
 <script setup>
 
-const props = defineProps({
-  isLoadingProducts: Boolean
-})
 </script>

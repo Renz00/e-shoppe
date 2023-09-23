@@ -1,4 +1,5 @@
 <template>
+
     <v-container class="mt-5 mb-10">
         <v-row>
             <v-col cols="9">
@@ -8,14 +9,21 @@
               <ProductLayout @emitSetLayout="setLayout"/>
             </v-col>
         </v-row>
-        <v-row>
+        <Loader class="mt-5" v-if="isLoadingFav"/>
+        <v-row v-if="!isLoadingFav">
             <v-col class="mx-10" v-if="layout=='list'">
-                <ProductList :cartItemCount="20"/>
+              <v-sheet min-height="1350">
+                <ProductList :products="favProducts" @emitSetCartItemCount="addToCart()"/>
+              </v-sheet>
             </v-col>
             <v-col class="mx-10" v-if="layout=='grid'">
-                <ProductCardSm :cartItemCount="20"/>
+              <v-sheet min-height="1350">
+                <ProductCardSm :products="favProducts"/>
+              </v-sheet>
             </v-col>
+            <NoResults :isLoadingProducts="isLoadingFav" :productsLength="favProducts.length"/>
         </v-row>
+        <AddToCart :overlay="overlay" @emitSetOverlay="overlay=false"/>
     </v-container>
 </template>
 
@@ -24,20 +32,47 @@ import { ref, onMounted } from 'vue';
 import ProductList from '@/components/products/ProductList.vue';
 import ProductCardSm from '@/components/products/ProductCardSm.vue';
 import ProductLayout from '@/components/layout/ProductLayout.vue';
+import Loader from '@/components/layout/Loader.vue'
+import AddToCart from '@/components/products/AddToCart.vue';
+import NoResults from '@/components/products/NoResults.vue';
+import { storeToRefs } from "pinia";
+import { useProductStore } from '@/store/product-store'
+import { useFavouriteStore } from '@/store/favourites-store'
 
+const { favProducts, isLoadingFav } = storeToRefs(useFavouriteStore())
+const { handleFetchFavourites} = useFavouriteStore()
+const { setCartItemCount} = useProductStore()
 
-//Props from router and App.vue
 const props = defineProps({
-  cartItemCount: Number
+  cartItemCount: Number,
+  mobileView: Boolean
 })
 
+
 const layout = ref('list')
+const overlay = ref(false)
 
 const setLayout = (selectedLayout) => {
   layout.value = selectedLayout
 }
 
-onMounted(()=>{
+const addToCart = () => {
+  overlay.value = true
+  setCartItemCount()
+}
 
+//Closes overlay alert after 2 secs if value is true
+//watchEffect will watch the value of whatever veriable is referrence within the callback function
+watchEffect(() => {
+  if (overlay.value) {
+    setTimeout(() => {
+      overlay.value = false;
+    }, 1000);
+  }
+})
+
+onMounted(async()=>{
+  isLoadingFav.value = true
+  await handleFetchFavourites()
 })
 </script>

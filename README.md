@@ -2,6 +2,11 @@
 1. User favourites (add, remove)
 2. CRUD functionality in cart (add, update, and remove products in cart)
 3. Implement vouchers (discounts, free shipping, category based discounts)
+4. Implement track orders
+
+# Testing
+1. Use Jest Framework for testing
+
 
 This is an ecommerce website for a fictional online store. <br/>
 <strong>Author:</strong> Renz De la Torre

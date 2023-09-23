@@ -17,7 +17,7 @@
                 <v-col class="mx-10" v-if="layout=='grid'">
                     <ProductCardSm :products="products" @emitSetCartItemCount="addToCart" :isLoadingProducts="isLoadingProducts"/>
                 </v-col>
-                
+
             </v-row>
             <v-row class="justify-center align-center">
                 <Pagination />

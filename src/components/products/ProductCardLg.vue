@@ -17,7 +17,7 @@
             <template v-slot:placeholder>
               <div class="d-flex align-center justify-center fill-height">
                 <v-progress-circular
-                  :size="50" 
+                  :size="50"
                   color="primary"
                   indeterminate
                 ></v-progress-circular>
@@ -42,9 +42,9 @@
               <v-container class="pr-md-7">
                 <v-row class="px-3 px-md-0">
                   <v-col class="text-h5 pt-2">
-                    <div class="text-subtitle-1">{{ selectedProduct.product_name }}</div>
-                    <div class="text-subtitle-1">
-                      {{ selectedProduct.product_category }} |
+                    <div class="text-subtitle-1 pb-2">{{ selectedProduct.product_name }}</div>
+                    <div class="text-subtitle-2">
+                      {{ category(selectedProduct.product_category) }} |
                       <v-icon
                         class="pb-1"
                         color="yellow"
@@ -58,7 +58,7 @@
                 </v-row>
                 <v-row class="px-3 px-md-0">
                   <v-col>
-                    <div class="text-subtitle-2 pb-5">Quantity</div>
+                    <div class="text-subtitle-2 pb-3">Quantity</div>
                     <v-row class="mx-5 mx-sm-1">
                       <ProductQuantity @emitDecQuantity="decQuantity" @emitIncQuantity="incQuantity" :productQuantity="productQuantity"/>
                     </v-row>
@@ -157,7 +157,7 @@
             </v-window-item>
           </v-window>
           </div>
-       
+
         </v-col>
       </v-row>
     </v-card>
@@ -243,6 +243,23 @@ watch(
     await handleFetchSelectedProduct(props.productId)
   }
 )
+
+const category = (val) => {
+  switch (val){
+    case 1:
+      return 'Gadgets'
+      break
+    case 2:
+      return 'Cosmetics'
+      break
+    case 3:
+      return 'Apparel'
+      break
+    default:
+      break
+  }
+}
+
 
 onMounted(async()=>{
   await handleFetchSelectedProduct(props.productId)

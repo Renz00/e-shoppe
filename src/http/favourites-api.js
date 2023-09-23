@@ -1,13 +1,18 @@
 import api from "./api";
 
-const url = "/v1/favourites"
+const url = "/favourites"
 
-export const storeToFavourites = (favData, token) => api.post(url, favData,{
+export const fetchFavourites = (userObj, token) => api.post(url, userObj, {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+})
+
+export const storeToFavourites = (favData, token) => api.post(url+'/store', favData,{
     headers: {
       Authorization: `Bearer ${token}`
     }
-  })
-
+})
 
 // export const createTask = (task) => api.post(url, task)
 

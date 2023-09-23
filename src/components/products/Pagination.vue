@@ -23,8 +23,6 @@ import { useProductStore } from '@/store/product-store'
 const { productCurrentPage, productPageCount, isLoadingProducts } = storeToRefs(useProductStore())
 const { handleLoadPage } = useProductStore()
 
-const emits = defineEmits(['emitLoadPage'])
-
 const loadPage = async (page) => {
   isLoadingProducts.value = true
   const title = document.getElementById('title');

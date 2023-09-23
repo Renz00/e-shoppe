@@ -1,5 +1,5 @@
 <template>
-  <v-container class="py-0 my-0" fluid>
+  <v-container class="py-0 my-0" fluid v-if="products.length>0">
     <v-sheet height="auto">
       <v-row class="justify-center text-center">
       <v-col class="pb-3 px-2" cols="12" sm="6" lg="3" md="4" v-for="(product, key) in products" :key="key">
@@ -18,7 +18,7 @@
                   <template v-slot:placeholder>
                     <div class="d-flex align-center justify-center fill-height">
                       <v-progress-circular
-                        :size="50" 
+                        :size="50"
                         color="primary"
                         indeterminate
                       ></v-progress-circular>
@@ -39,7 +39,7 @@
                 </div>
               </div>
             <!-- click.stop prevents child click from triggering parent click -->
-            <v-btn class="rounded-0" @click.stop="setCartItemCount()" width="100%" color="success">
+            <v-btn class="rounded-0" @click.prevent="setItemCount" width="100%" color="success">
               <span style="color: white;">
                 Add to Cart
               </span>
@@ -49,15 +49,17 @@
       </v-row>
     </v-sheet>
   </v-container>
-
+  <v-container v-else>
+        <v-row class="justify-center align-center fill-height">
+          <div class="text-subtitle-1">Sorry, no results.</div>
+        </v-row>
+      </v-container>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useProductStore } from '@/store/product-store'
 
-const { setCartItemCount } = useProductStore()
+const emits = defineEmits(['emitSetCartItemCount'])
 
 const props = defineProps({
   products: Array,
@@ -79,6 +81,10 @@ const category = (val) => {
     default:
       break
   }
+}
+
+const setItemCount = () =>{
+  emits('emitSetCartItemCount')
 }
 
 </script>

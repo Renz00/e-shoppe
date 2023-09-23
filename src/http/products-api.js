@@ -1,6 +1,6 @@
 import api from "./api";
 
-const url = "/v1/products"
+const url = "/products"
 
 export const loadPaginatedProducts = () => api.get(url+'/fetch/paginated')
 export const loadMore = (limit) => api.get(url+'/load-more/'+limit)

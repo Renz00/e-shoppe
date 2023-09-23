@@ -22,27 +22,33 @@
                 </v-expansion-panels>
             </v-col>
             <v-col cols="12" lg="9" md="9" class="px-5">
-                <Loader :isLoadingProducts="isLoadingProducts" v-if="isLoadingProducts"/>
-                <ProductList :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount" v-if="layout=='list'"/>
-                <Products :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount" v-if="layout=='grid'"/>
+                <NoResults :isLoadingProducts="isLoadingProducts" :productsLength="products.length"/>
+                <Loader v-if="isLoadingProducts"/>
+                <ProductList :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="addToCart()" v-if="layout=='list'"/>
+                <ProductCardSm :products="products" @emitSetCartItemCount="addToCart()" v-if="layout=='grid'"/>
+
+                <!-- <Products :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount" v-if="layout=='grid'"/> -->
                 <Pagination v-if="!isLoadingProducts && products.length>0"/>
             </v-col>
         </v-row>
         <ScrollUp />
+        <AddToCart :overlay="overlay" @emitSetOverlay="overlay=false"/>
        </v-container>
 </template>
 
 <script setup>
-import Products from '@/components/products/Products.vue';
 import FilterMenu from '@/components/products/FilterMenu.vue';
 import Pagination from '@/components/products/Pagination.vue';
 import Loader from '@/components/layout/Loader.vue';
 import ScrollUp from '@/components/layout/ScrollUp.vue';
 import ProductLayout from '@/components/layout/ProductLayout.vue';
 import ProductList from '@/components/products/ProductList.vue';
+import ProductCardSm from '@/components/products/ProductCardSm.vue';
+import AddToCart from '@/components/products/AddToCart.vue';
+import NoResults from '@/components/products/NoResults.vue';
 
 import { useDisplay } from 'vuetify'
-import { onMounted, computed, ref, watch } from "vue";
+import { onMounted, computed, ref, watch, watchEffect } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 
@@ -60,6 +66,7 @@ const rating = ref([5, 4, 3, 2, 1])
 const min = ref(0)
 const max = ref(50000)
 const layout = ref('grid')
+const overlay = ref(false)
 
 const setLayout = (selectedLayout) => {
   layout.value = selectedLayout
@@ -82,6 +89,11 @@ watch(
     await fetchProducts()
   }
 )
+
+const addToCart = () => {
+  overlay.value = true
+  setCartItemCount()
+}
 
 const fetchProducts = async() => {
     const category = []
@@ -111,6 +123,17 @@ const uppercaseProductCategory = computed(() => {
     //Capitalize the first letter of a string
     return props.productCategory.charAt(0).toUpperCase() + props.productCategory.slice(1)
 })
+
+//Closes overlay alert after 2 secs if value is true
+//watchEffect will watch the value of whatever veriable is referrence within the callback function
+watchEffect(() => {
+  if (overlay.value) {
+    setTimeout(() => {
+      overlay.value = false;
+    }, 1000);
+  }
+})
+
 
 onMounted ( async () => {
   await fetchProducts()

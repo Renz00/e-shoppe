@@ -16,6 +16,7 @@ export const useProductStore = defineStore('productStore', {
     productSearchItems:[],
     isLoadingSearchItems: false,
     isLoadingSelectedProduct: false,
+    isFiltered: false
   }),
   actions: {
     setCartItemCount(){
@@ -65,6 +66,7 @@ export const useProductStore = defineStore('productStore', {
         this.productPageCount = data.products.last_page
         this.productCurrentPage = data.products.current_page
         this.isLoadingProducts = false
+        this.isFiltered = false
       }
       else {
         console.log('Error loading page of products')
@@ -78,6 +80,7 @@ export const useProductStore = defineStore('productStore', {
         this.products = data.products.data
         this.productPageCount = data.products.last_page
         this.isLoadingProducts = false
+        this.isFiltered = true
       }
       else {
         console.log('Error filtering products')
