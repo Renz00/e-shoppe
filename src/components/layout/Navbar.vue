@@ -55,13 +55,14 @@
       </v-col>
       <v-col>
         <v-row>
+          
           <v-col class="d-flex justify-end align-center">
             <div>
                <SearchBar :mobileView="mobileView"/>
             </div>
             <div class="ml-1">
-              <v-btn icon="" :to="{ name: 'CartView' }" v-if="cartItemCount > 0">
-                  <v-badge :content="cartItemCount" color="error">
+              <v-btn icon="" :to="{ name: 'CartView' }" v-if="getCartItemCount > 0">
+                  <v-badge :content="getCartItemCount" color="error">
                     <v-icon icon="mdi-cart-outline"></v-icon>
                   </v-badge>
               </v-btn>
@@ -122,12 +123,13 @@ import HamburgerSearchBar from '@/components/products/HamburgerSearchBar.vue'
 import { ref, watchEffect } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/store/auth-store'
+import { useProductStore } from '@/store/product-store'
 
 const { setAuthDialog, handleLogout } = useAuthStore()
 const { isLoggedIn, authLoading } = storeToRefs(useAuthStore())
+const { getCartItemCount } = storeToRefs(useProductStore())
 
 const props = defineProps({
-  cartItemCount: Number,
   mobileView: Boolean
 })
 

@@ -8,12 +8,10 @@
         </v-col>
       </v-row>
       <v-sheet :min-height="1350">
-        <NoResults :isLoadingProducts="isLoadingProducts" :productsLength="products.length"/>
-        <Loader class="mt-5" v-if="isLoadingProducts"/>
-        <ProductCardSm :products="products" @emitSetCartItemCount="addToCart()" v-else/>
+        <ProductCardSm :products="products"/>
         <AddToCart :overlay="overlay" @emitSetOverlay="overlay=false"/>
         <!-- <Products :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount"/> -->
-        <LoadMore v-if="!isLoadingProducts && !isFiltered && products.length>0" :isLoadingProducts="isLoadingProducts" :productLimit="productLimit" @emitLoadMore="loadMore"/>
+        <LoadMore v-if="!isFiltered && products.length>0" :isLoadingProducts="isLoadingProducts" :productLimit="productLimit" @emitLoadMore="loadMore"/>
         <Pagination v-if="!isLoadingProducts && isFiltered && products.length>0"/>
       </v-sheet>
       <ScrollUp />
@@ -27,19 +25,16 @@ import Banner from "@/components/layout/Banner.vue"
 import CatalogHeader from "@/components/products/CatalogHeader.vue"
 import LoadMore from '@/components/products/LoadMore.vue'
 import ScrollUp from '@/components/layout/ScrollUp.vue'
-import Loader from '@/components/layout/Loader.vue'
 import Pagination from '@/components/products/Pagination.vue'
 import ProductCardSm from "@/components/products/ProductCardSm.vue"
 import AddToCart from "@/components/products/AddToCart.vue"
-import NoResults from "@/components/products/NoResults.vue"
-import { ref, watchEffect, onMounted } from "vue";
+import Loader from "@/components/layout/Loader.vue"
+import { watchEffect, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 
-const { products, isLoadingProducts, productCurrentPage, productLimit, isFiltered } = storeToRefs(useProductStore())
-const { handlePaginatedProducts, setCartItemCount, handleLoadMore } = useProductStore()
-
-const overlay = ref(false)
+const { products, isLoadingProducts, productCurrentPage, productLimit, isFiltered, overlay } = storeToRefs(useProductStore())
+const { handlePaginatedProducts, handleLoadMore } = useProductStore()
 
 const loadMore = async () => {
   if (productLimit.value < 120){
@@ -58,17 +53,7 @@ watchEffect(() => {
   }
 })
 
-const addToCart = () => {
-  overlay.value = true
-  setCartItemCount()
-}
-
 onMounted ( async () => {
-  products.value = []
   await handlePaginatedProducts()
 })
 </script>
-
-<style scoped>
-
-</style>

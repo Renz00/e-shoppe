@@ -1,7 +1,6 @@
 <template>
     <v-container class="mt-5 mb-10">
         <AddToCart :overlay="overlay" @emitSetOverlay="overlay=false"/>
-        <div v-if="!isLoadingProducts && products.length>0">
             <v-row class="mx-5 mx-md-0">
                 <v-col cols="9">
                     <div class="text-h6">Results for "{{ searchValue }}"</div>
@@ -12,22 +11,16 @@
             </v-row>
             <v-row>
                 <v-col class="mx-10" v-if="layout=='list'">
-                    <ProductList :products="products" @emitSetCartItemCount="addToCart" :isLoadingProducts="isLoadingProducts"/>
+                    <ProductList :products="products" :isLoading="isLoadingProducts"/>
                 </v-col>
                 <v-col class="mx-10" v-if="layout=='grid'">
-                    <ProductCardSm :products="products" @emitSetCartItemCount="addToCart" :isLoadingProducts="isLoadingProducts"/>
+                    <ProductCardSm :products="products" :isLoading="isLoadingProducts"/>
                 </v-col>
 
             </v-row>
             <v-row class="justify-center align-center">
                 <Pagination />
             </v-row>
-        </div>
-        <div v-if="isLoadingProducts">
-            <v-row class="justify-center align-center">
-                <Loader :isLoadingProducts="isLoadingProducts"/>
-            </v-row>
-        </div>
     </v-container>
 </template>
 
@@ -42,20 +35,14 @@ import AddToCart from '@/components/products/AddToCart.vue';
 
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
-const { products, isLoadingProducts, isLoadingSearchItems } = storeToRefs(useProductStore())
-const { handleSearchProducts, setCartItemCount} = useProductStore()
+const { products, isLoadingProducts, overlay } = storeToRefs(useProductStore())
+const { handleSearchProducts} = useProductStore()
 
 const layout = ref('list')
-const overlay=ref(false)
 
 const searchValue = computed(()=>{
     return sessionStorage.getItem('search')
 })
-
-const addToCart = () => {
-  overlay.value = true
-  setCartItemCount()
-}
 
 const setLayout = (selectedLayout) => {
     layout.value = selectedLayout

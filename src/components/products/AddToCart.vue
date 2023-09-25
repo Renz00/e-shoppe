@@ -1,5 +1,5 @@
 <template>
-    <v-overlay class="justify-center align-center" v-model="overlayValue">
+    <v-overlay class="justify-center align-center" v-model="overlay">
       <v-alert
         closable
         icon="mdi-check"
@@ -8,19 +8,15 @@
         type="success"
       >
         <template v-slot:close>
-          <v-btn icon="mdi-close" @click="emits('emitSetOverlay', false)"></v-btn>
+          <v-btn icon="mdi-close" @click="overlay = false"></v-btn>
         </template>
       </v-alert>
     </v-overlay>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-const props = defineProps({
-    overlay: Boolean
-})
-const emits = defineEmits(['emitSetOverlay'])
-const overlayValue = computed(()=>{
-    return props.overlay
-})
+import { storeToRefs } from "pinia";
+import { useProductStore } from '@/store/product-store'
+const { overlay } = storeToRefs(useProductStore())
+
 </script>

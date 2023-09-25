@@ -4,7 +4,8 @@ const url = "/products"
 
 export const loadPaginatedProducts = () => api.get(url+'/fetch/paginated')
 export const loadMore = (limit) => api.get(url+'/load-more/'+limit)
-export const loadProductPage = (page) => api.get(url+'/fetch/paginated?page='+page)
+export const loadProductFilterPage = (filter, link) => api.post(link, filter)
+export const loadProductPage = (link) => api.get(link)
 export const filterProducts = (filters) => api.post(url+'/filter', filters)
 export const showProduct = (id) => api.get(url+'/'+id)
 export const searchProducts = (searchSlug) => api.get(url+'/search-products/'+searchSlug)

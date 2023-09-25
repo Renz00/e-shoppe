@@ -9,32 +9,28 @@
               <ProductLayout @emitSetLayout="setLayout"/>
             </v-col>
         </v-row>
-        <Loader class="mt-5" v-if="isLoadingFav"/>
-        <v-row v-if="!isLoadingFav">
-            <v-col class="mx-10" v-if="layout=='list'">
+        <v-row>
+            <v-col class="mx-10" v-if="layout=='list'" :isLoading="isLoadingFav">
               <v-sheet min-height="1350">
-                <ProductList :products="favProducts" @emitSetCartItemCount="addToCart()"/>
+                <ProductList :products="favProducts" :isLoading="isLoadingFav"/>
               </v-sheet>
             </v-col>
             <v-col class="mx-10" v-if="layout=='grid'">
               <v-sheet min-height="1350">
-                <ProductCardSm :products="favProducts"/>
+                <ProductCardSm :products="favProducts" :isLoading="isLoadingFav"/>
               </v-sheet>
             </v-col>
-            <NoResults :isLoadingProducts="isLoadingFav" :productsLength="favProducts.length"/>
         </v-row>
         <AddToCart :overlay="overlay" @emitSetOverlay="overlay=false"/>
     </v-container>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watchEffect } from 'vue';
 import ProductList from '@/components/products/ProductList.vue';
 import ProductCardSm from '@/components/products/ProductCardSm.vue';
 import ProductLayout from '@/components/layout/ProductLayout.vue';
-import Loader from '@/components/layout/Loader.vue'
 import AddToCart from '@/components/products/AddToCart.vue';
-import NoResults from '@/components/products/NoResults.vue';
 import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
 import { useFavouriteStore } from '@/store/favourites-store'
@@ -56,9 +52,9 @@ const setLayout = (selectedLayout) => {
   layout.value = selectedLayout
 }
 
-const addToCart = () => {
+const addToCart = (orderProduct) => {
   overlay.value = true
-  setCartItemCount()
+  setCartItemCount(orderProduct)
 }
 
 //Closes overlay alert after 2 secs if value is true

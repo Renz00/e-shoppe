@@ -1,19 +1,17 @@
 <template>
-     <div class="text-center">
-    <v-container>
+    <v-container class="py-10">
       <v-row justify="center">
         <v-col cols="8">
-          <v-container class="max-width">
             <v-pagination
+              density="comfortable"
               v-model="productCurrentPage"
               :length="productPageCount"
               @update:modelValue="loadPage"
+              rounded="circle"
             ></v-pagination>
-          </v-container>
         </v-col>
       </v-row>
-    </v-container>
-  </div>
+  </v-container>
 </template>
 
 <script setup>
@@ -21,7 +19,11 @@ import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
 
 const { productCurrentPage, productPageCount, isLoadingProducts } = storeToRefs(useProductStore())
-const { handleLoadPage } = useProductStore()
+const { handleLoadPage, handleLoadFilterPage } = useProductStore()
+
+const props = defineProps({
+  productCategory: [Number, String]
+})
 
 const loadPage = async (page) => {
   isLoadingProducts.value = true
@@ -31,8 +33,13 @@ const loadPage = async (page) => {
     block: "start",
     inline: "start"
   });
-
-  await handleLoadPage()
+  if (props.productCategory!=null){
+    await handleLoadFilterPage()
+  }
+  else {
+    await handleLoadPage()
+  }
+  
 }
 
 </script>

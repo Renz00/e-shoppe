@@ -1,6 +1,6 @@
 <template>
   <v-row class="justify-center fill-height mt-10">
-    <v-sheet height="700">
+    <v-sheet height="1200">
     <v-card class="elevation-2" width="150">
       <v-card-text>
         <v-container>

@@ -1,5 +1,7 @@
 <template>
-  <v-container class="py-0 my-0" fluid v-if="products.length>0">
+  <v-container class="py-0 my-0">
+    <Loader v-if="isLoadingProducts"/>
+      <NoResults v-if="!isLoadingProducts && products.length<=0"/>
     <v-sheet height="auto">
       <v-row class="justify-center text-center">
       <v-col class="pb-3 px-2" cols="12" sm="6" lg="3" md="4" v-for="(product, key) in products" :key="key">
@@ -39,7 +41,7 @@
                 </div>
               </div>
             <!-- click.stop prevents child click from triggering parent click -->
-            <v-btn class="rounded-0" @click.prevent="setItemCount" width="100%" color="success">
+            <v-btn class="rounded-0" @click.prevent="setCartItemCount({id: product.id, count: 1, total_price: product.product_price})" width="100%" color="success">
               <span style="color: white;">
                 Add to Cart
               </span>
@@ -49,20 +51,20 @@
       </v-row>
     </v-sheet>
   </v-container>
-  <v-container v-else>
-        <v-row class="justify-center align-center fill-height">
-          <div class="text-subtitle-1">Sorry, no results.</div>
-        </v-row>
-      </v-container>
 </template>
 
 <script setup>
+import NoResults from './NoResults.vue';
+import Loader from '../layout/Loader.vue';
 import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useProductStore } from '@/store/product-store'
 
-const emits = defineEmits(['emitSetCartItemCount'])
+const { isLoadingProducts } = storeToRefs(useProductStore())
+const { setCartItemCount} = useProductStore()
 
 const props = defineProps({
-  products: Array,
+  products: Array
 })
 
 var imgload = ref(false)
@@ -81,10 +83,6 @@ const category = (val) => {
     default:
       break
   }
-}
-
-const setItemCount = () =>{
-  emits('emitSetCartItemCount')
 }
 
 </script>

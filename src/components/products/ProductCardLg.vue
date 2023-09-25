@@ -1,6 +1,6 @@
 <template>
   <v-sheet>
-    <AddToCart :overlay="overlay" @emitSetOverlay="overlay = false"/>
+    <AddToCart />
     <v-card class="mx-5 mx-lg-0 elevation-1">
       <v-row>
         <v-col cols="12" md="6" class="mx-0 py-0 py-md-2 px-0">
@@ -104,7 +104,7 @@
                       color="success"
                       style="color: white"
                       width="100%"
-                      @click="addToCart"
+                      @click="setCartItemCount({id: selectedProduct.id, count: 1, total_price: selectedProduct.product_price})"
                     >
                       Add to Cart
                     </v-btn>
@@ -167,33 +167,23 @@
 <script setup>
 import ProductQuantity from "./ProductQuantity.vue";
 import AddToCart from "./AddToCart.vue";
-import { ref, watchEffect, watch, onMounted } from "vue";
+import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
 import { useCryptStore } from '@/store/crypt-store'
 import { useAuthStore } from '@/store/auth-store'
 import { useFavouriteStore } from '@/store/favourites-store'
 
-const { selectedProduct, isLoadingSelectedProduct } = storeToRefs(useProductStore())
-const { handleFetchSelectedProduct, setCartItemCount } = useProductStore()
+const { isLoadingSelectedProduct, selectedProduct } = storeToRefs(useProductStore())
+const { setCartItemCount } = useProductStore()
 const { getUserData } = useCryptStore()
 const { setAuthDialog } = useAuthStore()
 const { handleStoreToFavourites } = useFavouriteStore()
 const { showFavTooltip, liked, likedMessage, isLoadingLike } = storeToRefs(useFavouriteStore())
 
-const props = defineProps({
-    productId: String
-})
-
 const tab = ref(null);
-const overlay = ref(false);
 const imgload = ref(false);
 const productQuantity = ref(1);
-
-const addToCart = () => {
-  overlay.value = true;
-  setCartItemCount()
-}
 
 const incQuantity = () =>{
   if (productQuantity.value<10){
@@ -221,29 +211,6 @@ const storeToFavourites = async (product_id) =>{
   }
 }
 
-//Closes overlay alert after 2 secs if value is true
-//watchEffect will watch the value of whatever veriable is referrence within the callback function
-watchEffect(() => {
-  if (overlay.value) {
-    setTimeout(() => {
-      overlay.value = false;
-    }, 1000);
-  }
-  if (showFavTooltip.value) {
-    setTimeout(() => {
-      showFavTooltip.value = false;
-    }, 1000);
-  }
-})
-
-//Watching props variable
-watch(
-  () => props.productId,
-  async () => {
-    await handleFetchSelectedProduct(props.productId)
-  }
-)
-
 const category = (val) => {
   switch (val){
     case 1:
@@ -259,10 +226,4 @@ const category = (val) => {
       break
   }
 }
-
-
-onMounted(async()=>{
-  await handleFetchSelectedProduct(props.productId)
-})
-
 </script>

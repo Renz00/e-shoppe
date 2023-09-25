@@ -1,6 +1,6 @@
 // Utilities
 import { defineStore } from 'pinia'
-import { loadPaginatedProducts, loadProductPage, filterProducts, searchProducts, storeToFavourites, showProduct } from "../http/products-api"
+import { loadPaginatedProducts, loadProductPage, filterProducts, searchProducts, storeToFavourites, showProduct, loadProductFilterPage } from "../http/products-api"
 import { useCryptStore } from '@/store/crypt-store'
 
 export const useProductStore = defineStore('productStore', {
@@ -16,13 +16,38 @@ export const useProductStore = defineStore('productStore', {
     productSearchItems:[],
     isLoadingSearchItems: false,
     isLoadingSelectedProduct: false,
-    isFiltered: false
+    isFiltered: false,
+    productPageLinks:[],
+    currentProductFilter:{},
+    overlay: false
   }),
   actions: {
-    setCartItemCount(){
-      this.cartItemCount++
+    setCartItemCount(productData){
+      const { encryption, decryption } = useCryptStore()
+      this.overlay = true
+      let orderProducts = []
+      if (sessionStorage.getItem('cart')!=null){
+        const decryptSess = decryption(sessionStorage.getItem('cart'))
+        const parsedSess = JSON.parse(decryptSess)
+        parsedSess.map((val, index)=>{
+          //If product ID already exists in array, incrememnt count and total_price instead of pushing to array
+          if (val.id == productData.id){
+            productData.count += val.count
+            productData.total_price += val.total_price
+            parsedSess.slice(index)
+          }
+          else {
+            orderProducts.push(val)
+          }
+        })
+      }
+      orderProducts.push(productData)
+      sessionStorage.setItem('cart', encryption(JSON.stringify(orderProducts)))
+      this.overlay = false
+      console.log(orderProducts)
     },
     async handleFetchSelectedProduct(productId){
+      this.products = []
       this.isLoadingSelectedProduct=true
       const {data} = await showProduct(productId)
       if (data.products!=null){
@@ -35,8 +60,9 @@ export const useProductStore = defineStore('productStore', {
     },
     async handleLoadMore(){
       this.isLoadingProducts = true
+      const link = this.productPageLinks[this.productCurrentPage]
       if (this.products != null && this.productLimit<120){
-        const {data} = await loadProductPage(this.productCurrentPage)
+        const {data} = await loadProductPage(link.url)
         //Concatenate the new product data to the previous array
         this.products = this.products.concat(data.products.data)
         this.productLimit += 12
@@ -48,10 +74,26 @@ export const useProductStore = defineStore('productStore', {
     },
     async handleLoadPage(){
       this.isLoadingProducts = true
-      const {data} = await loadProductPage(this.productCurrentPage)
+      const pageLink = this.productPageLinks[this.productCurrentPage]
+      const {data} = await loadProductPage(pageLink.url)
       if (data.products != null){
         this.products = data.products.data
         this.productPageCount = data.products.last_page
+        this.productPageLinks = data.products.links
+        this.isLoadingProducts = false
+      }
+      else {
+        console.log('Error loading page of products')
+      }
+    },
+    async handleLoadFilterPage(){
+      this.isLoadingProducts = true
+      const pageLink = this.productPageLinks[this.productCurrentPage]
+      const {data} = await loadProductFilterPage(this.currentProductFilter, pageLink.url)
+      if (data.products != null){
+        this.products = data.products.data
+        this.productPageCount = data.products.last_page
+        this.productPageLinks = data.products.links
         this.isLoadingProducts = false
       }
       else {
@@ -65,6 +107,7 @@ export const useProductStore = defineStore('productStore', {
         this.products = data.products.data
         this.productPageCount = data.products.last_page
         this.productCurrentPage = data.products.current_page
+        this.productPageLinks= data.products.links
         this.isLoadingProducts = false
         this.isFiltered = false
       }
@@ -75,10 +118,12 @@ export const useProductStore = defineStore('productStore', {
     async handleFilterProducts(filters){
       this.isLoadingProducts = true
       this.products = []
-      const {data} = await filterProducts(filters)
+      this.currentProductFilter = filters
+      const {data} = await filterProducts(this.currentProductFilter)
       if (data.products != null){
         this.products = data.products.data
         this.productPageCount = data.products.last_page
+        this.productPageLinks= data.products.links
         this.isLoadingProducts = false
         this.isFiltered = true
       }

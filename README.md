@@ -1,8 +1,7 @@
 # things to do
-1. User favourites (add, remove)
-2. CRUD functionality in cart (add, update, and remove products in cart)
-3. Implement vouchers (discounts, free shipping, category based discounts)
-4. Implement track orders
+1. CRUD functionality in cart (add, update, and remove products in cart)
+2. Implement vouchers (discounts, free shipping, category based discounts)
+3. Implement track orders
 
 # Testing
 1. Use Jest Framework for testing

@@ -22,13 +22,9 @@
                 </v-expansion-panels>
             </v-col>
             <v-col cols="12" lg="9" md="9" class="px-5">
-                <NoResults :isLoadingProducts="isLoadingProducts" :productsLength="products.length"/>
-                <Loader v-if="isLoadingProducts"/>
-                <ProductList :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="addToCart()" v-if="layout=='list'"/>
-                <ProductCardSm :products="products" @emitSetCartItemCount="addToCart()" v-if="layout=='grid'"/>
-
-                <!-- <Products :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount" v-if="layout=='grid'"/> -->
-                <Pagination v-if="!isLoadingProducts && products.length>0"/>
+                <ProductList :products="products" :isLoading="isLoadingProducts" v-if="layout=='list'"/>
+                <ProductCardSm :products="products" :isLoading="isLoadingProducts" v-if="layout=='grid'"/>
+                <Pagination :productCategory="productCategory" v-if="!isLoadingProducts && products.length>0"/>
             </v-col>
         </v-row>
         <ScrollUp />
@@ -45,42 +41,28 @@ import ProductLayout from '@/components/layout/ProductLayout.vue';
 import ProductList from '@/components/products/ProductList.vue';
 import ProductCardSm from '@/components/products/ProductCardSm.vue';
 import AddToCart from '@/components/products/AddToCart.vue';
-import NoResults from '@/components/products/NoResults.vue';
 
-import { useDisplay } from 'vuetify'
 import { onMounted, computed, ref, watch, watchEffect } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 
-const { products, isLoadingProducts } = storeToRefs(useProductStore())
-const { setCartItemCount, handleFilterProducts } = useProductStore()
+const { products, isLoadingProducts, overlay } = storeToRefs(useProductStore())
+const { handleFilterProducts } = useProductStore()
 
 const props = defineProps({
     productCategory: String,
     mobileView: Boolean
 })
 
-const { name } = useDisplay()
 const panel = ref([0, 1])
 const rating = ref([5, 4, 3, 2, 1])
-const min = ref(0)
+const min = ref(1)
 const max = ref(50000)
 const layout = ref('grid')
-const overlay = ref(false)
 
 const setLayout = (selectedLayout) => {
   layout.value = selectedLayout
 }
-
-// const width = computed(() => {
-//     // name is reactive and
-//     // must use .value
-//     switch (name.value) {
-//         case 'xs': return '50%'
-//         case 'sm': return '50%'
-//     }
-//     return '100%'
-// })
 
 //Watching props variable
 watch(
@@ -89,11 +71,6 @@ watch(
     await fetchProducts()
   }
 )
-
-const addToCart = () => {
-  overlay.value = true
-  setCartItemCount()
-}
 
 const fetchProducts = async() => {
     const category = []
@@ -133,7 +110,6 @@ watchEffect(() => {
     }, 1000);
   }
 })
-
 
 onMounted ( async () => {
   await fetchProducts()
