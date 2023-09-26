@@ -28,25 +28,24 @@
             </v-col>
         </v-row>
         <ScrollUp />
-        <AddToCart :overlay="overlay" @emitSetOverlay="overlay=false"/>
+        <AddToCart />
        </v-container>
 </template>
 
 <script setup>
 import FilterMenu from '@/components/products/FilterMenu.vue';
 import Pagination from '@/components/products/Pagination.vue';
-import Loader from '@/components/layout/Loader.vue';
 import ScrollUp from '@/components/layout/ScrollUp.vue';
 import ProductLayout from '@/components/layout/ProductLayout.vue';
 import ProductList from '@/components/products/ProductList.vue';
 import ProductCardSm from '@/components/products/ProductCardSm.vue';
 import AddToCart from '@/components/products/AddToCart.vue';
 
-import { onMounted, computed, ref, watch, watchEffect } from "vue";
+import { onMounted, computed, ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 
-const { products, isLoadingProducts, overlay } = storeToRefs(useProductStore())
+const { products, isLoadingProducts } = storeToRefs(useProductStore())
 const { handleFilterProducts } = useProductStore()
 
 const props = defineProps({
@@ -99,16 +98,6 @@ const fetchProducts = async() => {
 const uppercaseProductCategory = computed(() => {
     //Capitalize the first letter of a string
     return props.productCategory.charAt(0).toUpperCase() + props.productCategory.slice(1)
-})
-
-//Closes overlay alert after 2 secs if value is true
-//watchEffect will watch the value of whatever veriable is referrence within the callback function
-watchEffect(() => {
-  if (overlay.value) {
-    setTimeout(() => {
-      overlay.value = false;
-    }, 1000);
-  }
 })
 
 onMounted ( async () => {

@@ -104,7 +104,7 @@
                       color="success"
                       style="color: white"
                       width="100%"
-                      @click="setCartItemCount({id: selectedProduct.id, count: 1, total_price: selectedProduct.product_price})"
+                      @click="addToCart(selectedProduct)"
                     >
                       Add to Cart
                     </v-btn>
@@ -176,14 +176,27 @@ import { useFavouriteStore } from '@/store/favourites-store'
 
 const { isLoadingSelectedProduct, selectedProduct } = storeToRefs(useProductStore())
 const { setCartItemCount } = useProductStore()
-const { getUserData } = useCryptStore()
 const { setAuthDialog } = useAuthStore()
+const { isLoggedIn } = storeToRefs(useAuthStore())
 const { handleStoreToFavourites } = useFavouriteStore()
 const { showFavTooltip, liked, likedMessage, isLoadingLike } = storeToRefs(useFavouriteStore())
 
 const tab = ref(null);
 const imgload = ref(false);
 const productQuantity = ref(1);
+
+const addToCart = (selectedProduct) => {
+  const productData = {
+    id: selectedProduct.id, 
+    name: selectedProduct.product_name,
+    category: selectedProduct.product_category,
+    rating: selectedProduct.product_rating,
+    discount: selectedProduct.product_discount,
+    count: 1, 
+    total_price: selectedProduct.product_price
+  }
+  setCartItemCount(productData)
+}
 
 const incQuantity = () =>{
   if (productQuantity.value<10){
@@ -198,16 +211,12 @@ const decQuantity = () =>{
 }
 
 const storeToFavourites = async (product_id) =>{
-  const userData = getUserData()
-  if (product_id!=null && userData!=false){
-    const favData = {
-      'user_id': userData.id,
-      'product_id': product_id
-    }
-    await handleStoreToFavourites(favData, userData.token)
+  if (product_id!=null && isLoggedIn == true){
+    await handleStoreToFavourites(product_id)
   }
   else {
     setAuthDialog('login')
+    isLoadingLike.value = false
   }
 }
 

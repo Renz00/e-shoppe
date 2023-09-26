@@ -33,8 +33,8 @@
                   </v-row>
               </v-container>
           </v-col>
-          <v-col class="d-flex justify-center align-center ma-3 ma-md-0 pr-9" cols="12" md="3">
-              <v-btn class="rounded-0" @click.stop="setCartItemCount({id: product.id, count: 1, total_price: product.product_price})" color="success" block>
+          <v-col class="d-flex justify-center align-center mx-3 mb-3 mx-md-0 mb-md-0 pr-9" cols="12" md="3">
+              <v-btn class="rounded-0" @click.prevent="addToCart(products)" color="success" block>
               <span style="color: white;">
                   Add to Cart
               </span>
@@ -56,6 +56,19 @@ const props = defineProps({
     products: Array,
     isLoading: Boolean
 })
+
+const addToCart = (selectedProduct) => {
+  const productData = {
+    id: selectedProduct.id, 
+    name: selectedProduct.product_name,
+    category: selectedProduct.product_category,
+    rating: selectedProduct.product_rating,
+    discount: selectedProduct.product_discount,
+    count: 1, 
+    total_price: selectedProduct.product_price
+  }
+  setCartItemCount(productData)
+}
 
 const category = (val) => {
   switch (val){

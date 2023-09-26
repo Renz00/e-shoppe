@@ -1,5 +1,3 @@
-import { storeToRefs } from "pinia";
-import { useProductStore } from '@/store/product-store'
 import { useAuthStore } from '@/store/auth-store'
 
 // Composables
@@ -75,18 +73,19 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  const { cartItemCount, } = storeToRefs(useProductStore())
   const { setAuthDialog } = useAuthStore()
   const cartRoutes = ['CartView', 'OrderView']
   const authGuardRoutes = ['OrderView', 'FavouritesView', 'TrackOrdersView']
+
   //Will redirect to homepage if cart is empty
-  if (cartItemCount.value<=0) {
+  if (sessionStorage.getItem('cart')==null) {
     //if the result is not false, to.name value exists in array of route names
     if (cartRoutes.includes(to.name)!=false){
       router.push({name: 'ProductsView'})
       console.log('route guarded: no items in cart')
     }
   }
+
   if (sessionStorage.getItem('data')==null){
     if (authGuardRoutes.includes(to.name)!=false){
       setAuthDialog('login')
@@ -94,7 +93,8 @@ router.beforeEach(async (to, from) => {
       console.log('route guarded: user not logged in')
     }
   }
-  if (to.name='ProductSearchResultsView' && sessionStorage.getItem==null){
+
+  if (to.name='ProductSearchResultsView' && sessionStorage.getItem('search')!=null){
     router.push({name:'ProductsView'})
   }
 })

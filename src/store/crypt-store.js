@@ -25,10 +25,23 @@ export const useCryptStore = defineStore("cryptStore", () => {
     }
   }
 
+  const getCartData = () =>{
+    if (sessionStorage.getItem('cart')!=null){
+      const decryptedData = decryption(sessionStorage.getItem('cart'))
+      const parsedData = JSON.parse(decryptedData)
+      return parsedData
+    }
+    else {
+      console.log('user data is null')
+      return false
+    }
+  }
+
   return {
     encryption,
     decryption,
-    getUserData
+    getUserData,
+    getCartData
   }
 })
 

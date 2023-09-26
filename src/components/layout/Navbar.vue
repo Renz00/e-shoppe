@@ -61,8 +61,8 @@
                <SearchBar :mobileView="mobileView"/>
             </div>
             <div class="ml-1">
-              <v-btn icon="" :to="{ name: 'CartView' }" v-if="getCartItemCount > 0">
-                  <v-badge :content="getCartItemCount" color="error">
+              <v-btn icon="" :to="{ name: 'CartView' }" v-if="cartItemCount > 0">
+                  <v-badge :content="cartItemCount" color="error">
                     <v-icon icon="mdi-cart-outline"></v-icon>
                   </v-badge>
               </v-btn>
@@ -127,10 +127,10 @@ import { useProductStore } from '@/store/product-store'
 
 const { setAuthDialog, handleLogout } = useAuthStore()
 const { isLoggedIn, authLoading } = storeToRefs(useAuthStore())
-const { getCartItemCount } = storeToRefs(useProductStore())
 
 const props = defineProps({
-  mobileView: Boolean
+  mobileView: Boolean,
+  cartItemCount: Number
 })
 
 const showHamburgerMenu = ref(false)

@@ -41,7 +41,7 @@
                 </div>
               </div>
             <!-- click.stop prevents child click from triggering parent click -->
-            <v-btn class="rounded-0" @click.prevent="setCartItemCount({id: product.id, count: 1, total_price: product.product_price})" width="100%" color="success">
+            <v-btn class="rounded-0" @click.prevent="addToCart(product)" width="100%" color="success">
               <span style="color: white;">
                 Add to Cart
               </span>
@@ -68,6 +68,19 @@ const props = defineProps({
 })
 
 var imgload = ref(false)
+
+const addToCart = (selectedProduct) => {
+  const productData = {
+    id: selectedProduct.id, 
+    name: selectedProduct.product_name,
+    category: selectedProduct.product_category,
+    rating: selectedProduct.product_rating,
+    discount: selectedProduct.product_discount,
+    count: 1, 
+    total_price: selectedProduct.product_price
+  }
+  setCartItemCount(productData)
+}
 
 const category = (val) => {
   switch (val){

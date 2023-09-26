@@ -1,6 +1,6 @@
 // Utilities
 import { defineStore } from 'pinia'
-import { loadPaginatedProducts, loadProductPage, filterProducts, searchProducts, storeToFavourites, showProduct, loadProductFilterPage } from "../http/products-api"
+import { loadPaginatedProducts, loadProductPage, filterProducts, searchProducts, storeToFavourites, showProduct, loadProductFilterPage, fetchOrderProducts } from "../http/products-api"
 import { useCryptStore } from '@/store/crypt-store'
 
 export const useProductStore = defineStore('productStore', {
@@ -8,6 +8,7 @@ export const useProductStore = defineStore('productStore', {
     products: [],
     selectedProduct: [],
     cartItemCount: 0,
+    cartItems: [],
     isLoadingProducts: false,
     currentProductCategory: '',
     productPageCount:0,
@@ -22,29 +23,40 @@ export const useProductStore = defineStore('productStore', {
     overlay: false
   }),
   actions: {
-    setCartItemCount(productData){
-      const { encryption, decryption } = useCryptStore()
-      this.overlay = true
-      let orderProducts = []
+    getCartItemCount() {
       if (sessionStorage.getItem('cart')!=null){
-        const decryptSess = decryption(sessionStorage.getItem('cart'))
-        const parsedSess = JSON.parse(decryptSess)
-        parsedSess.map((val, index)=>{
-          //If product ID already exists in array, incrememnt count and total_price instead of pushing to array
-          if (val.id == productData.id){
-            productData.count += val.count
-            productData.total_price += val.total_price
-            parsedSess.slice(index)
-          }
-          else {
-            orderProducts.push(val)
-          }
+        const { getCartData } = useCryptStore()
+        const cart = getCartData()
+        this.cartItems = cart
+        this.cartItemCount = cart.length
+      }
+      else {
+        this.cartItemCount = 0
+        this.cartItems = []
+      }
+    },
+    setCartItemCount(productData){
+      const { encryption, getCartData } = useCryptStore()
+      this.overlay = true
+      console.log(this.overlay)
+      this.cartItems = []
+      if (sessionStorage.getItem('cart')!=null){
+        const cart = getCartData()
+        cart.map((val, index)=>{
+          //If product ID already exists in array, increment count and total_price instead of pushing to array
+          // if (val.id == productData.id){
+          //   productData.count += val.count
+          //   productData.total_price += val.total_price
+          //   cart.slice(index)
+          // }
+          // else {
+            this.cartItems.push(val)
+          // }
         })
       }
-      orderProducts.push(productData)
-      sessionStorage.setItem('cart', encryption(JSON.stringify(orderProducts)))
-      this.overlay = false
-      console.log(orderProducts)
+      this.cartItems.push(productData)
+      sessionStorage.setItem('cart', encryption(JSON.stringify(this.cartItems)))
+      this.cartItemCount = this.cartItems.length
     },
     async handleFetchSelectedProduct(productId){
       this.products = []
@@ -168,10 +180,25 @@ export const useProductStore = defineStore('productStore', {
         }
       }
     },
-    async handleStoreToFavourites(favData, token){
+    async handleStoreToFavourites(favData){
       this.isLoadingProducts = false
       const { getUserData } = useCryptStore()
-      const {data} = await storeToFavourites(favData, token)
+      const userData = getUserData()
+      favData['user_id'] = userData.id
+      const {data} = await storeToFavourites(favData, userData.token)
+      if (data.products != null){
+        this.products = data.products.data
+        this.productPageCount = data.products.last_page
+        this.productCurrentPage = data.products.current_page
+        this.isLoadingProducts = false
+      }
+      else {
+        console.log('Error fetching favourite products')
+      }
+    },
+    async handleFetchOrderProducts(orderProducts){
+      this.isLoadingProducts = false
+      const {data} = await fetchOrderProducts(orderProducts)
       if (data.products != null){
         this.products = data.products.data
         this.productPageCount = data.products.last_page

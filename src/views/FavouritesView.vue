@@ -10,6 +10,7 @@
             </v-col>
         </v-row>
         <v-row>
+             <AddToCart />
             <v-col class="mx-10" v-if="layout=='list'" :isLoading="isLoadingFav">
               <v-sheet min-height="1350">
                 <ProductList :products="favProducts" :isLoading="isLoadingFav"/>
@@ -21,7 +22,6 @@
               </v-sheet>
             </v-col>
         </v-row>
-        <AddToCart :overlay="overlay" @emitSetOverlay="overlay=false"/>
     </v-container>
 </template>
 

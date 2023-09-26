@@ -3,6 +3,7 @@ import api from "./api";
 const url = "/products"
 
 export const loadPaginatedProducts = () => api.get(url+'/fetch/paginated')
+export const fetchOrderProducts = (orderProducts) => api.post(url+'/order/products', orderProducts)
 export const loadMore = (limit) => api.get(url+'/load-more/'+limit)
 export const loadProductFilterPage = (filter, link) => api.post(link, filter)
 export const loadProductPage = (link) => api.get(link)
