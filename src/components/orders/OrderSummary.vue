@@ -34,7 +34,7 @@
             </v-row>
         </div>
         <div class="pa-2">
-            <v-dialog v-model="voucherDialog" persistent max-width="500">
+            <v-dialog v-model="voucherDialog" max-width="500">
                 <template v-slot:activator="{ props }">
                     <v-card width="100%" :class="disableOrderSummaryButtons ? 'disabled-events' : ''" variant="outlined" v-bind="props" link>
                         <v-container>

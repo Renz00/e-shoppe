@@ -93,10 +93,6 @@ router.beforeEach(async (to, from) => {
       console.log('route guarded: user not logged in')
     }
   }
-
-  if (to.name='ProductSearchResultsView' && sessionStorage.getItem('search')!=null){
-    router.push({name:'ProductsView'})
-  }
 })
 
 export default router

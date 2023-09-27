@@ -17,7 +17,6 @@
         :clearable="search!='' ? true: false"
         rounded
         center-affix
-        v-if="!mobileView"
         >
         <template v-slot:prepend-inner>
             <v-icon icon="mdi-magnify" color="black" v-if="!isLoadingSearchItems"></v-icon>
@@ -45,11 +44,7 @@ import { useProductStore } from '@/store/product-store'
 import { storeToRefs } from 'pinia';
 
 const { handleSearchProductsAC, handleSearchProducts } = useProductStore()
-const { productSearchItems, isLoadingSearchItems } = storeToRefs(useProductStore())
-
-const props = defineProps({
-    mobileView: Boolean
-})
+const { productSearchItems, isLoadingSearchItems, currentSearchText } = storeToRefs(useProductStore())
 
 const selected = ref('')
 const search = ref('')
@@ -59,6 +54,7 @@ const selectedSearch = async (value) => {
   if (selected.value != null && selected.value != ''){
     isLoadingSearchItems.value = false
     sessionStorage.setItem('search', selected.value)
+    currentSearchText.value = selected.value
     router.push({name: 'ProductSearchResultsView'})
     await handleSearchProducts(sessionStorage.getItem('search'))
     selected.value = ''

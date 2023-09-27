@@ -29,19 +29,26 @@ import { ref, onMounted, computed } from 'vue';
 import ProductList from '@/components/products/ProductList.vue';
 import ProductCardSm from '@/components/products/ProductCardSm.vue';
 import Pagination from '@/components/products/Pagination.vue';
-import Loader from '@/components/layout/Loader.vue';
 import ProductLayout from '@/components/layout/ProductLayout.vue';
 import AddToCart from '@/components/products/AddToCart.vue';
 
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
-const { products, isLoadingProducts, overlay } = storeToRefs(useProductStore())
+const { products, isLoadingProducts, overlay, currentSearchText } = storeToRefs(useProductStore())
 const { handleSearchProducts} = useProductStore()
 
 const layout = ref('list')
 
 const searchValue = computed(()=>{
-    return sessionStorage.getItem('search')
+    var searchVal = ''
+    if (sessionStorage.getItem('search')==null){
+        searchVal =  currentSearchText.value
+    }
+    else {
+        searchVal = sessionStorage.getItem('search')
+    }
+   
+    return searchVal
 })
 
 const setLayout = (selectedLayout) => {
@@ -49,7 +56,7 @@ const setLayout = (selectedLayout) => {
 }
 
 onMounted(async()=>{
-    await handleSearchProducts(sessionStorage.getItem('search'))
+    await handleSearchProducts(searchValue.value)
 })
 
 </script>

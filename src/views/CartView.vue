@@ -14,18 +14,18 @@
             </v-col>
             <v-col>
                 <v-row>
-                    <v-col class="px-5 px-md-0 pt-2 pt-lg-14" cols="12">
+                    <v-col class="px-8 px-md-2 pt-2 pt-lg-14" cols="12">
                         <ShippingAddress />
                     </v-col>
 
                 </v-row>
                 <v-row>
-                    <v-col class="px-5 px-md-0">
+                    <v-col class="px-8 px-md-2">
                       <OrderSummary />
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col class="px-5 px-md-0" cols="12">
+                    <v-col class="px-8 px-md-2" cols="12">
                         <v-btn color="black" size="large" :to="{name: 'OrderView'}" width="100%">Checkout</v-btn>
                     </v-col>
                 </v-row>

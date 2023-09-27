@@ -1,7 +1,7 @@
 <template>
-    <v-btn variant="text" icon="mdi-minus" @click="decQuantity(productId)"></v-btn>
+    <v-btn variant="text" icon="mdi-minus" @click.prevent="decQuantity(productId)"></v-btn>
         <div style="width: 40px;" class="d-flex justify-center align-center text-subtitle-2">{{ count }}</div>
-    <v-btn variant="text" icon="mdi-plus" @click="incQuantity(productId)"></v-btn>
+    <v-btn variant="text" icon="mdi-plus" @click.prevent="incQuantity(productId)"></v-btn>
 </template>
 
 <script setup>
@@ -11,7 +11,7 @@ const props = defineProps({
     productId: Number
 })
 
-const count = ref([])
+const count = ref(1)
 
 const incQuantity = () =>{
     if (count.value<100){
@@ -26,7 +26,9 @@ const decQuantity = () =>{
 }
 
 onMounted(()=>{
-    count.value = props.itemCount
+    if (props.itemCount != null){
+        count.value = props.itemCount
+    }
 })
 
 </script>

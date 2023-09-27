@@ -14,10 +14,8 @@
         <!-- <Products :products="products" v-if="!isLoadingProducts"/> -->
         <ProductCardSm :products="products" :isLoading="isLoadingProducts"/>
         <Pagination :productCategory="selectedProduct.product_category" v-if="!isLoadingProducts && products.length>0 && selectedProduct!=null" />
-
       </v-col>
     </v-row>
-    <Loader v-if="isLoadingProducts"/>
     <AddToCart :overlay="overlay" @emitSetOverlay="overlay=false"/>
   </v-container>
 </template>

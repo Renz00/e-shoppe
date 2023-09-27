@@ -42,7 +42,7 @@
       <v-col cols="12" lg="8">
         <v-row v-if="cartItemCount > 0">
           <v-col>
-            <CartItems :cartItemCount="cartItemCount" :cartItemsHeight="cartItemsHeight" :disableCartItemsButtons="disableCartItemsButtons"/>
+            <CartItems :cartItems="cartItems" :cartItemsHeight="cartItemsHeight" :disableCartItemsButtons="disableCartItemsButtons"/>
           </v-col>
         </v-row>
       </v-col>

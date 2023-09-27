@@ -5,7 +5,7 @@
           Login to your account
       </div>
       <authErrors :errors="errors" :showAuthErrors="showAuthErrors" />
-      <form ref="loginForm" @submit.prevent="login" class="form-inputs">
+      <form ref="loginForm" @submit.prevent="login">
           <v-text-field class="pb-2" v-model="email" :rules="emailRules" density='compact' placeholder="E-mail" variant="outlined" required></v-text-field>
           <v-text-field v-model="password" :rules="passwordRules" type="password" density='compact' variant="outlined" placeholder="Password" required></v-text-field>
           <v-checkbox v-model="remember" value="1" label="Remember me"
@@ -71,9 +71,3 @@ const login = async() => {
 //   form.value.resetValidation
 // }
 </script>
-
-<style scoped>
-.form-inputs :deep(.v-checkbox .v-selection-control) {
-  min-height: unset;
-}
-</style>

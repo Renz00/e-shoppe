@@ -60,7 +60,7 @@
                   <v-col>
                     <div class="text-subtitle-2 pb-3">Quantity</div>
                     <v-row class="mx-5 mx-sm-1">
-                      <ProductQuantity @emitDecQuantity="decQuantity" @emitIncQuantity="incQuantity" :productQuantity="productQuantity"/>
+                      <ProductQuantity :productId="selectedProduct.id"/>
                     </v-row>
                   </v-col>
                 </v-row>

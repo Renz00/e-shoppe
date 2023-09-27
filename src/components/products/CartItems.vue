@@ -1,6 +1,6 @@
 <template>
      <v-list lines="two" class="py-0 my-0 mx-5 mx-md-0 overflow-y-auto" width="auto" :max-height="cartItemsHeight">
-        <v-list-item max-height="181" class="pa-0 mb-3 elevation-1" v-for="item in cartItems" :key="item.id" variant="outlined">
+        <v-list-item max-height="181" class="pa-0 mb-3 elevation-1" v-for="item in cartItems" :key="item.id" :to="{name: 'ShowProductView', params: {productId: item.id}}" variant="outlined">
             <v-row>
                 
                 <v-col class="px-0 px-sm-3" cols="4" sm="3">
@@ -50,7 +50,7 @@
 
 <script setup>
 import ProductQuantity from '@/components/products/ProductQuantity.vue'
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
 
@@ -78,5 +78,9 @@ const setCategory = (category) => {
             break
     }
 }
+
+onMounted(()=>{
+    console.log(cartItems.value)
+})
 
 </script>

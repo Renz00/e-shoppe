@@ -10,7 +10,6 @@
       <v-sheet :min-height="1350">
         <AddToCart />
         <ProductCardSm :products="products"/>
-        <!-- <Products :products="products" :isLoadingProducts="isLoadingProducts" @emitSetCartItemCount="setCartItemCount"/> -->
         <LoadMore v-if="!isFiltered && products.length>0" :isLoadingProducts="isLoadingProducts" :productLimit="productLimit" @emitLoadMore="loadMore"/>
         <Pagination v-if="!isLoadingProducts && isFiltered && products.length>0"/>
       </v-sheet>

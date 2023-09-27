@@ -55,10 +55,9 @@
       </v-col>
       <v-col>
         <v-row>
-          
           <v-col class="d-flex justify-end align-center">
-            <div>
-               <SearchBar :mobileView="mobileView"/>
+            <div v-if="!mobileView">
+               <SearchBar />
             </div>
             <div class="ml-1">
               <v-btn icon="" :to="{ name: 'CartView' }" v-if="cartItemCount > 0">
@@ -123,7 +122,6 @@ import HamburgerSearchBar from '@/components/products/HamburgerSearchBar.vue'
 import { ref, watchEffect } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/store/auth-store'
-import { useProductStore } from '@/store/product-store'
 
 const { setAuthDialog, handleLogout } = useAuthStore()
 const { isLoggedIn, authLoading } = storeToRefs(useAuthStore())

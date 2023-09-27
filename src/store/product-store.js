@@ -20,7 +20,8 @@ export const useProductStore = defineStore('productStore', {
     isFiltered: false,
     productPageLinks:[],
     currentProductFilter:{},
-    overlay: false
+    overlay: false,
+    currentSearchText: ''
   }),
   actions: {
     getCartItemCount() {
@@ -38,7 +39,6 @@ export const useProductStore = defineStore('productStore', {
     setCartItemCount(productData){
       const { encryption, getCartData } = useCryptStore()
       this.overlay = true
-      console.log(this.overlay)
       this.cartItems = []
       if (sessionStorage.getItem('cart')!=null){
         const cart = getCartData()
