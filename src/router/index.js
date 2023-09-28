@@ -83,9 +83,10 @@ router.beforeEach(async (to, from) => {
     if (cartRoutes.includes(to.name)!=false){
       router.push({name: 'ProductsView'})
       console.log('route guarded: no items in cart')
+      
     }
   }
-
+  
   if (sessionStorage.getItem('data')==null){
     if (authGuardRoutes.includes(to.name)!=false){
       setAuthDialog('login')

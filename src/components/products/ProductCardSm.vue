@@ -1,10 +1,10 @@
 <template>
-  <v-container class="py-0 my-0">
+  <v-container class="py-0 my-0" id="title">
     <NoResults v-if="!isLoadingProducts && products.length<=0"/>
     <Loader v-if="isLoadingProducts"/>
     <v-sheet height="auto" v-if="!isLoadingProducts">
       <v-row class="justify-center text-center">
-      <v-col class="pb-3 px-2" cols="12" sm="6" lg="3" md="4" v-for="(product, key) in products" :key="key">
+      <v-col class="pb-3 px-2" cols="12" sm="6" lg="3" md="4" v-for="product in products" :key="product.id">
           <v-card :to="{name: 'ShowProductView', params: {productId: product.id}}">
               <div class="d-flex">
                 <v-img

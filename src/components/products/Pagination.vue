@@ -18,7 +18,7 @@
 import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
 
-const { productCurrentPage, productPageCount, isLoadingProducts } = storeToRefs(useProductStore())
+const { productCurrentPage, productPageCount, isLoadingProducts, currentProductFilter } = storeToRefs(useProductStore())
 const { handleLoadPage, handleLoadFilterPage } = useProductStore()
 
 const props = defineProps({
@@ -33,7 +33,7 @@ const loadPage = async (page) => {
     block: "start",
     inline: "start"
   });
-  if (props.productCategory!=null){
+  if (props.productCategory!=null || currentProductFilter.value!=null){
     await handleLoadFilterPage()
   }
   else {

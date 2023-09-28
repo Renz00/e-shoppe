@@ -119,11 +119,13 @@
 <script setup>
 import SearchBar from '@/components/products/SearchBar.vue'
 import HamburgerSearchBar from '@/components/products/HamburgerSearchBar.vue'
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/store/auth-store'
+import { useProductStore } from '@/store/product-store'
 
 const { setAuthDialog, handleLogout } = useAuthStore()
+const { getCartItemCount } = useProductStore()
 const { isLoggedIn, authLoading } = storeToRefs(useAuthStore())
 
 const props = defineProps({
@@ -140,6 +142,10 @@ watchEffect(() => {
         showCartTooltip.value = false
       }, 1000)
   }
+})
+
+onMounted(() => {
+
 })
 </script>
 

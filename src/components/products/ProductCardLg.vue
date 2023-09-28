@@ -28,7 +28,7 @@
         <v-col cols="12" md="6">
           <v-sheet height="451" v-if="isLoadingSelectedProduct">
             <v-row class="justify-center align-center fill-height">
-              <v-progress-circular indeterminate color="primary">
+              <v-progress-circular indeterminate :size="50" color="primary">
               </v-progress-circular>
             </v-row>
           </v-sheet>

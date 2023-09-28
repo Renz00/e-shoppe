@@ -10,7 +10,7 @@
                         No items in cart.
                     </span>
                 </div>
-                <CartItems :cartItemsHeight="cartItemsHeight"/>
+                <CartItems :cartItemsHeight="cartItemsHeight" v-if="cartItemCount>0"/>
             </v-col>
             <v-col>
                 <v-row>
@@ -35,7 +35,6 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
 import OrderSummary from '@/components/orders/OrderSummary.vue';
 import ShippingAddress from '@/components/orders/ShippingAddress.vue';
 import CartItems from '@/components/products/CartItems.vue';
@@ -44,15 +43,10 @@ import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 
 const { cartItemCount } = storeToRefs(useProductStore())
-const { getCartItemCount } = useProductStore()
 
 const props = defineProps({
     cartItemCount: Number,
     cartItemsHeight: Number
-})
-
-onMounted(()=>{
-    getCartItemCount()
 })
 
 </script>

@@ -15,7 +15,7 @@ import Footer from "./components/layout/Footer.vue"
 import AuthDialog from "./components/auth/authDialog.vue";
 
 import { storeToRefs } from "pinia";
-import { computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useDisplay } from 'vuetify'
 import { useProductStore } from '@/store/product-store'
 import { useAuthStore } from '@/store/auth-store'
@@ -32,6 +32,7 @@ const mobileView = computed(() => {
 })
 
 onMounted ( async () => {
+
   if (sessionStorage.getItem('cart')!=null){
     //sets the value of states cartItemCount and cartItems in product-store
     getCartItemCount()
@@ -43,6 +44,7 @@ onMounted ( async () => {
   else {
     isLoggedIn.value = false
   }
+  
 })
 </script>
 

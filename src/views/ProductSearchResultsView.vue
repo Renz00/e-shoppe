@@ -3,7 +3,7 @@
         <AddToCart :overlay="overlay" @emitSetOverlay="overlay=false"/>
             <v-row class="mx-5 mx-md-0">
                 <v-col cols="9">
-                    <div class="text-h6">Results for "{{ searchValue }}"</div>
+                    <div class="text-h6">Results for "{{ currentSearchText }}"</div>
                 </v-col>
                 <v-col cols="3" class="d-flex justify-end">
                     <ProductLayout @emitSetLayout="setLayout" />
@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import ProductList from '@/components/products/ProductList.vue';
 import ProductCardSm from '@/components/products/ProductCardSm.vue';
 import Pagination from '@/components/products/Pagination.vue';
@@ -39,24 +39,25 @@ const { handleSearchProducts} = useProductStore()
 
 const layout = ref('list')
 
-const searchValue = computed(()=>{
-    var searchVal = ''
-    if (sessionStorage.getItem('search')==null){
-        searchVal =  currentSearchText.value
-    }
-    else {
-        searchVal = sessionStorage.getItem('search')
-    }
-   
-    return searchVal
-})
-
 const setLayout = (selectedLayout) => {
     layout.value = selectedLayout
 }
 
 onMounted(async()=>{
-    await handleSearchProducts(searchValue.value)
+    var search = ''
+    if (sessionStorage.getItem('search')!=null){
+        search  = sessionStorage.getItem('search')
+    }
+    else {
+        search = currentSearchText.value 
+    }
+    await handleSearchProducts(search)
+})
+
+onUnmounted(() => {
+    if (sessionStorage.getItem('search')!=null){
+        sessionStorage.removeItem('search')
+    }
 })
 
 </script>

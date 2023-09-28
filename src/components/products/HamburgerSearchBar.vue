@@ -50,16 +50,14 @@ const selected = ref('')
 const search = ref('')
 
 const selectedSearch = async (value) => {
-selected.value = value
-if (selected.value != null && selected.value != ''){
-  isLoadingSearchItems.value = false
-  sessionStorage.setItem('search', selected.value)
-  currentSearchText.value = selected.value
-  router.push({name: 'ProductSearchResultsView'})
-  await handleSearchProducts(sessionStorage.getItem('search'))
-  selected.value = ''
-  search.value = ''
-}
+  selected.value = value
+  if (selected.value != null && selected.value != ''){
+      isLoadingSearchItems.value = false
+      router.push({name: 'ProductSearchResultsView'})
+      await handleSearchProducts(selected.value)
+      selected.value = ''
+      search.value = ''
+  }
 }
 
 const populateAutocompleteItems = async () => {

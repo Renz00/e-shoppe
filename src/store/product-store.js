@@ -26,10 +26,14 @@ export const useProductStore = defineStore('productStore', {
   actions: {
     getCartItemCount() {
       if (sessionStorage.getItem('cart')!=null){
+        this.cartItems = []
+        this.cartItemCount = 0
         const { getCartData } = useCryptStore()
         const cart = getCartData()
         this.cartItems = cart
-        this.cartItemCount = cart.length
+        cart.map((val, index)=>{
+          this.cartItemCount += val.count
+        })
       }
       else {
         this.cartItemCount = 0
@@ -40,23 +44,28 @@ export const useProductStore = defineStore('productStore', {
       const { encryption, getCartData } = useCryptStore()
       this.overlay = true
       this.cartItems = []
+      this.cartItemCount = 0
       if (sessionStorage.getItem('cart')!=null){
         const cart = getCartData()
+        sessionStorage.removeItem('cart')
         cart.map((val, index)=>{
-          //If product ID already exists in array, increment count and total_price instead of pushing to array
-          // if (val.id == productData.id){
-          //   productData.count += val.count
-          //   productData.total_price += val.total_price
-          //   cart.slice(index)
-          // }
-          // else {
+          //If product already exists in array, increment count and total_price instead of pushing to array
+          if (val.id == productData.id){
+            productData.count += val.count
+            productData.total_price += val.total_price
+          }
+          else {
             this.cartItems.push(val)
-          // }
+          }
         })
       }
+      //insert new item in cart
       this.cartItems.push(productData)
+      //compute no. of items in cart
+      this.cartItems.map((val)=>{
+        this.cartItemCount += val.count
+      })
       sessionStorage.setItem('cart', encryption(JSON.stringify(this.cartItems)))
-      this.cartItemCount = this.cartItems.length
     },
     async handleFetchSelectedProduct(productId){
       this.products = []
@@ -163,10 +172,13 @@ export const useProductStore = defineStore('productStore', {
     },
     async handleSearchProducts(searchText){
       if (searchText != null && searchText != ''){
+        this.isLoadingSearchItems = false
         this.searchProducts = []
         this.productSearchItems = []
         this.isLoadingProducts = true
-        this.isLoadingSearchItems = false
+        this.currentSearchText = searchText
+        sessionStorage.setItem('search', searchText)
+        //create slug for api call
         const searchSlug = searchText.replace(' ', '-')
         const {data} = await searchProducts(searchSlug)
         if (data.products != null){

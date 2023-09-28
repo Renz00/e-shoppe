@@ -1,8 +1,7 @@
 <template>
      <v-list lines="two" class="py-0 my-0 mx-5 mx-md-0 overflow-y-auto" width="auto" :max-height="cartItemsHeight">
-        <v-list-item max-height="181" class="pa-0 mb-3 elevation-1" v-for="item in cartItems" :key="item.id" :to="{name: 'ShowProductView', params: {productId: item.id}}" variant="outlined">
+        <v-list-item max-height="181" class="pa-0 mb-3 elevation-1" v-for="item in cart" :key="item.id" variant="outlined">
             <v-row>
-                
                 <v-col class="px-0 px-sm-3" cols="4" sm="3">
                     <v-img @loadstart="imgload = true" @load="imgload = false"
                         lazy-src="https://picsum.photos/800/1000" width="auto"
@@ -50,11 +49,12 @@
 
 <script setup>
 import ProductQuantity from '@/components/products/ProductQuantity.vue'
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
 
 const { cartItems } = storeToRefs(useProductStore())
+const { getCartItemCount } = useProductStore()
 
 const props = defineProps({
     disableCartItemsButtons: Boolean,
@@ -62,6 +62,7 @@ const props = defineProps({
 })
 
 const imgload = ref(false)
+const cart = ref([])
 
 const setCategory = (category) => {
     switch (category){
@@ -74,13 +75,26 @@ const setCategory = (category) => {
         case 2:
             return 'Cosmetics'
             break
-        default:
+        default:    
             break
     }
 }
 
+const setCartItems = () =>{
+    if (cart.value.length>0){
+        
+        cartItems.value = cart.value
+        console.log()
+    }
+}
+
 onMounted(()=>{
-    console.log(cartItems.value)
+    getCartItemCount()
+    cart.value = cartItems.value
+})
+
+onUnmounted(() => {
+    getCartItemCount()
 })
 
 </script>

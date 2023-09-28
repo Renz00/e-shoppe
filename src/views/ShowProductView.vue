@@ -58,6 +58,8 @@ watch(
 )
 
 onMounted ( async () => {
+  //Set the value of isLoadingProducts to true to prevent NoResults component from appearing prematurely
+  isLoadingProducts.value = true
   await handleFetchSelectedProduct(props.productId)
   const category = []
   category.push(selectedProduct.value.product_category)

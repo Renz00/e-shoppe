@@ -53,10 +53,8 @@ const selectedSearch = async (value) => {
   selected.value = value
   if (selected.value != null && selected.value != ''){
     isLoadingSearchItems.value = false
-    sessionStorage.setItem('search', selected.value)
-    currentSearchText.value = selected.value
     router.push({name: 'ProductSearchResultsView'})
-    await handleSearchProducts(sessionStorage.getItem('search'))
+    await handleSearchProducts(selected.value)
     selected.value = ''
     search.value = ''
   }

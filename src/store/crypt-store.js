@@ -32,7 +32,7 @@ export const useCryptStore = defineStore("cryptStore", () => {
       return parsedData
     }
     else {
-      console.log('user data is null')
+      console.log('cart data is null')
       return false
     }
   }
