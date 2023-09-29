@@ -44,7 +44,9 @@ import { useProductStore } from '@/store/product-store'
 import { storeToRefs } from 'pinia';
 
 const { handleSearchProductsAC, handleSearchProducts } = useProductStore()
-const { productSearchItems, isLoadingSearchItems, currentSearchText } = storeToRefs(useProductStore())
+const { productSearchItems, isLoadingSearchItems } = storeToRefs(useProductStore())
+
+const emits = defineEmits(['emitCloseMenu'])
 
 const selected = ref('')
 const search = ref('')
@@ -54,6 +56,8 @@ const selectedSearch = async (value) => {
   if (selected.value != null && selected.value != ''){
     isLoadingSearchItems.value = false
     router.push({name: 'ProductSearchResultsView'})
+    productSearchItems.value = []
+    emits('emitCloseMenu')
     await handleSearchProducts(selected.value)
     selected.value = ''
     search.value = ''

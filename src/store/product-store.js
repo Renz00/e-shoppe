@@ -21,7 +21,8 @@ export const useProductStore = defineStore('productStore', {
     productPageLinks:[],
     currentProductFilter:{},
     overlay: false,
-    currentSearchText: ''
+    currentSearchText: '',
+    isLoadingMore: false
   }),
   actions: {
     getCartItemCount() {
@@ -80,14 +81,14 @@ export const useProductStore = defineStore('productStore', {
       }
     },
     async handleLoadMore(){
-      this.isLoadingProducts = true
+      this.isLoadingMore = true
       const link = this.productPageLinks[this.productCurrentPage]
       if (this.products != null && this.productLimit<120){
         const {data} = await loadProductPage(link.url)
         //Concatenate the new product data to the previous array
         this.products = this.products.concat(data.products.data)
         this.productLimit += 12
-        this.isLoadingProducts = false
+        this.isLoadingMore = false
       }
       else {
         console.log('Error loading more products')

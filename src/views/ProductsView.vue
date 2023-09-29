@@ -10,7 +10,7 @@
       <v-sheet :min-height="1350">
         <AddToCart />
         <ProductCardSm :products="products"/>
-        <LoadMore v-if="!isFiltered && products.length>0" :isLoadingProducts="isLoadingProducts" :productLimit="productLimit" @emitLoadMore="loadMore"/>
+        <LoadMore v-if="!isFiltered && products.length>0" :isLoading="isLoadingMore" :productLimit="productLimit" @emitLoadMore="loadMore"/>
         <Pagination v-if="!isLoadingProducts && isFiltered && products.length>0"/>
       </v-sheet>
       <ScrollUp />
@@ -30,7 +30,7 @@ import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 
-const { products, isLoadingProducts, productCurrentPage, productLimit, isFiltered } = storeToRefs(useProductStore())
+const { products, isLoadingProducts, isLoadingMore, productCurrentPage, productLimit, isFiltered } = storeToRefs(useProductStore())
 const { handlePaginatedProducts, handleLoadMore } = useProductStore()
 
 const loadMore = async () => {

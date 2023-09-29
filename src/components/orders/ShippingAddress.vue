@@ -83,8 +83,7 @@ const address1Rules = ref([
     value => (value && value.length <= 150) || 'This field must be less than 150 characters.',
 ])
 const address2Rules = ref([
-    value =>  !!value || 'This field is required.',
-    value => (value && value.length <= 150) || 'This field must be less than 150 characters.',
+    value =>  !!value || 'This field is required.'
 ])
 const zipCodeRules = ref([
     value =>  !!value || 'Zip Code is required.',
@@ -119,17 +118,20 @@ const cities = ref([
 const zipCode = ref(null)
 const additionalNotes = ref('')
 const addressDialog = ref(false)
-const saved = ref(false)
+const addressIsSaved = ref(false)
 
 const saveAddress = () =>{
-    const address = {
-        'address1': address1.value,
-        'address2': address2.value,
-        'zipcode': zipCode.value,
-        'notes': additionalNotes.value
+    if (address2.value!= null&& address2.value!=''){
+        const address = {
+            'address1': address1.value,
+            'address2': address2.value,
+            'zipcode': zipCode.value,
+            'notes': additionalNotes.value
+        }
+        deliveryAddress.value = address
+        addressIsSaved.value = true
+        addressDialog.value = false
+        console.log('Address is saved')
     }
-    deliveryAddress.value = address
-    saved.value = true
-    console.log('Address is saved')
 }
 </script>

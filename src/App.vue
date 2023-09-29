@@ -15,7 +15,7 @@ import Footer from "./components/layout/Footer.vue"
 import AuthDialog from "./components/auth/authDialog.vue";
 
 import { storeToRefs } from "pinia";
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useDisplay } from 'vuetify'
 import { useProductStore } from '@/store/product-store'
 import { useAuthStore } from '@/store/auth-store'

@@ -17,7 +17,6 @@
                     <v-col class="px-8 px-md-2 pt-2 pt-lg-14" cols="12">
                         <ShippingAddress />
                     </v-col>
-
                 </v-row>
                 <v-row>
                     <v-col class="px-8 px-md-2">
@@ -26,7 +25,7 @@
                 </v-row>
                 <v-row>
                     <v-col class="px-8 px-md-2" cols="12">
-                        <v-btn color="black" size="large" :to="{name: 'OrderView'}" width="100%">Checkout</v-btn>
+                        <v-btn color="black" size="large" @click="checkout()" width="100%">Checkout</v-btn>
                     </v-col>
                 </v-row>
             </v-col>
@@ -41,12 +40,18 @@ import CartItems from '@/components/products/CartItems.vue';
 
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
+import { useOrderStore } from '../store/order-store'
 
-const { cartItemCount } = storeToRefs(useProductStore())
+const { cartItemCount, cartItems } = storeToRefs(useProductStore())
+const { handleCheckout } = useOrderStore()
 
 const props = defineProps({
     cartItemCount: Number,
     cartItemsHeight: Number
 })
+
+const checkout = async () =>{
+    await handleCheckout(cartItems.value)
+}
 
 </script>

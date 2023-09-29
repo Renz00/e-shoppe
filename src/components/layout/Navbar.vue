@@ -26,7 +26,7 @@
             <v-list>
               <v-list-item>
                 <v-list-item-title>
-                  <HamburgerSearchBar :mobileView="mobileView"/>
+                  <HamburgerSearchBar @emitCloseMenu="showHamburgerMenu=false" :mobileView="mobileView"/>
                 </v-list-item-title>
               </v-list-item>
               <v-list-item :to="{ name: 'ProductsView' }" @click="showHamburgerMenu = false" link>
@@ -57,7 +57,7 @@
         <v-row>
           <v-col class="d-flex justify-end align-center">
             <div v-if="!mobileView">
-               <SearchBar />
+               <SearchBar @emitCloseMenu="showHamburgerMenu=false"/>
             </div>
             <div class="ml-1">
               <v-btn icon="" :to="{ name: 'CartView' }" v-if="cartItemCount > 0">
