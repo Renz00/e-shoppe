@@ -26,7 +26,7 @@
             <v-divider class="my-2"></v-divider>
             <v-row class="py-2">
                 <v-col>
-                    Total
+                    Grand Total
                 </v-col>
                 <v-col>
                   ₱{{ orderGrandTotal.toLocaleString() }}
