@@ -29,11 +29,11 @@
                                 {{ setCategory(item.category) }} | <v-icon icon="mdi-star" color="yellow"></v-icon>  {{ item.rating }}
                             </div>
                         </v-row>
-                        
+
                         <v-row :class="disableCartItemsButtons ? '' : 'justify-center align-center'">
                             <v-col cols="6" sm="4" class="px-0 text-subtitle-2" v-if="!disableCartItemsButtons">
                                 <v-row class="my-2">
-                                    <ProductQuantity :productId="item.id" :itemCount="item.count"/>
+                                    <ProductQuantity :productId="item.id" :itemCount="item.count" :itemPrice="item.total_price"/>
                                 </v-row>
                             </v-col>
                             <v-col cols="6" sm="8" class="px-0 text-subtitle-2">
@@ -52,8 +52,10 @@ import ProductQuantity from '@/components/products/ProductQuantity.vue'
 import { ref, onMounted, onUnmounted } from 'vue';
 import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
+import { useOrderStore } from '@/store/order-store'
 
 const { cartItems } = storeToRefs(useProductStore())
+const { setRunningTotal } = useOrderStore()
 const { getCartItemCount } = useProductStore()
 
 const props = defineProps({
@@ -65,36 +67,28 @@ const imgload = ref(false)
 const cart = ref([])
 
 const setCategory = (category) => {
-    switch (category){
-        case 3:
-            return 'Apparel'
-            break
-        case 1:
-            return 'Gadgets'
-            break
-        case 2:
-            return 'Cosmetics'
-            break
-        default:    
-            break
-    }
-}
-
-const setCartItems = () =>{
-    if (cart.value.length>0){
-        
-        cartItems.value = cart.value
-        console.log()
-    }
+  switch (category){
+    case 3:
+        return 'Apparel'
+        break
+    case 1:
+        return 'Gadgets'
+        break
+    case 2:
+        return 'Cosmetics'
+        break
+    default:
+        break
+  }
 }
 
 onMounted(()=>{
-    getCartItemCount()
-    cart.value = cartItems.value
+  getCartItemCount()
+  cart.value = cartItems.value
 })
 
 onUnmounted(() => {
-    getCartItemCount()
+  getCartItemCount()
 })
 
 </script>

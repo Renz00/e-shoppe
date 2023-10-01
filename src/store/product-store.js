@@ -48,7 +48,6 @@ export const useProductStore = defineStore('productStore', {
       this.cartItemCount = 0
       if (sessionStorage.getItem('cart')!=null){
         const cart = getCartData()
-        sessionStorage.removeItem('cart')
         cart.map((val, index)=>{
           //If product already exists in array, increment count and total_price instead of pushing to array
           if (val.id == productData.id){

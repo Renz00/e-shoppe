@@ -9,10 +9,10 @@
         <div class="px-2 text-subtitle-2">
             <v-row>
                 <v-col>
-                    Sub-total (2 Items)
+                    Sub-total ({{ orderTotalItemQuantity }} Items)
                 </v-col>
                 <v-col>
-                    Price
+                  ₱{{ orderSubTotal.toLocaleString() }}
                 </v-col>
             </v-row>
             <v-row class="my-0">
@@ -20,7 +20,7 @@
                     Total Discount
                 </v-col>
                 <v-col>
-                    DiscountPrice
+                  ₱{{ orderTotalDiscount.toLocaleString() }}
                 </v-col>
             </v-row>
             <v-divider class="my-2"></v-divider>
@@ -29,7 +29,7 @@
                     Total
                 </v-col>
                 <v-col>
-                    TotalPrice
+                  ₱{{ orderGrandTotal.toLocaleString() }}
                 </v-col>
             </v-row>
         </div>
@@ -50,16 +50,19 @@
 import Voucher from './Voucher.vue';
 import Courier from './Courier.vue';
 import Payment from './Payment.vue';
-import { ref } from 'vue';
+import { onMounted } from 'vue';
+import { storeToRefs } from "pinia";
+import { useOrderStore } from '@/store/order-store'
+const { orderTotalItemQuantity, orderSubTotal, orderGrandTotal, orderTotalDiscount } = storeToRefs(useOrderStore())
+const { setRunningTotal } = useOrderStore()
 
 const props = defineProps({
   disableOrderSummaryButtons: Boolean,
   cardHeight: Number
 })
 
-const shippingDialog = ref(false)
-const paymentDialog = ref(false)
-const paymethod = ref(0)
-const courier = ref(0)
+onMounted(()=>{
+  setRunningTotal()
+})
 
 </script>

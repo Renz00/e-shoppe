@@ -23,9 +23,7 @@
 <script setup>
 import { onMounted,watchEffect,watch } from 'vue';
 import ProductCardLg from '@/components/products/ProductCardLg.vue'
-// import Products from '@/components/products/Products.vue'
 import Pagination from '@/components/products/Pagination.vue';
-import Loader from '@/components/layout/Loader.vue';
 import ProductCardSm from '@/components/products/ProductCardSm.vue';
 import AddToCart from '@/components/products/AddToCart.vue';
 import { storeToRefs } from "pinia";

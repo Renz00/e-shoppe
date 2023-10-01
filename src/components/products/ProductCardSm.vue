@@ -2,7 +2,7 @@
   <v-container class="py-0 my-0" id="title">
     <NoResults v-if="!isLoadingProducts && products.length<=0"/>
     <Loader v-if="isLoadingProducts"/>
-    <v-sheet height="auto" v-if="!isLoadingProducts">
+    <v-sheet :min-height="1250" v-if="!isLoadingProducts">
       <v-row class="justify-center text-center">
       <v-col class="pb-3 px-2" cols="12" sm="6" lg="3" md="4" v-for="product in products" :key="product.id">
           <v-card :to="{name: 'ShowProductView', params: {productId: product.id}}">
@@ -71,13 +71,14 @@ var imgload = ref(false)
 
 const addToCart = (selectedProduct) => {
   const productData = {
-    id: selectedProduct.id, 
-    name: selectedProduct.product_name,
-    category: selectedProduct.product_category,
-    rating: selectedProduct.product_rating,
-    discount: selectedProduct.product_discount,
-    count: 1, 
-    total_price: selectedProduct.product_price
+    'id': selectedProduct.id,
+    'name': selectedProduct.product_name,
+    'category': selectedProduct.product_category,
+    'rating': selectedProduct.product_rating,
+    'discount': selectedProduct.product_discount,
+    'count': 1,
+    'price': selectedProduct.product_price,
+    'total_price': selectedProduct.product_price,
   }
   setCartItemCount(productData)
 }

@@ -17,7 +17,7 @@
             </v-row>
             <v-row class="my-0 py-0">
                 <v-col cols="12" class="d-flex justify-center align-center">
-                    <v-range-slider v-model="range" :max="50000" :min="1" :step="1000" hide-details class="align-center px-3">
+                    <v-range-slider v-model="range" :max="50000" :min="0" :step="1000" hide-details class="align-center px-3">
                     </v-range-slider>
                 </v-col>
             </v-row>
@@ -37,7 +37,7 @@ const props = defineProps({
     productCategory: String
 })
 const filterForm = ref()
-const range = ref([1, 50000])
+const range = ref([1, 100000])
 const category = ref([])
 const rating = ref([])
 const categoryItems = ref(['Apparel', 'Cosmetics', 'Gadgets'])
@@ -60,11 +60,11 @@ const filterProducts = async() => {
         const filters = {
         'category': setCategory.value, // 1 is cosmetics
         'rating' : setRating.value,
-        'min_price': range.value[0], 
+        'min_price': range.value[0],
         'max_price': range.value[1]
         }
-        await handleFilterProducts(filters) 
-    } 
+        await handleFilterProducts(filters)
+    }
 }
 
 const setCategory = computed(() => {
