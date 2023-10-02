@@ -53,7 +53,9 @@
                       ></v-icon>
                       {{ selectedProduct.product_rating }}
                     </div>
-                    <div class="text-h6 pt-3">{{ '₱'+selectedProduct.product_price.toLocaleString() }}</div>
+                    <div class="text-h6 pt-3">
+                      <span class="text-subtitle-1 font-italic" style="text-decoration: line-through;">{{ '₱'+selectedProduct.product_price.toFixed(2).toLocaleString() }}</span><span class="text-subtitle-1 font-bold">{{ ' ₱'+getDiscountPrice(selectedProduct.product_price, selectedProduct.product_discount) }}</span>
+                    </div>
                   </v-col>
                 </v-row>
                 <v-row class="px-3 px-md-0">
@@ -186,14 +188,21 @@ const imgload = ref(false);
 const productQuantity = ref(1);
 
 const addToCart = (selectedProduct) => {
+  //If there is a discount, total price will be computed with the discount
+  let discPrice = 0
+  if (selectedProduct.product_discount>0){
+    discPrice = (selectedProduct.product_discount/100)*selectedProduct.product_price
+  }
+ 
   const productData = {
-    id: selectedProduct.id, 
-    name: selectedProduct.product_name,
-    category: selectedProduct.product_category,
-    rating: selectedProduct.product_rating,
-    discount: selectedProduct.product_discount,
-    count: 1, 
-    total_price: selectedProduct.product_price
+    'id': selectedProduct.id,
+    'name': selectedProduct.product_name,
+    'category': selectedProduct.product_category,
+    'rating': selectedProduct.product_rating,
+    'discount': selectedProduct.product_discount,
+    'count': 1,
+    'price': selectedProduct.product_price,
+    'total_price': discPrice,
   }
   setCartItemCount(productData)
 }
@@ -208,6 +217,12 @@ const decQuantity = () =>{
   if (productQuantity.value>1){
     productQuantity.value--
   }
+}
+
+const getDiscountPrice = (price, discount) =>{
+    const discPrice = (discount/100)*price
+    price = price-discPrice
+    return price.toFixed(2).toLocaleString()
 }
 
 const storeToFavourites = async (product_id) =>{

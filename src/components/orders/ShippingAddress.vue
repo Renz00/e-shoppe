@@ -10,7 +10,7 @@
                     Delivery Address
                 </span>
                 <div class="text-body-2 text-truncate">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    {{ fullAddress }}
                 </div>
                 <div class="text-uppercase text-body-2 blue-font pt-2" v-if="!disableOrderSummaryButtons">
                     Change Address
@@ -77,6 +77,7 @@ const props = defineProps({
     disableOrderSummaryButtons: Boolean
 })
 
+const fullAddress = ref('...')
 const addressForm = ref()
 const address1Rules = ref([
     value =>  !!value || 'This field is required.',
@@ -120,6 +121,10 @@ const additionalNotes = ref('')
 const addressDialog = ref(false)
 const addressIsSaved = ref(false)
 
+const setFullAddress = (address) =>{
+    fullAddress.value = address.address1+', '+address.address2
+}
+
 const saveAddress = () =>{
     if (address2.value!= null&& address2.value!=''){
         const address = {
@@ -131,6 +136,7 @@ const saveAddress = () =>{
         deliveryAddress.value = address
         addressIsSaved.value = true
         addressDialog.value = false
+        setFullAddress(address)
         console.log('Address is saved')
     }
 }

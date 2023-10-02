@@ -10,8 +10,10 @@
                                 See Vouchers
                             </div>
                         </v-col>
-                        <v-col class="d-flex justify-center align-center text-subtitle-2"
-                            cols="6" sm="4">Saved 30%</v-col>
+                        <v-col class="d-flex justify-center align-center text-center text-subtitle-2"
+                            cols="6" sm="4">
+                            {{ voucherName }}
+                        </v-col>
                     </v-row>
 
                 </v-container>
@@ -70,38 +72,43 @@ const props = defineProps({
     disableOrderSummaryButtons: Boolean
 })
 
+const voucherName = ref('None')
 const voucherDialog = ref(false)
 const voucherIsSaved = ref(false)
 const selectedVoucher = ref(null)
 const selectedCode = ref(null)
-const codeErrorMsg = ref(null)
 const voucherForm = ref()
 const voucherType = ref('list')
 const voucherItems = ref([])
 const voucherObj = ref({
-    'Free Shipping - Min Spend ₱0': {
-        'shipping_discount': 0,
+    //Values are in percentage
+    'Free Shipping - Min ₱0': {
+        'shipping_discount': 100,
         'minimum_price':0,
         'category':0, //0 mean all
-        'price_discount':0
+        'price_discount':0,
+        'key': 'Free Shipping - Min ₱0'
     },
-    'Free Shipping - Min Spend ₱30': {
-        'shipping_discount': 0,
+    'Free Shipping - Min ₱30': {
+        'shipping_discount': 100,
         'minimum_price':30,
         'category':0,//0 mean all
-        'price_discount':0
+        'price_discount':0,
+        'key': 'Free Shipping - Min ₱30'
     },
-    '10% Off for Cosmetics': {
+    '10% OFF Cosmetics': {
         'shipping_discount': 0,
         'minimum_price':0,
         'category':2,
-        'price_discount':0
+        'price_discount':0,
+        'key': '10% OFF Cosmetics'
     },
-    '25% Off for Gadgets - Min Spend ₱40': {
+    '25% OFF Gadgets - Min ₱40': {
         'shipping_discount': 0,
         'minimum_price':40,
         'category':1,
-        'price_discount':25
+        'price_discount':25,
+        'key': '25% OFF Gadgets - Min ₱40'
     }
 })
 
@@ -113,6 +120,26 @@ const codeRules = ref([
 const listRules = ref([
     value =>  !!value || 'Please select a Voucher.'
 ])
+
+const getSelectedVoucher = (voucherKey) =>{
+    switch (voucherKey){
+        case voucherItems.value[0]:
+            voucherName.value = voucherItems.value[0]
+            break;
+        case voucherItems.value[1]:
+            voucherName.value = voucherItems.value[1]
+            break;
+        case voucherItems.value[2]:
+            voucherName.value = voucherItems.value[2]
+            break;
+        case voucherItems.value[3]:
+            voucherName.value = voucherItems.value[3]
+            break;
+        default:
+            voucherName.value = 'None'
+            break;
+    }
+}
 
 const getVoucher = computed(()=>{
     let voucher = ''
@@ -142,10 +169,12 @@ const saveVoucher = () =>{
     let voucher = ''
     if (voucherType.value=='list' && selectedVoucher.value!=null){
         voucher = selectedVoucher.value
+        getSelectedVoucher(voucher)
     }
     
     if (voucherType.value=='code' && selectedCode.value!=null) {
         voucher = getVoucher.value
+        getSelectedVoucher(voucher.key)
     }
 
     if (voucher != ''){

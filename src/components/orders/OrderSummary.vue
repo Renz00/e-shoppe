@@ -12,7 +12,7 @@
                     Sub-total ({{ orderTotalItemQuantity }} Items)
                 </v-col>
                 <v-col>
-                  ₱{{ orderSubTotal.toLocaleString() }}
+                  ₱{{ orderSubTotal.toFixed(2).toLocaleString() }}
                 </v-col>
             </v-row>
             <v-row class="my-0">
@@ -20,7 +20,7 @@
                     Total Discount
                 </v-col>
                 <v-col>
-                  ₱{{ orderTotalDiscount.toLocaleString() }}
+                  ₱{{ 'discount from the vouchers' }}
                 </v-col>
             </v-row>
             <v-divider class="my-2"></v-divider>
@@ -29,7 +29,7 @@
                     Grand Total
                 </v-col>
                 <v-col>
-                  ₱{{ orderGrandTotal.toLocaleString() }}
+                  ₱{{ Math.abs(orderGrandTotal).toFixed(2).toLocaleString() }}
                 </v-col>
             </v-row>
         </div>

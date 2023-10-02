@@ -15,26 +15,30 @@ export const useOrderStore = defineStore("orderStore", () => {
     const orderGrandTotal = ref(0)
     const deliveryAddress = ref({})
     const vouchers = ref({})
-    const courier = ref(null)
-    const payment = ref(null)
+    const courier = ref({})
+    const payment = ref({})
     const isLoadingOrders = ref(false)
+
+    // const updateCart = (cartItems) =>{
+    //   if (sessionStorage.getItem('cart')!=null){
+    //     sessionStorage.setItem('cart', )
+    //   }
+    // }
 
     const setRunningTotal = () =>{
       const { cartItemCount, cartItems } = storeToRefs(useProductStore())
       if (cartItemCount.value>0){
-        let cart = cartItems.value
         let count = 0
-        let total = 0
-        let discount = 0
-        cart.map((val, i)=>{
-          total += val.price
-          discount += val.discount
+        let total_price = 0
+        cartItems.value.map((val, i)=>{
+          //Loop through each item in cart
+          total_price += val.total_price
           count += val.count
         })
         orderTotalItemQuantity.value = count
-        orderSubTotal.value = total
-        orderTotalDiscount.value = (discount/100)*total
-        orderGrandTotal.value = total - discount
+        orderSubTotal.value = Math.abs(total_price)
+        // orderTotalDiscount.value = 0
+        // orderGrandTotal.value = total - discount
       }
       else {
         console.log('cartItems is null')
@@ -58,7 +62,6 @@ export const useOrderStore = defineStore("orderStore", () => {
                 },
                 "order_products": cartItems
             }
-            console.log(order)
         }
         else {
             const { setAuthDialog } = useAuthStore()

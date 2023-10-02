@@ -1,8 +1,8 @@
 <template>
       <v-btn
           id="filter-activator"
-          width="100%"
           variant="outlined"
+          block
         >
           Filters
           <v-icon icon="mdi-filter"></v-icon>

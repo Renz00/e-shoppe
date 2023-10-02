@@ -17,7 +17,7 @@
             </v-row>
             <v-row class="my-0 py-0">
                 <v-col cols="12" class="d-flex justify-center align-center">
-                    <v-range-slider v-model="range" :max="50000" :min="0" :step="1000" hide-details class="align-center px-3">
+                    <v-range-slider v-model="range" :max="100000" :min="1" :step="1000" hide-details class="align-center px-3">
                     </v-range-slider>
                 </v-col>
             </v-row>

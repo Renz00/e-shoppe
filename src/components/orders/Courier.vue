@@ -5,13 +5,13 @@
             <v-container>
                 <v-row>
                     <v-col class="text-subtitle-2" cols="6" sm="8">
-                        J&T Express
+                        Courier
                         <div class="text-uppercase text-body-2 mt-2 blue-font" v-if="!disableOrderSummaryButtons">
                             Change Shipping
                         </div>
                     </v-col>
-                    <v-col class="d-flex justify-center align-center text-subtitle-2"
-                    cols="6" sm="4">₱50</v-col>
+                    <v-col class="d-flex justify-center align-center text-center text-subtitle-2"
+                    cols="6" sm="4">{{ courierName }}</v-col>
                 </v-row>
 
             </v-container>
@@ -27,8 +27,7 @@
                     <v-row>
                         <v-col cols="12">
                             <v-radio-group v-model="selectedCourier" column>
-                                <v-radio label="J&T - ₱50" :value="1"></v-radio>
-                                <v-radio label="LBC - ₱65" :value="2"></v-radio>
+                                <v-radio :label="item.name" :value="index" v-for="(item, index) in courierItems" :key="item.id"></v-radio>
                             </v-radio-group>
                         </v-col>
                     </v-row>
@@ -49,7 +48,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { storeToRefs } from "pinia";
 import { useOrderStore } from '@/store/order-store'
 const { courier } = storeToRefs(useOrderStore())
@@ -58,15 +57,38 @@ const props = defineProps({
     disableOrderSummaryButtons: Boolean
 })
 
-const shippingDialog = ref(false)
-const selectedCourier = ref(1)
-const courierIsSaved = ref(false)
 const courierForm = ref()
+const courierName = ref(null)
+const shippingDialog = ref(false)
+const selectedCourier = ref(0)
+const courierIsSaved = ref(false)
+const courierItems = ref([
+    {
+        name: 'J&T',
+        price: 50,
+        id: 1
+    },
+    {
+        name: 'LBC',
+        price: 65,
+        id: 2
+    }
+])
+
+const setCourierName = (courierItem)=>{
+    courierName.value = courierItem.name+' - ₱'+courierItem.price
+    //Setting value of courier store (object)
+    courier.value = courierItems.value[selectedCourier.value]
+} 
 
 const saveCourier = () =>{
-    courier.value = selectedCourier.value
+    setCourierName(courierItems.value[selectedCourier.value])
     courierIsSaved.value = true
     shippingDialog.value = false
     console.log('Courier is saved')
 }
+
+onMounted(()=>{
+    setCourierName(courierItems.value[0])
+})
 </script>

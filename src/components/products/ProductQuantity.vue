@@ -1,7 +1,7 @@
 <template>
-    <v-btn variant="text" icon="mdi-minus" @click.prevent="decQuantity(productId)"></v-btn>
+    <v-btn variant="text" icon="mdi-minus" density="compact" @click.prevent="decQuantity(productId)"></v-btn>
         <div style="width: 40px;" class="d-flex justify-center align-center text-subtitle-2">{{ count }}</div>
-    <v-btn variant="text" icon="mdi-plus" @click.prevent="incQuantity(productId)"></v-btn>
+    <v-btn variant="text" icon="mdi-plus" density="compact" @click.prevent="incQuantity(productId)"></v-btn>
 </template>
 
 <script setup>
@@ -15,7 +15,6 @@ const { setRunningTotal } = useOrderStore()
 
 const props = defineProps({
     itemCount: Number,
-    itemPrice: Number,
     productId: Number
 })
 
@@ -40,8 +39,11 @@ const decQuantity = () =>{
 const updateItemCount = () =>{
   cartItems.value.map((val, i)=>{
     if (val.id == props.productId){
+      //Compute the discounted price and subtract it from the original, 
+      //then multiply it by the item count to get total price
+      const discPrice = Math.abs(((val.discount/100)*val.price)-val.price)
       val.count = count.value
-      val.total_price = val.price * count.value
+      val.total_price = discPrice*count.value
     }
   })
   setRunningTotal(cartItems.value)

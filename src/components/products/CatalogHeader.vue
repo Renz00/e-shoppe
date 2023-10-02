@@ -1,10 +1,10 @@
 <template>
   <v-container>
   <v-row class="align-center">
-    <v-col class="px-0" cols="12" lg="8" md="8">
+    <v-col class="px-0" cols="12" md="8">
         <span class="text-h4 mr-3">Our Products</span>
       </v-col>
-    <v-col cols="12" lg="4" md="4" sm="6" width="auto">
+    <v-col cols="12" md="4">
       <CatalogFilter/>
     </v-col>
   </v-row>

@@ -11,7 +11,7 @@
                             </div>
                         </v-col>
                         <v-col class="d-flex justify-center align-center text-center text-subtitle-2"
-                        cols="6" sm="4">Cash On Delivery</v-col>
+                        cols="6" sm="4">{{ paymentName }}</v-col>
                     </v-row>
                 </v-container>
             </v-card>
@@ -26,9 +26,7 @@
                     <v-row>
                         <v-col cols="12">
                             <v-radio-group v-model="selectedPaymethod" column>
-                                <v-radio label="Cash On Delivery (COD)" :value="1"></v-radio>
-                                <v-radio label="Paypal" :value="2"></v-radio>
-                                <v-radio label="Mastercard" :value="3"></v-radio>
+                                <v-radio :label="item.name" :value="index" v-for="(item, index) in paymentItems" :key="item.id"></v-radio>
                             </v-radio-group>
                         </v-col>
                     </v-row>
@@ -49,7 +47,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { storeToRefs } from "pinia";
 import { useOrderStore } from '@/store/order-store'
 const { payment } = storeToRefs(useOrderStore())
@@ -58,15 +56,41 @@ const props = defineProps({
     disableOrderSummaryButtons: Boolean
 })
 
+const paymentName = ref(null)
 const paymentForm = ref()
 const paymentIsSaved = ref(false)
 const paymentDialog = ref(false)
 const selectedPaymethod = ref(1)
+const paymentItems = ref([
+    {
+        name: 'Cash On Delivery',
+        id: 1
+    },
+    {
+        name: 'Paypal',
+        id: 2
+    },
+    {
+        name: 'Mastercard',
+        id: 3
+    }
+])
+
+const setPaymentName = (paymentItem) =>{
+   paymentName.value = paymentItem.name
+   //Setting a value for the payment store object
+   payment.value = selectedPaymethod.value
+}
 
 const savePayment = () =>{
-    payment.value = selectedPaymethod.value
+    setPaymentName(paymentItems.value[selectedPaymethod.value])
     paymentIsSaved.value = true
     paymentDialog.value = false
+    
     console.log('Payment is saved')
 }
+
+onMounted(()=>{
+    setPaymentName(paymentItems.value[0])
+})
 </script>

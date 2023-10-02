@@ -36,8 +36,8 @@
                 <div class="text-caption font-weight-bold mb-1">
                   {{ category(product.product_category)+' | '}}<v-icon icon="mdi-star" color="yellow"></v-icon>{{product.product_rating }}
                 </div>
-                <div class="d-flex justify-center align-center text-subtitle-2 text-truncate">
-                  {{ '₱'+product.product_price.toLocaleString() }}
+                <div class="d-flex justify-center align-center text-truncate">
+                  <span class="text-subtitle-1 font-italic" style="text-decoration: line-through;">{{ '₱'+product.product_price.toFixed(2).toLocaleString() }}</span><span class="text-subtitle-1 font-bold">{{ ' ₱'+getDiscountPrice(product.product_price, product.product_discount) }}</span>
                 </div>
               </div>
             <!-- click.stop prevents child click from triggering parent click -->
@@ -70,6 +70,12 @@ const props = defineProps({
 var imgload = ref(false)
 
 const addToCart = (selectedProduct) => {
+  //If there is a discount, discPrice will be subtracted from total price
+  let discPrice = 0
+  if (selectedProduct.product_discount>0){
+    discPrice = (selectedProduct.product_discount/100)*selectedProduct.product_price
+  }
+ 
   const productData = {
     'id': selectedProduct.id,
     'name': selectedProduct.product_name,
@@ -78,9 +84,15 @@ const addToCart = (selectedProduct) => {
     'discount': selectedProduct.product_discount,
     'count': 1,
     'price': selectedProduct.product_price,
-    'total_price': selectedProduct.product_price,
+    'total_price': selectedProduct.product_price - discPrice,
   }
   setCartItemCount(productData)
+}
+
+const getDiscountPrice = (price, discount) =>{
+    const discPrice = (discount/100)*price
+    price = price-discPrice
+    return price.toFixed(2).toLocaleString()
 }
 
 const category = (val) => {
