@@ -1,7 +1,6 @@
 # things to do
 1. CRUD functionality in cart (add, update, and remove products in cart)
-2. Implement vouchers (discounts, free shipping, category based discounts)
-3. Implement track orders
+2. Implement track orders
 
 # Testing
 1. Use Jest Framework for testing
@@ -52,8 +51,8 @@ This is an ecommerce website for a fictional online store. <br/>
 
 <strong>Technologies Used:</strong><br />
 <ul>
-    <li>Frontend - HTML, CSS,Vue JS 3, Vuetify</li>
-    <li>Backend - Laravel 10 for the REST API</li>
+    <li>Frontend - HTML, CSS, Vue 3, Vuetify</li>
+    <li>Backend API - Laravel 10</li>
     <li>Database - MySQL</li>
 </ul>
 

@@ -1,6 +1,7 @@
 import api from "./api";
 
 const url = "/products"
+const url2 = "/favourites"
 
 export const loadPaginatedProducts = () => api.get(url+'/fetch/paginated')
 export const fetchOrderProducts = (orderProducts) => api.post(url+'/order/products', orderProducts)
@@ -10,7 +11,7 @@ export const loadProductPage = (link) => api.get(link)
 export const filterProducts = (filters) => api.post(url+'/filter', filters)
 export const showProduct = (id) => api.get(url+'/'+id)
 export const searchProducts = (searchSlug) => api.get(url+'/search-products/'+searchSlug)
-export const storeToFavourites = (favData, token) => api.post(url+'/favourites', favData,{
+export const storeToFavourites = (favData, token) => api.post(url2+'/store', favData, {
     headers: {
       Authorization: `Bearer ${token}`
     }

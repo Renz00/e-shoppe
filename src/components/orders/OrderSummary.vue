@@ -20,7 +20,17 @@
                     Total Discount
                 </v-col>
                 <v-col>
-                  ₱{{ 'discount from the vouchers' }}
+                  <span v-if="vouchers.name!=null">₱{{ orderTotalDiscount.toFixed(2).toLocaleString() }}</span>
+                  <span v-else>₱0.00</span>
+                </v-col>
+            </v-row>
+            <v-row class="my-0">
+                <v-col>
+                  Shipping Fee
+                </v-col>
+                <v-col>
+                  <span v-if="courier.name!=null">₱{{ orderShippingPrice.toFixed(2).toLocaleString() }}</span>
+                  <span v-else>₱0.00</span>
                 </v-col>
             </v-row>
             <v-divider class="my-2"></v-divider>
@@ -53,7 +63,8 @@ import Payment from './Payment.vue';
 import { onMounted } from 'vue';
 import { storeToRefs } from "pinia";
 import { useOrderStore } from '@/store/order-store'
-const { orderTotalItemQuantity, orderSubTotal, orderGrandTotal, orderTotalDiscount } = storeToRefs(useOrderStore())
+const { orderTotalItemQuantity, orderSubTotal, orderGrandTotal, 
+  orderTotalDiscount, orderShippingPrice, vouchers, courier } = storeToRefs(useOrderStore())
 const { setRunningTotal } = useOrderStore()
 
 const props = defineProps({

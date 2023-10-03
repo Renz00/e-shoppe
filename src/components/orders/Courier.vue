@@ -52,6 +52,7 @@ import { ref, onMounted, computed } from 'vue'
 import { storeToRefs } from "pinia";
 import { useOrderStore } from '@/store/order-store'
 const { courier } = storeToRefs(useOrderStore())
+const { setRunningTotal } = useOrderStore()
 
 const props = defineProps({
     disableOrderSummaryButtons: Boolean
@@ -85,6 +86,7 @@ const saveCourier = () =>{
     setCourierName(courierItems.value[selectedCourier.value])
     courierIsSaved.value = true
     shippingDialog.value = false
+    setRunningTotal()
     console.log('Courier is saved')
 }
 

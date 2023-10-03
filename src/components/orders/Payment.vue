@@ -51,6 +51,7 @@ import { ref, onMounted } from 'vue'
 import { storeToRefs } from "pinia";
 import { useOrderStore } from '@/store/order-store'
 const { payment } = storeToRefs(useOrderStore())
+const { setRunningTotal } = useOrderStore()
 
 const props = defineProps({
     disableOrderSummaryButtons: Boolean
@@ -60,7 +61,7 @@ const paymentName = ref(null)
 const paymentForm = ref()
 const paymentIsSaved = ref(false)
 const paymentDialog = ref(false)
-const selectedPaymethod = ref(1)
+const selectedPaymethod = ref(0)
 const paymentItems = ref([
     {
         name: 'Cash On Delivery',
@@ -86,7 +87,7 @@ const savePayment = () =>{
     setPaymentName(paymentItems.value[selectedPaymethod.value])
     paymentIsSaved.value = true
     paymentDialog.value = false
-    
+    setRunningTotal()
     console.log('Payment is saved')
 }
 

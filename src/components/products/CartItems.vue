@@ -99,4 +99,11 @@ onMounted(()=>{
   cart.value = cartItems.value
 })
 
+onUnmounted(()=>{
+    if (cartItems.value.length<=0){
+        sessionStorage.removeItem('cart')
+        getCartItemCount()
+    }
+})
+
 </script>

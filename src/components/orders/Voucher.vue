@@ -5,7 +5,7 @@
                 <v-container>
                     <v-row>
                         <v-col class="text-subtitle-2" cols="6" sm="8">
-                            Total Discount
+                            Discount
                             <div class="text-uppercase text-body-2 mt-2 blue-font" v-if="!disableOrderSummaryButtons">
                                 See Vouchers
                             </div>
@@ -66,7 +66,9 @@
 import { ref, onMounted, computed } from 'vue'
 import { storeToRefs } from "pinia";
 import { useOrderStore } from '@/store/order-store'
+
 const { vouchers } = storeToRefs(useOrderStore())
+const { setRunningTotal } = useOrderStore()
 
 const props = defineProps({
     disableOrderSummaryButtons: Boolean
@@ -81,34 +83,23 @@ const voucherForm = ref()
 const voucherType = ref('list')
 const voucherItems = ref([])
 const voucherObj = ref({
-    //Values are in percentage
-    'Free Shipping - Min ₱0': {
+    'Free Shipping': {
         'shipping_discount': 100,
-        'minimum_price':0,
-        'category':0, //0 mean all
+        'category':0,//0 means all categories
         'price_discount':0,
-        'key': 'Free Shipping - Min ₱0'
-    },
-    'Free Shipping - Min ₱30': {
-        'shipping_discount': 100,
-        'minimum_price':30,
-        'category':0,//0 mean all
-        'price_discount':0,
-        'key': 'Free Shipping - Min ₱30'
+        'name': 'Free Shipping'
     },
     '10% OFF Cosmetics': {
         'shipping_discount': 0,
-        'minimum_price':0,
         'category':2,
-        'price_discount':0,
-        'key': '10% OFF Cosmetics'
+        'price_discount':10,
+        'name': '10% OFF Cosmetics'
     },
-    '25% OFF Gadgets - Min ₱40': {
+    '25% OFF Gadgets': {
         'shipping_discount': 0,
-        'minimum_price':40,
         'category':1,
         'price_discount':25,
-        'key': '25% OFF Gadgets - Min ₱40'
+        'name': '25% OFF Gadgets'
     }
 })
 
@@ -132,9 +123,6 @@ const getSelectedVoucher = (voucherKey) =>{
         case voucherItems.value[2]:
             voucherName.value = voucherItems.value[2]
             break;
-        case voucherItems.value[3]:
-            voucherName.value = voucherItems.value[3]
-            break;
         default:
             voucherName.value = 'None'
             break;
@@ -155,9 +143,6 @@ const getVoucher = computed(()=>{
             case 'V003':
                 voucher = voucherObj.value[`${voucherItems.value[2]}`]
                 break;
-            case 'V004':
-                voucher = voucherObj.value[`${voucherItems.value[3]}`]
-                break;
             default:
                 voucher = false
                 break;
@@ -168,19 +153,20 @@ const getVoucher = computed(()=>{
 const saveVoucher = () =>{
     let voucher = ''
     if (voucherType.value=='list' && selectedVoucher.value!=null){
-        voucher = selectedVoucher.value
-        getSelectedVoucher(voucher)
+        voucher = voucherObj.value[`${selectedVoucher.value}`]
+        getSelectedVoucher(selectedVoucher.value)
     }
     
     if (voucherType.value=='code' && selectedCode.value!=null) {
         voucher = getVoucher.value
-        getSelectedVoucher(voucher.key)
+        getSelectedVoucher(voucher.name)
     }
 
     if (voucher != ''){
         vouchers.value = voucher
         voucherIsSaved.value = true
         voucherDialog.value = false
+        setRunningTotal()
         console.log('Voucher is saved')
     }
     else {

@@ -39,12 +39,14 @@ import OrderSummary from '@/components/orders/OrderSummary.vue';
 import ShippingAddress from '@/components/orders/ShippingAddress.vue';
 import CartItems from '@/components/products/CartItems.vue';
 
+import { onUnmounted } from 'vue'
 import { storeToRefs } from "pinia";
 import { useProductStore } from '../store/product-store'
 import { useOrderStore } from '../store/order-store'
 
 const { cartItems } = storeToRefs(useProductStore())
-const { handleCheckout } = useOrderStore()
+const { getCartItemCount } = useProductStore()
+const { handleCheckout  } = useOrderStore()
 
 const props = defineProps({
     cartItemCount: Number,
@@ -56,5 +58,10 @@ const checkout = async () =>{
         await handleCheckout(cartItems.value)
     }
 }
+
+onUnmounted(()=>{
+    //Initializes cart item count
+    getCartItemCount()
+})
 
 </script>

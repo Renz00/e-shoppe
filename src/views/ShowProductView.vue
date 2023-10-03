@@ -2,7 +2,6 @@
   <v-container class="mt-5">
     <v-row class="mt-5">
       <v-col>
-        <!-- Listening to emitCartItemCount from child component -->
         <ProductCardLg />
       </v-col>
     </v-row>

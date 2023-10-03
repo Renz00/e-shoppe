@@ -12,6 +12,7 @@ export const useOrderStore = defineStore("orderStore", () => {
     const orderTotalItemQuantity = ref(0)
     const orderSubTotal = ref(0)
     const orderTotalDiscount = ref(0)
+    const orderShippingPrice = ref(0)
     const orderGrandTotal = ref(0)
     const deliveryAddress = ref({})
     const vouchers = ref({})
@@ -19,26 +20,63 @@ export const useOrderStore = defineStore("orderStore", () => {
     const payment = ref({})
     const isLoadingOrders = ref(false)
 
-    // const updateCart = (cartItems) =>{
-    //   if (sessionStorage.getItem('cart')!=null){
-    //     sessionStorage.setItem('cart', )
-    //   }
-    // }
-
     const setRunningTotal = () =>{
       const { cartItemCount, cartItems } = storeToRefs(useProductStore())
       if (cartItemCount.value>0){
         let count = 0
-        let total_price = 0
+        let subtotal_price = 0
+        let courier_price = 0
+        let grand_total = 0
+
+        //If a courier exists, set value for courier_price
+         if (courier.value.name!=null){
+          const cour = courier.value
+          courier_price = cour.price
+        }
+
         cartItems.value.map((val, i)=>{
           //Loop through each item in cart
-          total_price += val.total_price
+          subtotal_price += val.total_price
           count += val.count
         })
+       
+        //If a voucher exists, deduct the discount price from total price
+        if (vouchers.value.name!=null){
+          const vouc = vouchers.value
+          let voucherDiscPrice = 0
+          if (vouc.shipping_discount>0){
+            console.log('shipping discount')
+            //Added this if statement because 100/100 is equal to 0 in js for some dumb reason
+            if (vouc.shipping_discount==100){
+              voucherDiscPrice = courier_price
+            }
+            else {
+              voucherDiscPrice = Math.abs(((vouc.shipping_discount/100)*courier_price)-courier_price)
+            }
+            courier_price = courier_price - voucherDiscPrice
+          }
+          else {
+            console.log('price discount')
+            //Added this if statement because 100/100 is equal to 0 in js for some dumb reason
+            if (vouc.shipping_discount==100){
+              voucherDiscPrice = subtotal_price
+            }
+            else {
+              voucherDiscPrice = Math.abs(((vouc.price_discount/100)*subtotal_price)-subtotal_price)
+            }
+          }
+          grand_total = subtotal_price - voucherDiscPrice
+          orderTotalDiscount.value = voucherDiscPrice
+        }
+        else {
+          orderTotalDiscount.value = 0
+          grand_total = subtotal_price
+        }
+        grand_total += courier_price
+        orderShippingPrice.value = courier_price
         orderTotalItemQuantity.value = count
-        orderSubTotal.value = Math.abs(total_price)
-        // orderTotalDiscount.value = 0
-        // orderGrandTotal.value = total - discount
+        orderSubTotal.value = Math.abs(subtotal_price)
+        orderGrandTotal.value = Math.abs(grand_total)
       }
       else {
         console.log('cartItems is null')
@@ -102,6 +140,7 @@ export const useOrderStore = defineStore("orderStore", () => {
         orderTotalItemQuantity,
         orderSubTotal,
         orderTotalDiscount,
+        orderShippingPrice,
         orderGrandTotal,
         setRunningTotal,
         handleCheckout

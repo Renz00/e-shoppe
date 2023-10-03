@@ -192,22 +192,6 @@ export const useProductStore = defineStore('productStore', {
         }
       }
     },
-    async handleStoreToFavourites(favData){
-      this.isLoadingProducts = false
-      const { getUserData } = useCryptStore()
-      const userData = getUserData()
-      favData['user_id'] = userData.id
-      const {data} = await storeToFavourites(favData, userData.token)
-      if (data.products != null){
-        this.products = data.products.data
-        this.productPageCount = data.products.last_page
-        this.productCurrentPage = data.products.current_page
-        this.isLoadingProducts = false
-      }
-      else {
-        console.log('Error fetching favourite products')
-      }
-    },
     async handleFetchOrderProducts(orderProducts){
       this.isLoadingProducts = false
       const {data} = await fetchOrderProducts(orderProducts)

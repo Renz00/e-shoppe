@@ -2,7 +2,7 @@
 <v-row>
   <v-col>
       <div class="text-subtitle-2 pb-3 text-uppercase">
-          Login to your account
+          Please log in to your account
       </div>
       <authErrors :errors="errors" :showAuthErrors="showAuthErrors" />
       <form ref="loginForm" @submit.prevent="login">

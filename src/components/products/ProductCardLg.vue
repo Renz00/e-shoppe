@@ -128,7 +128,7 @@
                           width="100%"
                           :loading="isLoadingLike"
                         >
-                          <v-icon icon="mdi-heart" v-if="liked"></v-icon>
+                          <v-icon icon="mdi-heart" v-if="selectedProduct.isFavourite"></v-icon>
                           <v-icon icon="mdi-heart-outline" v-else></v-icon>
                         </v-btn>
                       </template>
@@ -169,10 +169,9 @@
 <script setup>
 import ProductQuantity from "./ProductQuantity.vue";
 import AddToCart from "./AddToCart.vue";
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from '@/store/product-store'
-import { useCryptStore } from '@/store/crypt-store'
 import { useAuthStore } from '@/store/auth-store'
 import { useFavouriteStore } from '@/store/favourites-store'
 
@@ -181,11 +180,19 @@ const { setCartItemCount } = useProductStore()
 const { setAuthDialog } = useAuthStore()
 const { isLoggedIn } = storeToRefs(useAuthStore())
 const { handleStoreToFavourites } = useFavouriteStore()
-const { showFavTooltip, liked, likedMessage, isLoadingLike } = storeToRefs(useFavouriteStore())
+const { showFavTooltip, likedMessage, isLoadingLike } = storeToRefs(useFavouriteStore())
 
 const tab = ref(null);
 const imgload = ref(false);
 const productQuantity = ref(1);
+
+watchEffect(() => {
+  if (showFavTooltip.value) {
+    setTimeout(() => {
+      showFavTooltip.value = false;
+    }, 700);
+  }
+})
 
 const addToCart = (selectedProduct) => {
   //If there is a discount, total price will be computed with the discount
@@ -226,7 +233,7 @@ const getDiscountPrice = (price, discount) =>{
 }
 
 const storeToFavourites = async (product_id) =>{
-  if (product_id!=null && isLoggedIn == true){
+  if (product_id!=null && isLoggedIn.value == true){
     await handleStoreToFavourites(product_id)
   }
   else {
