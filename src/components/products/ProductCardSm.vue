@@ -37,7 +37,7 @@
                   {{ category(product.product_category)+' | '}}<v-icon icon="mdi-star" color="yellow"></v-icon>{{product.product_rating }}
                 </div>
                 <div class="d-flex justify-center align-center text-truncate">
-                  <span class="text-subtitle-1 font-italic" style="text-decoration: line-through;">{{ '₱'+product.product_price.toFixed(2).toLocaleString() }}</span><span class="text-subtitle-1 font-bold">{{ ' ₱'+getDiscountPrice(product.product_price, product.product_discount) }}</span>
+                  <span class="text-subtitle-1 font-italic" style="text-decoration: line-through; color:gray;">{{ '₱'+product.product_price.toFixed(2).toLocaleString() }}</span><span class="text-subtitle-1 font-bold">{{ '₱'+getDiscountPrice(product.product_price, product.product_discount) }}</span>
                 </div>
               </div>
             <!-- click.stop prevents child click from triggering parent click -->

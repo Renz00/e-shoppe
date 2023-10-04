@@ -53,7 +53,8 @@ export const useOrderStore = defineStore("orderStore", () => {
             else {
               voucherDiscPrice = Math.abs(((vouc.shipping_discount/100)*courier_price)-courier_price)
             }
-            courier_price = courier_price - voucherDiscPrice
+            courier_price -= voucherDiscPrice
+            grand_total = subtotal_price
           }
           else {
             console.log('price discount')
@@ -64,8 +65,8 @@ export const useOrderStore = defineStore("orderStore", () => {
             else {
               voucherDiscPrice = Math.abs(((vouc.price_discount/100)*subtotal_price)-subtotal_price)
             }
+            grand_total = subtotal_price - voucherDiscPrice
           }
-          grand_total = subtotal_price - voucherDiscPrice
           orderTotalDiscount.value = voucherDiscPrice
         }
         else {
@@ -77,6 +78,7 @@ export const useOrderStore = defineStore("orderStore", () => {
         orderTotalItemQuantity.value = count
         orderSubTotal.value = Math.abs(subtotal_price)
         orderGrandTotal.value = Math.abs(grand_total)
+        
       }
       else {
         console.log('cartItems is null')

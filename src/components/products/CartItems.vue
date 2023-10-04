@@ -38,7 +38,7 @@
                             </v-col>
                             <v-col cols="6" sm="6" class="px-0 text-subtitle-2">
                                 <div class="px-0">
-                                    <span class="text-subtitle-1 font-italic" style="text-decoration: line-through;">{{ '₱'+item.price.toLocaleString() }}</span>
+                                    <span class="text-subtitle-1 font-italic" style="text-decoration: line-through; color: gray;">{{ '₱'+item.price.toLocaleString() }}</span>
                                     <span class="text-subtitle-1">{{ ' ₱'+getDiscountPrice(item.price, item.discount)+' ' }}</span>
                                     <!-- <span class="text-subtitle-2">{{ item.discount+'% OFF' }}</span> -->
                                 </div>

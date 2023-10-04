@@ -30,7 +30,7 @@
                   </v-row>
                   <v-row class="mt-5">
                       <div class="px-0 text-subtitle-1">
-                        <span class="text-subtitle-1 font-italic" style="text-decoration: line-through;">{{ '₱'+product.product_price.toLocaleString() }}</span><span class="text-subtitle-1 font-bold">{{ ' ₱'+getDiscountPrice(product.product_price, product.product_discount) }}</span>
+                        <span class="text-subtitle-1 font-italic" style="text-decoration: line-through; color: gray;">{{ '₱'+product.product_price.toLocaleString() }}</span><span class="text-subtitle-1 font-bold">{{ ' ₱'+getDiscountPrice(product.product_price, product.product_discount) }}</span>
                       </div>
                   </v-row>
               </v-container>
