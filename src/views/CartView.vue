@@ -8,7 +8,7 @@
                     </span>
                   
                 </div>
-                <CartItems :cartItemsHeight="cartItemsHeight" v-if="cartItems.length>0"/>
+                <CartItems :cartItems="cartItems" :cartItemsHeight="cartItemsHeight" v-if="cartItems.length>0"/>
                 <div v-else>
                     No items in cart :(
                 </div>
@@ -26,10 +26,11 @@
                 </v-row>
                 <v-row>
                     <v-col class="px-8 px-md-2" cols="12">
-                        <v-btn color="black" size="large" @click="checkout()" :disabled="cartItems.length>0?false:true" width="100%">Checkout</v-btn>
+                        <v-btn color="black" size="large" @click="checkout()" :disabled="cartItems.length>0?false:true" :loading="isLoadingOrders" width="100%">Checkout</v-btn>
                     </v-col>
                 </v-row>
             </v-col>
+            <CheckoutMsg />
         </v-row>
     </v-container>
 </template>
@@ -38,6 +39,7 @@
 import OrderSummary from '@/components/orders/OrderSummary.vue';
 import ShippingAddress from '@/components/orders/ShippingAddress.vue';
 import CartItems from '@/components/products/CartItems.vue';
+import CheckoutMsg from '@/components/orders/CheckoutMsg.vue';
 
 import { onUnmounted } from 'vue'
 import { storeToRefs } from "pinia";
@@ -46,7 +48,8 @@ import { useOrderStore } from '../store/order-store'
 
 const { cartItems } = storeToRefs(useProductStore())
 const { getCartItemCount } = useProductStore()
-const { handleCheckout  } = useOrderStore()
+const { handleCheckout, setRunningTotal  } = useOrderStore()
+const { isLoadingOrders  } = storeToRefs(useOrderStore())
 
 const props = defineProps({
     cartItemCount: Number,
@@ -62,6 +65,7 @@ const checkout = async () =>{
 onUnmounted(()=>{
     //Initializes cart item count
     getCartItemCount()
+    setRunningTotal()
 })
 
 </script>

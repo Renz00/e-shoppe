@@ -5,7 +5,7 @@
                 <v-container>
                     <v-row>
                         <v-col class="text-subtitle-2" cols="6" sm="8">
-                            Discount
+                            Selected Voucher
                             <div class="text-uppercase text-body-2 mt-2 blue-font" v-if="!disableOrderSummaryButtons">
                                 See Vouchers
                             </div>
@@ -85,21 +85,18 @@ const voucherItems = ref([])
 const voucherObj = ref({
     'Free Shipping': {
         'shipping_discount': 100,
-        'category':0,//0 means all categories
         'price_discount':0,
         'name': 'Free Shipping'
     },
-    '10% OFF Cosmetics': {
+    '10% OFF': {
         'shipping_discount': 0,
-        'category':2,
         'price_discount':10,
-        'name': '10% OFF Cosmetics'
+        'name': '10% OFF'
     },
-    '25% OFF Gadgets': {
+    '25% OFF': {
         'shipping_discount': 0,
-        'category':1,
         'price_discount':25,
-        'name': '25% OFF Gadgets'
+        'name': '25% OFF'
     }
 })
 

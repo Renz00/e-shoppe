@@ -2,17 +2,17 @@ import api from "./api";
 
 const url = "/orders"
 
-// export const fetchFavourites = (userObj, token) => api.post(url, userObj, {
-//   headers: {
-//     Authorization: `Bearer ${token}`
-//   }
-// })
+export const storeOrder = (orderData, token) => api.post(url+'/store', orderData,{
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+})
 
-// export const storeToFavourites = (favData, token) => api.post(url+'/store', favData,{
-//     headers: {
-//       Authorization: `Bearer ${token}`
-//     }
-// })
+export const showOrder = (orderId, token) => api.get(url+`/${orderId}`, {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+})
 
 // export const createTask = (task) => api.post(url, task)
 

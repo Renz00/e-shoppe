@@ -52,10 +52,10 @@ const routes = [
     component: TrackOrdersView
   },
   {
-    path: '/order/id',
+    path: '/order/:orderId',
     name: 'OrderView',
     component: OrderView,
-    props: { disableOrderSummaryButtons: true, disableCartItemsButtons: true,  cartItemsHeight: 600}
+    props: true
   },
   {
     path: '/:notFound(.*)',
@@ -74,7 +74,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   const { setAuthDialog } = useAuthStore()
-  const cartRoutes = ['CartView', 'OrderView']
+  const cartRoutes = ['CartView']
   const authGuardRoutes = ['OrderView', 'FavouritesView', 'TrackOrdersView']
 
   //Will redirect to homepage if cart is empty

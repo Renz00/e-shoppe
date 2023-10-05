@@ -26,7 +26,7 @@ watchEffect(() => {
   if (overlay.value) {
     setTimeout(() => {
       overlay.value = false;
-    }, 700);
+    }, 800);
   }
 })
 

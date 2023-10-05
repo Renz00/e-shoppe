@@ -2,7 +2,7 @@ import api from "./api";
 
 const url = "/favourites"
 
-export const fetchFavourites = (userObj, token) => api.post(url, userObj, {
+export const fetchFavourites = (token) => api.get(url, {
   headers: {
     Authorization: `Bearer ${token}`
   }

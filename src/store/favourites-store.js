@@ -54,10 +54,7 @@ export const useFavouriteStore = defineStore("favouritesStore", () => {
     const handleFetchFavourites = async() =>{
       isLoadingFav.value = true
       const userData = getUserData()
-      const userObj = {
-        id: userData.id
-      }
-      const {data} = await fetchFavourites(userObj, userData.token)
+      const {data} = await fetchFavourites(userData.token)
       if (data.favourites!=null){
         favProducts.value = data.favourites.data
         if (favProducts.value.isFavourite){

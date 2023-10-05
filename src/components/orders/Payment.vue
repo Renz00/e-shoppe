@@ -80,7 +80,7 @@ const paymentItems = ref([
 const setPaymentName = (paymentItem) =>{
    paymentName.value = paymentItem.name
    //Setting a value for the payment store object
-   payment.value = selectedPaymethod.value
+   payment.value = paymentItem
 }
 
 const savePayment = () =>{

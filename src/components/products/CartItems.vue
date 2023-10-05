@@ -1,5 +1,5 @@
 <template>
-     <v-list lines="two" class="py-0 my-0 mx-5 mx-md-0 overflow-y-auto" width="auto" :max-height="cartItemsHeight" v-if="cartItems.length>0">
+     <v-list lines="two" class="py-0 my-0 mx-5 mx-md-0 overflow-y-auto" width="auto" :max-height="cartItemsHeight">
         <v-list-item max-height="181" class="pa-0 mb-3 elevation-1" v-for="(item, index) in cart" :key="item.id" :to="{name: 'ShowProductView', params: {productId: item.id}}" variant="outlined">
             <v-row>
                 <v-col class="px-0 px-sm-3" cols="4" sm="3">
@@ -54,15 +54,16 @@
 <script setup>
 import ProductQuantity from '@/components/products/ProductQuantity.vue'
 import { ref, onMounted, onUnmounted } from 'vue';
-import { storeToRefs } from "pinia";
+import { storeToRefs } from 'pinia';
 import { useProductStore } from '@/store/product-store'
 
-const { cartItems } = storeToRefs(useProductStore())
-const { getCartItemCount, setCartItemCount } = useProductStore()
+const { getCartItemCount } = useProductStore()
+const { cartItemCount } = storeToRefs(useProductStore())
 
 const props = defineProps({
     disableCartItemsButtons: Boolean,
-    cartItemsHeight: Number
+    cartItemsHeight: Number,
+    cartItems: Array
 })
 
 const imgload = ref(false)
@@ -86,6 +87,10 @@ const setCategory = (category) => {
 
 const removeItem = (index) =>{
     cart.value.splice(index, 1)
+    if (cart.value.length<=0){
+        sessionStorage.removeItem('cart')
+        getCartItemCount()
+    }
 }
 
 const getDiscountPrice = (price, discount) =>{
@@ -96,11 +101,11 @@ const getDiscountPrice = (price, discount) =>{
 
 onMounted(()=>{
   getCartItemCount()
-  cart.value = cartItems.value
+  cart.value = props.cartItems
 })
 
 onUnmounted(()=>{
-    if (cartItems.value.length<=0){
+    if (props.cartItems.length<=0){
         sessionStorage.removeItem('cart')
         getCartItemCount()
     }

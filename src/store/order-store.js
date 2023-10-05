@@ -1,7 +1,8 @@
 // Utilities
 import { ref, computed } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
-// import {  } from "@/http/order-api"
+import router from '@/router'
+import { showOrder, storeOrder } from "@/http/order-api"
 import { useCryptStore } from '@/store/crypt-store'
 import { useAuthStore } from '@/store/auth-store'
 import { useProductStore } from '@/store/product-store'
@@ -9,6 +10,8 @@ import { useProductStore } from '@/store/product-store'
 export const useOrderStore = defineStore("orderStore", () => {
     const { encryption, getUserData } = useCryptStore()
     const orders = ref([])
+    const orderProducts = ref([])
+    const itemCategories = ref([])
     const orderTotalItemQuantity = ref(0)
     const orderSubTotal = ref(0)
     const orderTotalDiscount = ref(0)
@@ -19,10 +22,12 @@ export const useOrderStore = defineStore("orderStore", () => {
     const courier = ref({})
     const payment = ref({})
     const isLoadingOrders = ref(false)
+    const checkoutOverlay = ref(false)
 
     const setRunningTotal = () =>{
       const { cartItemCount, cartItems } = storeToRefs(useProductStore())
       if (cartItemCount.value>0){
+        itemCategories.value = []
         let count = 0
         let subtotal_price = 0
         let courier_price = 0
@@ -38,7 +43,14 @@ export const useOrderStore = defineStore("orderStore", () => {
           //Loop through each item in cart
           subtotal_price += val.total_price
           count += val.count
+
+          // //Pushing categories to a new array
+          // itemCategories.value.push(val.category)
         })
+
+        // //Removing duplicate categories in the array
+        // itemCategories.value = itemCategories.value.filter((item, 
+        //   index) => itemCategories.value.indexOf(item) === index); 
        
         //If a voucher exists, deduct the discount price from total price
         if (vouchers.value.name!=null){
@@ -90,23 +102,55 @@ export const useOrderStore = defineStore("orderStore", () => {
         const userData = getUserData()
         //Check if user is logged in
         if (userData!=false){
-            const order = {
+          if (cartItems.length>0 && Object.keys(deliveryAddress.value).length>0){
+              const order = {
                 "order": {
                     "user_id": userData.id,
-                    "item_count": 10,
-                    "status": 1,
-                    "discount": 10,
+                    "item_count": orderTotalItemQuantity.value,
+                    "status": 1, // 1 for 'Packing' order status
+                    "sub_total": orderSubTotal.value,
+                    "grand_total": orderGrandTotal.value,
+                    "discount": orderTotalDiscount.value,
                     "courier": courier.value,
                     "payment_method": payment.value,
                     "delivery_address": deliveryAddress.value
                 },
                 "order_products": cartItems
+              }
+              const {data} = await storeOrder(order, userData.token)
+              if (data.order!=null){
+                const id = data.order.id
+                router.push({name: 'OrderView', params:{orderId: id}})
+              }
+            }
+            else {
+              checkoutOverlay.value = true
+              console.log('order data is not complete')
             }
         }
         else {
             const { setAuthDialog } = useAuthStore()
             setAuthDialog('login')
         }
+        isLoadingOrders.value = false
+    }
+
+    const handleFetchSelectedOrder = async(orderId)=>{
+      isLoadingOrders.value = true
+      const userData = getUserData()
+      const { data } = await showOrder(orderId, userData.token)
+
+      if (data.order!=null){
+        orders.value = data.order[0]
+        orderProducts.value = data.order_products
+        orderTotalItemQuantity.value = orders.value.item_count
+        orderSubTotal.value =  orders.value.order_sub_total
+        orderTotalDiscount.value = orders.value.order_discount
+        orderShippingPrice.value = orders.value.order_courier_price
+        orderGrandTotal.value = orders.value.order_grand_total
+        isLoadingOrders.value = false
+        console.log(orderSubTotal.value)
+      }
     }
 
     // const handleStoreToFavourites = async(favData, token) =>{
@@ -144,7 +188,11 @@ export const useOrderStore = defineStore("orderStore", () => {
         orderTotalDiscount,
         orderShippingPrice,
         orderGrandTotal,
+        orderProducts,
+        checkoutOverlay,
+        itemCategories,
         setRunningTotal,
-        handleCheckout
+        handleCheckout,
+        handleFetchSelectedOrder
     }
   })
