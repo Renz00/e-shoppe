@@ -17,12 +17,33 @@ export const useOrderStore = defineStore("orderStore", () => {
     const orderTotalDiscount = ref(0)
     const orderShippingPrice = ref(0)
     const orderGrandTotal = ref(0)
-    const deliveryAddress = ref({})
-    const vouchers = ref({})
-    const courier = ref({})
-    const payment = ref({})
+    const fullDeliveryAddress = ref('')
+    const deliveryAddress = ref({
+      'address1': '',
+      'address2': '',
+      'zipcode': '',
+      'notes': ''
+    })
+    const vouchers = ref({
+      'shipping_discount': 0,
+      'price_discount':0,
+      'name': ''
+    })
+    const courier = ref({
+      'name': '',
+      'price': 0,
+      'id': 0
+    })
+    const payment = ref({
+      'name': '',
+      'id': 0
+    })
     const isLoadingOrders = ref(false)
     const checkoutOverlay = ref(false)
+
+    const setFullDeliveryAddress = (address) =>{
+        fullDeliveryAddress.value = `${address.address1}, ${address.address2}`
+    }
 
     const setRunningTotal = () =>{
       const { cartItemCount, cartItems } = storeToRefs(useProductStore())
@@ -34,60 +55,58 @@ export const useOrderStore = defineStore("orderStore", () => {
         let grand_total = 0
 
         //If a courier exists, set value for courier_price
-         if (courier.value.name!=null){
-          const cour = courier.value
-          courier_price = cour.price
+         if (courier.value.name!=''){
+          const courierObj = courier.value
+          courier_price = courierObj.price
         }
 
         cartItems.value.map((val, i)=>{
           //Loop through each item in cart
           subtotal_price += val.total_price
           count += val.count
-
-          // //Pushing categories to a new array
-          // itemCategories.value.push(val.category)
         })
-
-        // //Removing duplicate categories in the array
-        // itemCategories.value = itemCategories.value.filter((item, 
-        //   index) => itemCategories.value.indexOf(item) === index); 
        
-        //If a voucher exists, deduct the discount price from total price
-        if (vouchers.value.name!=null){
-          const vouc = vouchers.value
+        //If a voucher exists, computed the discount price and deduct it from total price
+        if (vouchers.value.name!='' && vouchers.value.name!='None'){
+          const voucherObj = vouchers.value
           let voucherDiscPrice = 0
-          if (vouc.shipping_discount>0){
-            console.log('shipping discount')
+          //If Voucher type is shipping discount
+          if (voucherObj.shipping_discount>0){
             //Added this if statement because 100/100 is equal to 0 in js for some dumb reason
-            if (vouc.shipping_discount==100){
+            if (voucherObj.shipping_discount==100){
               voucherDiscPrice = courier_price
             }
             else {
-              voucherDiscPrice = Math.abs(((vouc.shipping_discount/100)*courier_price)-courier_price)
+              voucherDiscPrice = Math.abs(((voucherObj.shipping_discount/100)*courier_price)-courier_price)
             }
             courier_price -= voucherDiscPrice
             grand_total = subtotal_price
           }
-          else {
-            console.log('price discount')
+          //Else Voucher type is price discount
+          else if (vouchers.value.price_discount>0) {
             //Added this if statement because 100/100 is equal to 0 in js for some dumb reason
-            if (vouc.shipping_discount==100){
+            if (voucherObj.shipping_discount==100){
               voucherDiscPrice = subtotal_price
             }
             else {
-              voucherDiscPrice = Math.abs(((vouc.price_discount/100)*subtotal_price)-subtotal_price)
+              voucherDiscPrice = Math.abs(((voucherObj.price_discount/100)*subtotal_price)-subtotal_price)
             }
             grand_total = subtotal_price - voucherDiscPrice
           }
+          //Setting a value for order discount price
           orderTotalDiscount.value = voucherDiscPrice
         }
         else {
+          //If voucher does not exist, set total discount to 0
           orderTotalDiscount.value = 0
           grand_total = subtotal_price
         }
+        //Adding the courier price to the grand total. 
+        //If Free shipping voucher is selected, courier price will be 0
         grand_total += courier_price
         orderShippingPrice.value = courier_price
         orderTotalItemQuantity.value = count
+        //Uning Math.abs to prevent negative number values
         orderSubTotal.value = Math.abs(subtotal_price)
         orderGrandTotal.value = Math.abs(grand_total)
         
@@ -110,10 +129,13 @@ export const useOrderStore = defineStore("orderStore", () => {
                     "status": 1, // 1 for 'Packing' order status
                     "sub_total": orderSubTotal.value,
                     "grand_total": orderGrandTotal.value,
+                    //Convert delivery address object to a json string
+                    "voucher": JSON.stringify(vouchers.value),
                     "discount": orderTotalDiscount.value,
-                    "courier": courier.value,
-                    "payment_method": payment.value,
-                    "delivery_address": deliveryAddress.value
+                    "courier": JSON.stringify(courier.value),
+                    "shipping_price": orderShippingPrice.value,
+                    "payment_method": JSON.stringify(payment.value),
+                    "delivery_address": JSON.stringify(deliveryAddress.value)
                 },
                 "order_products": cartItems
               }
@@ -143,13 +165,20 @@ export const useOrderStore = defineStore("orderStore", () => {
       if (data.order!=null){
         orders.value = data.order[0]
         orderProducts.value = data.order_products
+        console.log(orderProducts.value)
+        //Converting JSON string to Object
+        deliveryAddress.value = JSON.parse(orders.value.order_delivery_address)
+        setFullDeliveryAddress(deliveryAddress.value)
+        courier.value = JSON.parse(orders.value.order_courier)
+        vouchers.value = JSON.parse(orders.value.order_voucher)
+        payment.value = JSON.parse(orders.value.order_payment_method)
+        //Setting values for Order Summary 
         orderTotalItemQuantity.value = orders.value.item_count
         orderSubTotal.value =  orders.value.order_sub_total
         orderTotalDiscount.value = orders.value.order_discount
-        orderShippingPrice.value = orders.value.order_courier_price
+        orderShippingPrice.value = orders.value.order_shipping_price
         orderGrandTotal.value = orders.value.order_grand_total
         isLoadingOrders.value = false
-        console.log(orderSubTotal.value)
       }
     }
 
@@ -191,8 +220,10 @@ export const useOrderStore = defineStore("orderStore", () => {
         orderProducts,
         checkoutOverlay,
         itemCategories,
+        fullDeliveryAddress,
         setRunningTotal,
         handleCheckout,
-        handleFetchSelectedOrder
+        handleFetchSelectedOrder,
+        setFullDeliveryAddress
     }
   })

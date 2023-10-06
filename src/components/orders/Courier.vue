@@ -11,7 +11,7 @@
                         </div>
                     </v-col>
                     <v-col class="d-flex justify-center align-center text-center text-subtitle-2"
-                    cols="6" sm="4">{{ courierName }}</v-col>
+                    cols="6" sm="4">{{ courier.name }}</v-col>
                 </v-row>
 
             </v-container>
@@ -59,31 +59,31 @@ const props = defineProps({
 })
 
 const courierForm = ref()
-const courierName = ref(null)
 const shippingDialog = ref(false)
 const selectedCourier = ref(0)
 const courierIsSaved = ref(false)
 const courierItems = ref([
     {
-        name: 'J&T',
-        price: 50,
-        id: 1
+        'name': 'J&T',
+        'price': 50,
+        'id': 1
     },
     {
-        name: 'LBC',
-        price: 65,
-        id: 2
+        'name': 'LBC',
+        'price': 65,
+        'id': 2
     }
 ])
 
-const setCourierName = (courierItem)=>{
-    courierName.value = courierItem.name+' - ₱'+courierItem.price
-    //Setting value of courier store (object)
-    courier.value = courierItems.value[selectedCourier.value]
-} 
+// const setCourierName = (courierItem)=>{
+//     courierName.value = courierItem.name+' - ₱'+courierItem.price
+//     //Setting value of courier store (object)
+   
+// } 
 
 const saveCourier = () =>{
-    setCourierName(courierItems.value[selectedCourier.value])
+    // setCourierName(courierItems.value[selectedCourier.value])
+    courier.value = courierItems.value[selectedCourier.value]
     courierIsSaved.value = true
     shippingDialog.value = false
     setRunningTotal()
@@ -91,6 +91,6 @@ const saveCourier = () =>{
 }
 
 onMounted(()=>{
-    setCourierName(courierItems.value[0])
+    courier.value = courierItems.value[0]
 })
 </script>

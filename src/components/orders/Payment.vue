@@ -11,7 +11,7 @@
                             </div>
                         </v-col>
                         <v-col class="d-flex justify-center align-center text-center text-subtitle-2"
-                        cols="6" sm="4">{{ paymentName }}</v-col>
+                        cols="6" sm="4">{{ payment.name }}</v-col>
                     </v-row>
                 </v-container>
             </v-card>
@@ -57,34 +57,34 @@ const props = defineProps({
     disableOrderSummaryButtons: Boolean
 })
 
-const paymentName = ref(null)
 const paymentForm = ref()
 const paymentIsSaved = ref(false)
 const paymentDialog = ref(false)
 const selectedPaymethod = ref(0)
 const paymentItems = ref([
     {
-        name: 'Cash On Delivery',
-        id: 1
+        'name': 'Cash On Delivery',
+        'id': 1
     },
     {
-        name: 'Paypal',
-        id: 2
+        'name': 'Paypal',
+        'id': 2
     },
     {
-        name: 'Mastercard',
-        id: 3
+        'name': 'Mastercard',
+        'id': 3
     }
 ])
 
-const setPaymentName = (paymentItem) =>{
-   paymentName.value = paymentItem.name
-   //Setting a value for the payment store object
-   payment.value = paymentItem
-}
+// const setPaymentName = (paymentItem) =>{
+//    paymentName.value = paymentItem.name
+//    //Setting a value for the payment store object
+   
+// }
 
 const savePayment = () =>{
-    setPaymentName(paymentItems.value[selectedPaymethod.value])
+    // setPaymentName(paymentItems.value[selectedPaymethod.value])
+    payment.value = paymentItems.value[selectedPaymethod.value]
     paymentIsSaved.value = true
     paymentDialog.value = false
     setRunningTotal()
@@ -92,6 +92,6 @@ const savePayment = () =>{
 }
 
 onMounted(()=>{
-    setPaymentName(paymentItems.value[0])
+    payment.value = paymentItems.value[0]
 })
 </script>

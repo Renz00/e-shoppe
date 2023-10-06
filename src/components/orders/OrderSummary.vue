@@ -20,7 +20,7 @@
                     Total Discount
                 </v-col>
                 <v-col>
-                  <span v-if="vouchers.name!=null">₱{{ orderTotalDiscount.toFixed(2).toLocaleString() }}</span>
+                  <span v-if="vouchers.name!=''">₱{{ orderTotalDiscount.toFixed(2).toLocaleString() }}</span>
                   <span v-else>₱0.00</span>
                 </v-col>
             </v-row>
@@ -29,7 +29,7 @@
                   Shipping Fee
                 </v-col>
                 <v-col>
-                  <span v-if="courier.name!=null">₱{{ orderShippingPrice.toFixed(2).toLocaleString() }}</span>
+                  <span v-if="courier.name!=''">₱{{ orderShippingPrice.toFixed(2).toLocaleString() }}</span>
                   <span v-else>₱0.00</span>
                 </v-col>
             </v-row>

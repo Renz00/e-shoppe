@@ -10,7 +10,7 @@
                     Delivery Address
                 </span>
                 <div class="text-body-2 text-truncate">
-                    {{ fullAddress }}
+                    {{ fullDeliveryAddress }}
                 </div>
                 <div class="text-uppercase text-body-2 blue-font pt-2" v-if="!disableOrderSummaryButtons">
                     Change Address
@@ -68,10 +68,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { storeToRefs } from "pinia";
 import { useOrderStore } from '@/store/order-store'
-const { deliveryAddress } = storeToRefs(useOrderStore())
+const { deliveryAddress, fullDeliveryAddress } = storeToRefs(useOrderStore())
+const { setFullDeliveryAddress } = useOrderStore()
 
 const props = defineProps({
     disableOrderSummaryButtons: Boolean
@@ -121,12 +122,8 @@ const additionalNotes = ref('')
 const addressDialog = ref(false)
 const addressIsSaved = ref(false)
 
-const setFullAddress = (address) =>{
-    fullAddress.value = address.address1+', '+address.address2
-}
-
 const saveAddress = () =>{
-    if (address2.value!= null&& address2.value!=''){
+    if (address2.value!= null && address2.value!=''){
         const address = {
             'address1': address1.value,
             'address2': address2.value,
@@ -134,10 +131,16 @@ const saveAddress = () =>{
             'notes': additionalNotes.value
         }
         deliveryAddress.value = address
+        setFullDeliveryAddress(address)
         addressIsSaved.value = true
         addressDialog.value = false
-        setFullAddress(address)
         console.log('Address is saved')
     }
 }
+
+onMounted(()=>{
+    if (deliveryAddress.value.address1=='' && deliveryAddress.value.address2==''){
+        fullDeliveryAddress.value = '...'
+    }
+})
 </script>

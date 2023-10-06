@@ -12,7 +12,7 @@
                         </v-col>
                         <v-col class="d-flex justify-center align-center text-center text-subtitle-2"
                             cols="6" sm="4">
-                            {{ voucherName }}
+                            {{ vouchers.name }}
                         </v-col>
                     </v-row>
 
@@ -74,7 +74,6 @@ const props = defineProps({
     disableOrderSummaryButtons: Boolean
 })
 
-const voucherName = ref('None')
 const voucherDialog = ref(false)
 const voucherIsSaved = ref(false)
 const selectedVoucher = ref(null)
@@ -109,22 +108,22 @@ const listRules = ref([
     value =>  !!value || 'Please select a Voucher.'
 ])
 
-const getSelectedVoucher = (voucherKey) =>{
-    switch (voucherKey){
-        case voucherItems.value[0]:
-            voucherName.value = voucherItems.value[0]
-            break;
-        case voucherItems.value[1]:
-            voucherName.value = voucherItems.value[1]
-            break;
-        case voucherItems.value[2]:
-            voucherName.value = voucherItems.value[2]
-            break;
-        default:
-            voucherName.value = 'None'
-            break;
-    }
-}
+// const getSelectedVoucher = (voucherKey) =>{
+//     switch (voucherKey){
+//         case voucherItems.value[0]:
+//             voucherName.value = voucherItems.value[0]
+//             break;
+//         case voucherItems.value[1]:
+//             voucherName.value = voucherItems.value[1]
+//             break;
+//         case voucherItems.value[2]:
+//             voucherName.value = voucherItems.value[2]
+//             break;
+//         default:
+//             voucherName.value = 'None'
+//             break;
+//     }
+// }
 
 const getVoucher = computed(()=>{
     let voucher = ''
@@ -151,12 +150,12 @@ const saveVoucher = () =>{
     let voucher = ''
     if (voucherType.value=='list' && selectedVoucher.value!=null){
         voucher = voucherObj.value[`${selectedVoucher.value}`]
-        getSelectedVoucher(selectedVoucher.value)
+        // getSelectedVoucher(selectedVoucher.value)
     }
     
     if (voucherType.value=='code' && selectedCode.value!=null) {
         voucher = getVoucher.value
-        getSelectedVoucher(voucher.name)
+        // getSelectedVoucher(voucher.name)
     }
 
     if (voucher != ''){
@@ -172,6 +171,9 @@ const saveVoucher = () =>{
 }
 
 onMounted(() => {
+    if (vouchers.value.name==''){
+        vouchers.value.name = 'None'
+    }
     voucherItems.value = Object.keys(voucherObj.value)
 })
 

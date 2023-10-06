@@ -3,7 +3,7 @@
     <v-sheet min-height="700">
     <v-row>
       <v-col class="px-5 px-md-0" cols="12">
-        <div class="text-h6 mb-3">Your Order #347322 is being processed</div>
+        <div class="text-h6 mb-3">Your Order #{{ orders.id }} is being processed</div>
         <v-card class="elevation-1" variant="outlined" height="auto">
           <v-container>
             <v-row>
@@ -40,13 +40,13 @@
       </v-col>
     </v-row>
     <v-row class="mb-10">
-      <v-col class="d-flex justify-center align-center text-center b-red" cols="12" v-if="isLoadingOrders">
+      <v-col class="d-flex justify-center align-center text-center" cols="12" v-if="isLoadingOrders">
         <Loader />
       </v-col>
       <v-col cols="12" lg="8" v-else>
         <v-row>
           <v-col>
-            <CartItems :cartItems="orderProducts" :cartItemsHeight="600" :disableCartItemsButtons="true" v-if="orders.length>0"/>
+            <OrderItemList :orderProducts="orderProducts" v-if="orderProducts.length>0"/>
           </v-col>
         </v-row>
       </v-col>
@@ -75,7 +75,7 @@
 <script setup>
 import OrderSummary from "@/components/orders/OrderSummary.vue"
 import ShippingAddress from "@/components/orders/ShippingAddress.vue"
-import CartItems from "@/components/products/CartItems.vue"
+import OrderItemList from "@/components/orders/OrderItemList.vue"
 import Loader from "@/components/layout/Loader.vue"
 
 import {  onMounted } from 'vue'
