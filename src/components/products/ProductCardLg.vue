@@ -8,6 +8,7 @@
             @loadstart="imgload = true"
             @load="imgload = false"
             lazy-src="https://picsum.photos/1200/910"
+            alt="Product Image"
             aspect-ratio="16/9"
             width="auto"
             height="451"
@@ -54,7 +55,7 @@
                       {{ selectedProduct.product_rating }}
                     </div>
                     <div class="text-h6 pt-3">
-                      <span class="text-subtitle-1 font-italic" style="text-decoration: line-through;">{{ '₱'+selectedProduct.product_price.toFixed(2).toLocaleString() }}</span><span class="text-subtitle-1 font-bold">{{ ' ₱'+getDiscountPrice(selectedProduct.product_price, selectedProduct.product_discount) }}</span>
+                      <span class="text-subtitle-1 font-italic" style="text-decoration: line-through; color: gray;">{{ '₱'+selectedProduct.product_price.toFixed(2).toLocaleString() }}</span><span class="text-subtitle-1 font-bold">{{ ' ₱'+getDiscountPrice(selectedProduct.product_price, selectedProduct.product_discount) }}</span>
                     </div>
                   </v-col>
                 </v-row>
@@ -106,6 +107,7 @@
                       color="success"
                       style="color: white"
                       width="100%"
+                      aria-label="cart button"
                       @click="addToCart(selectedProduct)"
                     >
                       Add to Cart
@@ -127,6 +129,7 @@
                           style="color: white"
                           width="100%"
                           :loading="isLoadingLike"
+                          aria-label="fav button"
                         >
                           <v-icon icon="mdi-heart" v-if="selectedProduct.isFavourite"></v-icon>
                           <v-icon icon="mdi-heart-outline" v-else></v-icon>

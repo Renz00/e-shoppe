@@ -9,6 +9,7 @@
           <v-col class="d-flex justify-center align-center px-0 px-sm-3" cols="12" md="4" sm="6">
               <v-img @loadstart="imgload = true" @load="imgload = false"
                   lazy-src="https://picsum.photos/800/1000" width="auto"
+                  alt="Product Image"
                   height="180" src="https://picsum.photos/800/1000" cover>
                   <template v-slot:placeholder>
                       <div class="d-flex align-center justify-center fill-height">
@@ -36,7 +37,7 @@
               </v-container>
           </v-col>
           <v-col class="d-flex justify-center align-center mx-3 mb-3 mx-md-0 mb-md-0 pr-9" cols="12" md="3">
-              <v-btn class="rounded-0" @click.prevent="addToCart(products)" color="success" block>
+              <v-btn class="rounded-0" @click.prevent="addToCart(products)" color="success" block aria-label="cart button">
               <span style="color: white;">
                   Add to Cart
               </span>

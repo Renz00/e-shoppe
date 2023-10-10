@@ -14,6 +14,12 @@ export const showOrder = (orderId, token) => api.get(url+`/${orderId}`, {
   }
 })
 
+export const cancelOrder = (orderId, token) => api.get(url+`/cancel/${orderId}`, {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+})
+
 // export const createTask = (task) => api.post(url, task)
 
 // export const updateTask = (id, task) => api.put(url+'/'+id, task)

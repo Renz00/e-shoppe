@@ -19,7 +19,7 @@
           </v-row>
         </div>
         <div class="ml-5" v-if="mobileView">
-          <v-btn icon="" id="nav-menu1" color="black">
+          <v-btn icon="" id="nav-menu1" color="black" aria-label="hamburger button">
             <v-icon icon="mdi-menu"></v-icon>
           </v-btn>
           <v-menu activator="#nav-menu1" v-model="showHamburgerMenu" :close-on-content-click="false">
@@ -60,7 +60,7 @@
                <SearchBar @emitCloseMenu="showHamburgerMenu=false"/>
             </div>
             <div class="ml-1">
-              <v-btn icon="" :to="{ name: 'CartView' }" v-if="cartItemCount > 0">
+              <v-btn icon="" :to="{ name: 'CartView' }" aria-label="cart button" v-if="cartItemCount > 0">
                   <v-badge :content="cartItemCount" color="error">
                     <v-icon icon="mdi-cart-outline"></v-icon>
                   </v-badge>
@@ -74,14 +74,14 @@
                   v-else
               >
                   <template v-slot:activator="{ props }">
-                    <v-btn v-bind="props" icon="mdi-cart-outline" @click="showCartTooltip=true">
+                    <v-btn v-bind="props" icon="mdi-cart-outline" @click="showCartTooltip=true" aria-label="cart button">
                     </v-btn>
                   </template>
               </v-tooltip>
             </div>
             <div class="ml-1 mr-5">
-              <v-btn id="nav-menu2" icon="" v-if="isLoggedIn"><v-icon icon="mdi-account-circle" color="primary"></v-icon></v-btn>
-              <v-btn id="login-btn" icon="" @click="setAuthDialog('login')" v-else><v-icon icon="mdi-account-circle"></v-icon></v-btn>
+              <v-btn id="nav-menu2" icon="" v-if="isLoggedIn"><v-icon icon="mdi-account-circle" color="primary" aria-label="account button"></v-icon></v-btn>
+              <v-btn id="login-btn" icon="" @click="setAuthDialog('login')" aria-label="account button" v-else><v-icon icon="mdi-account-circle"></v-icon></v-btn>
               <v-menu activator="#nav-menu2" v-if="isLoggedIn">
                 <v-list>
                   <v-list-item :to="{name: 'TrackOrdersView'}" link>

@@ -7,7 +7,7 @@
                         lazy-src="https://picsum.photos/800/1000" width="auto"
                         height="180" src="https://picsum.photos/800/1000" cover>
                         <div class="ml-4 mt-1 ml-sm-1" v-if="!disableCartItemsButtons">
-                            <v-btn color="error" size="small" @click.prevent="removeItem(index)">Remove</v-btn>
+                            <v-btn color="error" size="small" @click.prevent="removeItem(index)" aria-label="remove cart item button">Remove</v-btn>
                         </div>
                         <template v-slot:placeholder>
                             <div class="d-flex align-center justify-center fill-height">

@@ -7,6 +7,7 @@
               v-model="productCurrentPage"
               :length="productPageCount"
               @update:modelValue="loadPage"
+              aria-label="pagination"
               rounded="circle"
             ></v-pagination>
         </v-col>

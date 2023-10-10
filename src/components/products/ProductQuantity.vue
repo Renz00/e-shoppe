@@ -1,7 +1,7 @@
 <template>
-    <v-btn variant="text" icon="mdi-minus" density="compact" @click.prevent="decQuantity(productId)"></v-btn>
+    <v-btn variant="text" icon="mdi-minus" density="compact" @click.prevent="decQuantity(productId)" aria-label="add button"></v-btn>
         <div style="width: 40px;" class="d-flex justify-center align-center text-subtitle-2">{{ count }}</div>
-    <v-btn variant="text" icon="mdi-plus" density="compact" @click.prevent="incQuantity(productId)"></v-btn>
+    <v-btn variant="text" icon="mdi-plus" density="compact" @click.prevent="incQuantity(productId)" aria-label="subtract button"></v-btn>
 </template>
 
 <script setup>

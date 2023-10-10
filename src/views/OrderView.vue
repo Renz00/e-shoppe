@@ -1,10 +1,13 @@
 <template>
-  <v-container class="mt-5 mb-10">
+  <v-container class="mt-5 mb-10" id="title">
     <v-sheet min-height="700">
-    <v-row>
+    <v-row v-if="orderProducts.length>0">
       <v-col class="px-5 px-md-0" cols="12">
-        <div class="text-h6 mb-3">Your Order #{{ orders.id }} is being processed</div>
-        <v-card class="elevation-1" variant="outlined" height="auto">
+        <div class="text-h6 mb-3">
+          <span v-if="orders.order_is_cancelled!=true">Your Order #{{ orders.id }} is being processed</span>
+          <span v-else>Your Order #{{ orders.id }} is <span class="red-font">Cancelled</span></span>
+        </div>
+        <v-card class="elevation-1" variant="outlined" height="auto" v-if="orders.order_is_cancelled!=true">
           <v-container>
             <v-row>
               <v-col cols="12">
@@ -62,8 +65,8 @@
           </v-col>
         </v-row>
         <v-row>
-            <v-col class="px-5 px-md-0" cols="12">
-                <v-btn color="black" size="large" width="100%">Cancel Order</v-btn>
+            <v-col class="px-5 px-md-0" cols="12" v-if="orders.order_is_cancelled!=true">
+                <v-btn color="black" size="large" @click="cancel(orders.id)" :loading="isLoadingOrders" width="100%" aria-label="cancel order button">Cancel Order</v-btn>
             </v-col>
         </v-row>
       </v-col>
@@ -83,7 +86,7 @@ import { storeToRefs } from "pinia";
 import { useOrderStore } from '@/store/order-store'
 import { useProductStore } from '@/store/product-store'
 const { orders, orderProducts, isLoadingOrders } = storeToRefs(useOrderStore())
-const { handleFetchSelectedOrder } = useOrderStore()
+const { handleFetchSelectedOrder, handleCancelOrder } = useOrderStore()
 const { getCartItemCount } = useProductStore()
 
 //Props from router and App.vue
@@ -91,6 +94,17 @@ const props = defineProps({
   cartItemCount: Number,
   orderId: String
 })
+
+const cancel = async(orderId) =>{
+  await handleCancelOrder(orderId)
+  await handleFetchSelectedOrder(props.orderId)
+  const title = document.getElementById('title');
+  title.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+    inline: "start"
+  });
+}
 
 onMounted(async ()=>{
   if (sessionStorage.getItem('cart')!=null){

@@ -17,6 +17,7 @@
         :clearable="search!='' ? true: false"
         rounded
         center-affix
+        aria-label="search bar"
         >
         <template v-slot:prepend-inner>
             <v-icon icon="mdi-magnify" color="black" v-if="!isLoadingSearchItems"></v-icon>

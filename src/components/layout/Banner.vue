@@ -14,6 +14,7 @@
       <v-img
         height="100%"
         width="100%"
+        alt="Banner Image"
         cover
         :lazy-src="'src/assets/'+slide"
         :src="'src/assets/'+slide"

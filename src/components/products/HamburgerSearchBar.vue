@@ -10,6 +10,7 @@
       :items="productSearchItems"
       :menu-props="{ maxWidth: 200, maxHeight:250 }"
       density="compact"
+      aria-label="search bar hamburger"
       hide-no-data
       hide-details
       variant="outlined"

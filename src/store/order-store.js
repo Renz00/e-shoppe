@@ -1,8 +1,8 @@
 // Utilities
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import router from '@/router'
-import { showOrder, storeOrder } from "@/http/order-api"
+import { showOrder, storeOrder, cancelOrder } from "@/http/order-api"
 import { useCryptStore } from '@/store/crypt-store'
 import { useAuthStore } from '@/store/auth-store'
 import { useProductStore } from '@/store/product-store'
@@ -182,6 +182,20 @@ export const useOrderStore = defineStore("orderStore", () => {
       }
     }
 
+    const handleCancelOrder = async(orderId) =>{
+      isLoadingOrders.value = true
+      const userData = getUserData()
+      const { data } = await cancelOrder(orderId, userData.token)
+
+      if (data.result == true){
+          console.log('order is cancelled')
+      }
+      else {
+        console.log('Error cancel order')
+      }
+      isLoadingOrders.value = false
+    }
+
     // const handleStoreToFavourites = async(favData, token) =>{
     //   isLoadingLike.value = true
     //   const {data} = await storeToFavourites(favData, token)
@@ -224,6 +238,7 @@ export const useOrderStore = defineStore("orderStore", () => {
         setRunningTotal,
         handleCheckout,
         handleFetchSelectedOrder,
-        setFullDeliveryAddress
+        setFullDeliveryAddress,
+        handleCancelOrder
     }
   })

@@ -11,6 +11,7 @@
                   @loadstart="imgload=true"
                   @load="imgload=false"
                   lazy-src="https://picsum.photos/600/700"
+                  alt="Product Image"
                   aspect-ratio="4/3"
                   width="auto"
                   height="230"
@@ -41,7 +42,7 @@
                 </div>
               </div>
             <!-- click.stop prevents child click from triggering parent click -->
-            <v-btn class="rounded-0" @click.prevent="addToCart(product)" width="100%" color="success">
+            <v-btn class="rounded-0" @click.prevent="addToCart(product)" width="100%" color="success" aria-label="cart button">
               <span style="color: white;">
                 Add to Cart
               </span>
