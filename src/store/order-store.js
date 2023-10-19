@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import router from '@/router'
-import { showOrder, storeOrder, cancelOrder } from "@/http/order-api"
+import { showOrder, storeOrder, cancelOrder, userOrders } from "@/http/order-api"
 import { useCryptStore } from '@/store/crypt-store'
 import { useAuthStore } from '@/store/auth-store'
 import { useProductStore } from '@/store/product-store'
@@ -159,6 +159,7 @@ export const useOrderStore = defineStore("orderStore", () => {
 
     const handleFetchSelectedOrder = async(orderId)=>{
       isLoadingOrders.value = true
+      orders.value = []
       const userData = getUserData()
       const { data } = await showOrder(orderId, userData.token)
 
@@ -180,6 +181,21 @@ export const useOrderStore = defineStore("orderStore", () => {
         orderGrandTotal.value = orders.value.order_grand_total
         isLoadingOrders.value = false
       }
+    }
+
+    const handleUserOrders = async(orderStatus) =>{
+      isLoadingOrders.value = true
+      const statusSlug = orderStatus.replace(' ', '-')
+      const userData = getUserData()
+      const { data } = await userOrders(statusSlug, userData.token)
+
+      if (data.order!=null){
+          console.log(data.order)
+      }
+      else {
+        console.log('Error fetching user orders')
+      }
+      isLoadingOrders.value = false
     }
 
     const handleCancelOrder = async(orderId) =>{
@@ -239,6 +255,7 @@ export const useOrderStore = defineStore("orderStore", () => {
         handleCheckout,
         handleFetchSelectedOrder,
         setFullDeliveryAddress,
-        handleCancelOrder
+        handleCancelOrder,
+        handleUserOrders
     }
   })

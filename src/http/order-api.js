@@ -8,6 +8,12 @@ export const storeOrder = (orderData, token) => api.post(url+'/store', orderData
     }
 })
 
+export const userOrders = (orderStatus, token) => api.get(url+`/status/${orderStatus}`, {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+})
+
 export const showOrder = (orderId, token) => api.get(url+`/${orderId}`, {
   headers: {
     Authorization: `Bearer ${token}`

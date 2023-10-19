@@ -30,7 +30,7 @@
                         </v-col>
                     </v-row>
                     <v-window v-model="tab">
-                        <v-window-item value="one">
+                        <v-window-item value="1">
                             <v-container fluid>
                             <v-row>
                                 <v-col>
@@ -39,7 +39,7 @@
                             </v-row>
                             </v-container>
                         </v-window-item>
-                        <v-window-item value="two">
+                        <v-window-item value="2">
                             <v-container fluid>
                             <v-row>
                                 <v-col>
@@ -48,7 +48,7 @@
                             </v-row>
                             </v-container>
                         </v-window-item>
-                        <v-window-item value="three">
+                        <v-window-item value="3">
                             <v-container fluid>
                             <v-row>
                                 <v-col>
@@ -57,7 +57,7 @@
                             </v-row>
                             </v-container>
                         </v-window-item>
-                        <v-window-item value="four">
+                        <v-window-item value="4">
                             <v-container fluid>
                             <v-row>
                                 <v-col>
@@ -80,15 +80,45 @@
 <script setup>
 import OrderList from '@/components/orders/OrderList.vue'
 import Pagination from '@/components/products/Pagination.vue';
-import { ref } from 'vue';
+
+import { ref, onMounted,computed } from 'vue';
+import { storeToRefs } from "pinia";
+import { useOrderStore } from '@/store/order-store'
+const { orders, isLoadingOrders } = storeToRefs(useOrderStore())
+const { handleUserOrders } = useOrderStore()
 
 const props = defineProps({
     cartItemCount: Number,
     mobileView: Boolean
 })
 
-const tab = ref(0);
+const tab = ref(1);
 const orderCount = ref(5);
 const orderFilter = ref('Newest to Oldest');
 const orderFilterItems = ref(['Newest to Oldest', 'Oldest to Newest'])
+
+const getTabValue = computed(()=>{
+    switch (tab.value){
+        case 1:
+            return 'packing'
+            break
+        case 2:
+            return 'in transit'
+            break
+        case 3:
+            return 'arrived'
+            break
+        case 4:
+            return 'cancelled'
+            break
+        default:
+            return 1
+            break
+            
+    }
+})
+
+onMounted(()=>{
+    handleUserOrders(getTabValue.value)
+})
 </script>

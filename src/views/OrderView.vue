@@ -4,8 +4,9 @@
     <v-row v-if="orderProducts.length>0">
       <v-col class="px-5 px-md-0" cols="12">
         <div class="text-h6 mb-3">
-          <span v-if="orders.order_is_cancelled!=true">Your Order #{{ orders.id }} is being processed</span>
-          <span v-else>Your Order #{{ orders.id }} is <span class="red-font">Cancelled</span></span>
+         
+          <span v-if="orders.order_is_cancelled==true">Your Order #{{ orders.id }} is <span class="red-font">Cancelled</span></span>
+          <span v-else>Your Order #{{ orders.id }} is being processed</span>
         </div>
         <v-card class="elevation-1" variant="outlined" height="auto" v-if="orders.order_is_cancelled!=true">
           <v-container>
@@ -42,11 +43,13 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row class="mb-10">
-      <v-col class="d-flex justify-center align-center text-center" cols="12" v-if="isLoadingOrders">
+    <v-row v-if="isLoadingOrders">
+      <v-col class="d-flex justify-center align-center text-center" cols="12">
         <Loader />
       </v-col>
-      <v-col cols="12" lg="8" v-else>
+    </v-row>
+    <v-row class="mb-10" v-else>
+      <v-col cols="12" lg="8">
         <v-row>
           <v-col>
             <OrderItemList :orderProducts="orderProducts" v-if="orderProducts.length>0"/>
@@ -97,13 +100,14 @@ const props = defineProps({
 
 const cancel = async(orderId) =>{
   await handleCancelOrder(orderId)
-  await handleFetchSelectedOrder(props.orderId)
   const title = document.getElementById('title');
   title.scrollIntoView({
     behavior: "smooth",
     block: "start",
     inline: "start"
   });
+  await handleFetchSelectedOrder(props.orderId)
+  
 }
 
 onMounted(async ()=>{
