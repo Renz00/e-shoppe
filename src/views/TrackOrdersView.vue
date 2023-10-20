@@ -34,7 +34,7 @@
                             <v-container fluid>
                             <v-row>
                                 <v-col>
-                                    <OrderList :orderCount="orderCount"/>
+                                    <OrderList :orders="orders"/>
                                 </v-col>
                             </v-row>
                             </v-container>
@@ -43,7 +43,7 @@
                             <v-container fluid>
                             <v-row>
                                 <v-col>
-                                    <OrderList :orderCount="orderCount"/>
+                                    <OrderList :orders="orders"/>
                                 </v-col>
                             </v-row>
                             </v-container>
@@ -52,7 +52,7 @@
                             <v-container fluid>
                             <v-row>
                                 <v-col>
-                                    <OrderList :orderCount="orderCount"/>
+                                    <OrderList :orders="orders"/>
                                 </v-col>
                             </v-row>
                             </v-container>
@@ -61,7 +61,7 @@
                             <v-container fluid>
                             <v-row>
                                 <v-col>
-                                    <OrderList :orderCount="orderCount"/>
+                                    <OrderList :orders="orders"/>
                                 </v-col>
                             </v-row>
                             </v-container>
@@ -112,7 +112,7 @@ const getTabValue = computed(()=>{
             return 'cancelled'
             break
         default:
-            return 1
+            return 'packing'
             break
             
     }

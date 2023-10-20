@@ -190,7 +190,7 @@ export const useOrderStore = defineStore("orderStore", () => {
       const { data } = await userOrders(statusSlug, userData.token)
 
       if (data.order!=null){
-          console.log(data.order)
+          orders.value = data.order.data
       }
       else {
         console.log('Error fetching user orders')
