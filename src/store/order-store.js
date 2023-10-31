@@ -191,6 +191,7 @@ export const useOrderStore = defineStore("orderStore", () => {
 
       if (data.order!=null){
           orders.value = data.order.data
+          console.log(orders.value)
       }
       else {
         console.log('Error fetching user orders')
