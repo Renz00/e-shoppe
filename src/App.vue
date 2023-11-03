@@ -23,6 +23,7 @@ import { useAuthStore } from '@/store/auth-store'
 const { cartItemCount } = storeToRefs(useProductStore())
 const { getCartItemCount } = useProductStore()
 const { isLoggedIn } = storeToRefs(useAuthStore())
+const { handleRememberLogin } = useAuthStore()
 
 //Used to check if display size is for mobile. mobile.value is Boolean
 const { mobile } = useDisplay()
@@ -38,8 +39,9 @@ onMounted ( async () => {
     getCartItemCount()
   }
 
-  if (sessionStorage.getItem('data')!=null){
+  if (localStorage.getItem('data')!=null){
     isLoggedIn.value = true
+    // handleRememberLogin()
   }
   else {
     isLoggedIn.value = false

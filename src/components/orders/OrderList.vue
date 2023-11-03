@@ -3,7 +3,7 @@
         <span class="text-subtitle-1" v-if="!isLoadingOrders && orders.length<=0">No Orders Found.</span>
         <Loader v-if="isLoadingOrders"/>
         <v-list lines="two" class="py-0 my-0 mx-5 overflow-y-auto" width="auto" max-height="600" v-else>
-        <v-list-item class="pa-0 mb-3 elevation-1" variant="outlined" link v-for="order in orders" :key="order.id">
+        <v-list-item class="pa-0 mb-3 elevation-1" variant="outlined" link v-for="order in orders" :key="order.id" @click="showOrder(order.id)" >
             <v-row class="">
                 <v-col class="pa-3 pa-sm-5" cols="12" sm="9">
                     <v-container class="">
@@ -23,7 +23,7 @@
                                 </v-col>
                         </v-row>
                         <v-row class="my-0">
-                            <v-col cols="12" class="py-0"><span class="text-subtitle-2">Courier: </span><span class="text-body-2">{{ getCourierJSON(order.order_courier) }}</span></v-col>
+                            <v-col cols="12" class="py-0"><span class="text-subtitle-2">Courier: </span><span class="text-body-2">{{ getCourierName(order.order_courier) }}</span></v-col>
                         </v-row>
                         <v-row class="my-0">
                             <v-col cols="12" class="text-body-2 py-0"><span class="text-subtitle-2">Estimated Arrival: </span><span class="text-body-2">3-4 Days</span></v-col>
@@ -41,15 +41,14 @@
 
 <script setup>
 import Loader from '../layout/Loader.vue';
-
-import { ref, onMounted } from 'vue';
+import router from '@/router';
 
 const props = defineProps({
-   orders: Array,
+   orders: [Array, Object],
    isLoadingOrders: Boolean
 })
 
-const getCourierJSON = (courier) => {
+const getCourierName = (courier) => {
     if (courier!=null){
         const cour = JSON.parse(courier) 
         return cour.name   
@@ -57,6 +56,10 @@ const getCourierJSON = (courier) => {
     else {
         return false
     }
+}
+
+const showOrder = (orderId) =>{
+    router.push({name: 'OrderView', params:{orderId: orderId}})
 }
 
 const getIcon = (status) => {

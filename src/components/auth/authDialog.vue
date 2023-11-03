@@ -1,5 +1,5 @@
 <template>
-    <v-row justify="center">
+    <v-row justify="center" align="center">
         <v-dialog v-model="showAuthDialog" width="500" height="600">
             <v-card>
                 <v-card-text>

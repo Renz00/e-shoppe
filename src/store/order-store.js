@@ -142,6 +142,7 @@ export const useOrderStore = defineStore("orderStore", () => {
               const {data} = await storeOrder(order, userData.token)
               if (data.order!=null){
                 const id = data.order.id
+                sessionStorage.removeItem('cart')
                 router.push({name: 'OrderView', params:{orderId: id}})
               }
             }
@@ -166,7 +167,6 @@ export const useOrderStore = defineStore("orderStore", () => {
       if (data.order!=null){
         orders.value = data.order[0]
         orderProducts.value = data.order_products
-        console.log(orderProducts.value)
         //Converting JSON string to Object
         deliveryAddress.value = JSON.parse(orders.value.order_delivery_address)
         setFullDeliveryAddress(deliveryAddress.value)
@@ -191,7 +191,6 @@ export const useOrderStore = defineStore("orderStore", () => {
 
       if (data.order!=null){
           orders.value = data.order.data
-          console.log(orders.value)
       }
       else {
         console.log('Error fetching user orders')

@@ -4,7 +4,7 @@ const url = "/auth"
 
 export const login = (creds) => api.post(url+'/login', creds)
 export const register = (newUser) => api.post(url+'/register', newUser)
-export const logout = (token) => api.post(url+'/logout',{} ,{
+export const logout = (token) => api.post(url+'/logout', {} ,{
     headers: {
       Authorization: `Bearer ${token}`
     }

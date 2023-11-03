@@ -14,8 +14,8 @@ export const useCryptStore = defineStore("cryptStore", () => {
   }
 
   const getUserData = () =>{
-    if (sessionStorage.getItem('data')!=null){
-      const decryptedData = decryption(sessionStorage.getItem('data'))
+    if (localStorage.getItem('data')!=null){
+      const decryptedData = decryption(localStorage.getItem('data'))
       const parsedData = JSON.parse(decryptedData)
       return parsedData
     }

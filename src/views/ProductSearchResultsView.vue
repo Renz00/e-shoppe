@@ -45,8 +45,8 @@ const setLayout = (selectedLayout) => {
 
 onMounted(async()=>{
     var search = ''
-    if (sessionStorage.getItem('search')!=null){
-        search  = sessionStorage.getItem('search')
+    if (localStorage.getItem('search')!=null){
+        search  = localStorage.getItem('search')
     }
     else {
         search = currentSearchText.value 
@@ -55,8 +55,8 @@ onMounted(async()=>{
 })
 
 onUnmounted(() => {
-    if (sessionStorage.getItem('search')!=null){
-        sessionStorage.removeItem('search')
+    if (localStorage.getItem('search')!=null){
+        localStorage.removeItem('search')
     }
 })
 

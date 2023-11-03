@@ -21,11 +21,11 @@ export const useAuthStore = defineStore("authStore", () => {
     showLogin.value = false
     showRegister.value = false
     //Check if a user is already logged in
-    if (sessionStorage.getItem('data') != null){
+    if (localStorage.getItem('data') != null){
       showAuthDialog.value = false
     }
     else {
-      //if sessionStorage keys do not exist/user not logged in, show auth dialog
+      //if localStorage keys do not exist/user not logged in, show auth dialog
       showAuthDialog.value = true
       //Show content of auth dialog
       if (type == 'login'){
@@ -37,6 +37,16 @@ export const useAuthStore = defineStore("authStore", () => {
     }
   }
 
+  const handleRememberLogin = async() => {
+    const userData = getUserData()
+    const creds = {
+      "email": userData.email,
+      "password": null,
+      "remember": true
+      }
+      await handleLogin(creds)
+  }
+  
   const handleLogin = async(creds) => {
     errors.value = []
     authLoading.value=true
@@ -50,13 +60,13 @@ export const useAuthStore = defineStore("authStore", () => {
       showAuthErrors.value = true
       authLoading.value=false
     }
-    //If user is logged in, encrypt data and store in sessionStorage
+    //If user is logged in, encrypt data and store in localStorage
     if (data.user!=null && data.token != null){
       const dataObject = data.user
       //Add token to data object
       dataObject['token'] = data.token
       const encryptedData = encryption(JSON.stringify(dataObject))
-      sessionStorage.setItem('data', encryptedData)
+      localStorage.setItem('data', encryptedData)
       authLoading.value = false
       showAuthDialog.value = false
       isLoggedIn.value = true
@@ -93,11 +103,11 @@ export const useAuthStore = defineStore("authStore", () => {
 
   const handleLogout = async() => {
     authLoading.value = true
-    if (sessionStorage.getItem('data') != null){
+    if (localStorage.getItem('data') != null){
       const userData = getUserData()
       const {data} = await logout(userData.token)
       if (data.result == 1){
-        sessionStorage.removeItem('data')
+        localStorage.removeItem('data')
         isLoggedIn.value = false
         console.log('user is logged out')
       }
@@ -122,6 +132,7 @@ export const useAuthStore = defineStore("authStore", () => {
       isLoggedIn,
       setAuthDialog,
       handleLogin,
+      handleRememberLogin,
       handleRegister,
       handleLogout
   }

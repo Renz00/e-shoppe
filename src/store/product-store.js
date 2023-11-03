@@ -177,7 +177,7 @@ export const useProductStore = defineStore('productStore', {
         this.productSearchItems = []
         this.isLoadingProducts = true
         this.currentSearchText = searchText
-        sessionStorage.setItem('search', searchText)
+        localStorage.setItem('search', searchText)
         //create slug for api call
         const searchSlug = searchText.replace(' ', '-')
         const {data} = await searchProducts(searchSlug)
