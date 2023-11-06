@@ -77,9 +77,4 @@ const getDiscountPrice = (price, discount) =>{
     price = price-discPrice
     return price.toLocaleString()
 }
-
-onMounted(()=>{
-    console.log(props.orderProducts)
-})
-
 </script>

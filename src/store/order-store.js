@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import router from '@/router'
-import { showOrder, storeOrder, cancelOrder, userOrders } from "@/http/order-api"
+import { showOrder, storeOrder, cancelOrder, userOrders, sortOrders } from "@/http/order-api"
 import { useCryptStore } from '@/store/crypt-store'
 import { useAuthStore } from '@/store/auth-store'
 import { useProductStore } from '@/store/product-store'
@@ -142,7 +142,7 @@ export const useOrderStore = defineStore("orderStore", () => {
               const {data} = await storeOrder(order, userData.token)
               if (data.order!=null){
                 const id = data.order.id
-                sessionStorage.removeItem('cart')
+                // sessionStorage.removeItem('cart')
                 router.push({name: 'OrderView', params:{orderId: id}})
               }
             }
@@ -188,6 +188,22 @@ export const useOrderStore = defineStore("orderStore", () => {
       const statusSlug = orderStatus.replace(' ', '-')
       const userData = getUserData()
       const { data } = await userOrders(statusSlug, userData.token)
+
+      if (data.order!=null){
+          orders.value = data.order.data
+      }
+      else {
+        console.log('Error fetching user orders')
+      }
+      isLoadingOrders.value = false
+    }
+
+    const handleSortOrders = async(sortObj) =>{
+      isLoadingOrders.value = true
+      const statusSlug = sortObj.status.replace(' ', '-')
+      sortObj.status = statusSlug
+      const userData = getUserData()
+      const { data } = await sortOrders(sortObj, userData.token)
 
       if (data.order!=null){
           orders.value = data.order.data
@@ -256,6 +272,7 @@ export const useOrderStore = defineStore("orderStore", () => {
         handleFetchSelectedOrder,
         setFullDeliveryAddress,
         handleCancelOrder,
-        handleUserOrders
+        handleUserOrders,
+        handleSortOrders
     }
   })

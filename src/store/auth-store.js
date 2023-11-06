@@ -70,6 +70,7 @@ export const useAuthStore = defineStore("authStore", () => {
       authLoading.value = false
       showAuthDialog.value = false
       isLoggedIn.value = true
+      location.reload();
       console.log('user is logged in')
     }
     else {

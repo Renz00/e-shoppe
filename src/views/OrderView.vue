@@ -84,7 +84,8 @@ import ShippingAddress from "@/components/orders/ShippingAddress.vue"
 import OrderItemList from "@/components/orders/OrderItemList.vue"
 import Loader from "@/components/layout/Loader.vue"
 
-import {  onMounted } from 'vue'
+import {  onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router';
 import { storeToRefs } from "pinia";
 import { useOrderStore } from '@/store/order-store'
 import { useProductStore } from '@/store/product-store'
@@ -98,21 +99,31 @@ const props = defineProps({
   orderId: String
 })
 
+const router = useRouter();
+
+const previousPage = computed(() => {
+    const lastPath = router.options.history.state.back;
+    return lastPath ? lastPath : '/';
+});
+
 const cancel = async(orderId) =>{
-  await handleCancelOrder(orderId)
   const title = document.getElementById('title');
   title.scrollIntoView({
     behavior: "smooth",
     block: "start",
     inline: "start"
   });
+  await handleCancelOrder(orderId)
   await handleFetchSelectedOrder(props.orderId)
   
 }
 
 onMounted(async ()=>{
   if (sessionStorage.getItem('cart')!=null){
-    sessionStorage.removeItem('cart')
+    if (previousPage.value == '/cart'){
+      //delete cart session only if cart is checked out
+      sessionStorage.removeItem('cart')
+    }
     getCartItemCount()
   }
   await handleFetchSelectedOrder(props.orderId)
