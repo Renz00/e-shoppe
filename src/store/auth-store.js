@@ -1,7 +1,7 @@
 // Utilities
 import { defineStore } from 'pinia'
 import { ref } from "vue";
-import { login, register, logout } from "../http/auth-api"
+import { login, register, logout, revokeToken } from "../http/auth-api"
 import { useCryptStore } from '@/store/crypt-store'
 
 export const useAuthStore = defineStore("authStore", () => {
@@ -37,14 +37,15 @@ export const useAuthStore = defineStore("authStore", () => {
     }
   }
 
-  const handleRememberLogin = async() => {
+  const handleRevokeToken = async() => {
     const userData = getUserData()
-    const creds = {
-      "email": userData.email,
-      "password": null,
-      "remember": true
-      }
-      await handleLogin(creds)
+    const {data} = await revokeToken(userData.token)
+    if (data.result==true){
+      console.log('token is revoked')
+    }
+    else {
+      console.log('failed to revoke token')
+    }
   }
   
   const handleLogin = async(creds) => {
@@ -69,7 +70,6 @@ export const useAuthStore = defineStore("authStore", () => {
       localStorage.setItem('data', encryptedData)
       authLoading.value = false
       showAuthDialog.value = false
-      isLoggedIn.value = true
       location.reload();
       console.log('user is logged in')
     }
@@ -107,7 +107,7 @@ export const useAuthStore = defineStore("authStore", () => {
     if (localStorage.getItem('data') != null){
       const userData = getUserData()
       const {data} = await logout(userData.token)
-      if (data.result == 1){
+      if (data.result == 1 || data.message == 'Unauthenticated'){
         localStorage.removeItem('data')
         isLoggedIn.value = false
         console.log('user is logged out')
@@ -133,9 +133,9 @@ export const useAuthStore = defineStore("authStore", () => {
       isLoggedIn,
       setAuthDialog,
       handleLogin,
-      handleRememberLogin,
       handleRegister,
-      handleLogout
+      handleLogout,
+      handleRevokeToken
   }
 })
 

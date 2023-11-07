@@ -68,6 +68,7 @@
                             </v-container>
                         </v-window-item>
                     </v-window>
+                <CancelOrderMsg />
             </v-col>
         </v-row>
         <v-row>
@@ -81,6 +82,7 @@
 <script setup>
 import OrderList from '@/components/orders/OrderList.vue'
 import Pagination from '@/components/products/Pagination.vue';
+import CancelOrderMsg from '@/components/orders/CancelOrderMsg.vue';
 
 import { ref, onMounted, watch } from 'vue';
 import { storeToRefs } from "pinia";
@@ -125,6 +127,7 @@ const sortOrders = async (sort) =>{
         "status": orderValue.status_name,
         "sort": sortCode
     }
+    console.log(sortObj)
     await handleSortOrders(sortObj)
 }
 

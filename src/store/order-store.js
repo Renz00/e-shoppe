@@ -40,6 +40,7 @@ export const useOrderStore = defineStore("orderStore", () => {
     })
     const isLoadingOrders = ref(false)
     const checkoutOverlay = ref(false)
+    const cancelOverlay = ref(false)
 
     const setFullDeliveryAddress = (address) =>{
         fullDeliveryAddress.value = `${address.address1}, ${address.address2}`
@@ -179,6 +180,7 @@ export const useOrderStore = defineStore("orderStore", () => {
         orderTotalDiscount.value = orders.value.order_discount
         orderShippingPrice.value = orders.value.order_shipping_price
         orderGrandTotal.value = orders.value.order_grand_total
+        console.log(orders.value.order_eta)
         isLoadingOrders.value = false
       }
     }
@@ -220,7 +222,8 @@ export const useOrderStore = defineStore("orderStore", () => {
       const { data } = await cancelOrder(orderId, userData.token)
 
       if (data.result == true){
-          console.log('order is cancelled')
+        cancelOverlay.value = true
+        console.log('order is cancelled')
       }
       else {
         console.log('Error cancel order')
@@ -267,6 +270,7 @@ export const useOrderStore = defineStore("orderStore", () => {
         checkoutOverlay,
         itemCategories,
         fullDeliveryAddress,
+        cancelOverlay,
         setRunningTotal,
         handleCheckout,
         handleFetchSelectedOrder,

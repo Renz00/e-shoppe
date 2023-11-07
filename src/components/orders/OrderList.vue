@@ -31,7 +31,7 @@
                         </v-container>
                     </v-col>
                     <v-col cols="12" sm="3" class="d-flex justify-center align-center py-10 py-md-2 px-10" v-if="order.status_name=='Packing'">
-                        <v-btn color="black" width="100%">Cancel</v-btn>
+                        <v-btn color="black" @click="cancel(order.id)" :loading="isLoadingOrders" width="100%">Cancel</v-btn>
                     </v-col>
                 </v-row>
             </v-list-item>
@@ -40,12 +40,12 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
 import Loader from '../layout/Loader.vue';
 import router from '@/router';
 import { storeToRefs } from "pinia";
 import { useOrderStore } from '@/store/order-store'
 const { orders, isLoadingOrders } = storeToRefs(useOrderStore())
+const { handleCancelOrder } = useOrderStore()
 
 const getCourierName = (courier) => {
     if (courier!=null){
@@ -59,6 +59,10 @@ const getCourierName = (courier) => {
 
 const showOrder = (orderId) =>{
     router.push({name: 'OrderView', params:{orderId: orderId}})
+}
+
+const cancel = async(orderId) =>{
+  await handleCancelOrder(orderId)
 }
 
 const getIcon = (status) => {
