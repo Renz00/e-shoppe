@@ -87,7 +87,7 @@ router.beforeEach(async (to, from) => {
     }
   }
   
-  if (localStorage.getItem('data')==null){
+  if (localStorage.getItem('data')==null && sessionStorage.getItem('data')==null){
     if (authGuardRoutes.includes(to.name)!=false){
       setAuthDialog('login')
       router.push({name: from.name})

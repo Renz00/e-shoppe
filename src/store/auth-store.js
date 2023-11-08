@@ -1,7 +1,7 @@
 // Utilities
 import { defineStore } from 'pinia'
 import { ref } from "vue";
-import { login, register, logout, revokeToken } from "../http/auth-api"
+import { login, register, logout } from "../http/auth-api"
 import { useCryptStore } from '@/store/crypt-store'
 
 export const useAuthStore = defineStore("authStore", () => {
@@ -37,16 +37,16 @@ export const useAuthStore = defineStore("authStore", () => {
     }
   }
 
-  const handleRevokeToken = async() => {
-    const userData = getUserData()
-    const {data} = await revokeToken(userData.token)
-    if (data.result==true){
-      console.log('token is revoked')
-    }
-    else {
-      console.log('failed to revoke token')
-    }
-  }
+  // const handleRevokeToken = async() => {
+  //   const userData = getUserData()
+  //   const {data} = await revokeToken(userData.token)
+  //   if (data.result==true){
+  //     console.log('token is revoked')
+  //   }
+  //   else {
+  //     console.log('failed to revoke token')
+  //   }
+  // }
   
   const handleLogin = async(creds) => {
     errors.value = []
@@ -67,7 +67,14 @@ export const useAuthStore = defineStore("authStore", () => {
       //Add token to data object
       dataObject['token'] = data.token
       const encryptedData = encryption(JSON.stringify(dataObject))
-      localStorage.setItem('data', encryptedData)
+
+      if (creds.remember == true){
+        localStorage.setItem('data', encryptedData)
+      }
+      else {
+        sessionStorage.setItem('data', encryptedData)
+      }
+      
       authLoading.value = false
       showAuthDialog.value = false
       location.reload();
@@ -93,7 +100,8 @@ export const useAuthStore = defineStore("authStore", () => {
         //If user has been successfully registered, call handleLogin method
         const creds = {
           'email': newUser.email,
-          'password': newUser.password
+          'password': newUser.password,
+          'remember': false
         }
         await handleLogin(creds)
       }
@@ -104,11 +112,16 @@ export const useAuthStore = defineStore("authStore", () => {
 
   const handleLogout = async() => {
     authLoading.value = true
-    if (localStorage.getItem('data') != null){
+    if (localStorage.getItem('data')!=null || sessionStorage.getItem('data')!=null){
       const userData = getUserData()
       const {data} = await logout(userData.token)
-      if (data.result == 1 || data.message == 'Unauthenticated'){
-        localStorage.removeItem('data')
+      if (data.result == 1){
+        if (localStorage.getItem('data')!=null){
+          localStorage.removeItem('data')
+        }
+        else {
+          sessionStorage.removeItem('data')
+        }
         isLoggedIn.value = false
         console.log('user is logged out')
       }
@@ -134,8 +147,7 @@ export const useAuthStore = defineStore("authStore", () => {
       setAuthDialog,
       handleLogin,
       handleRegister,
-      handleLogout,
-      handleRevokeToken
+      handleLogout
   }
 })
 

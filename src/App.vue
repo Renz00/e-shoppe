@@ -23,7 +23,7 @@ import { useAuthStore } from '@/store/auth-store'
 const { cartItemCount } = storeToRefs(useProductStore())
 const { getCartItemCount } = useProductStore()
 const { isLoggedIn } = storeToRefs(useAuthStore())
-const { handleRevokeToken } = useAuthStore()
+const { handleLogout } = useAuthStore()
 
 //Used to check if display size is for mobile. mobile.value is Boolean
 const { mobile } = useDisplay()
@@ -33,16 +33,12 @@ const mobileView = computed(() => {
 })
 
 onMounted ( async () => {
-
   if (sessionStorage.getItem('cart')!=null){
     //sets the value of states cartItemCount and cartItems in product-store
     getCartItemCount()
   }
 
-  if (localStorage.getItem('data')!=null){
-    // if (isLoggedIn.value == false){
-    //   await handleRevokeToken()
-    // }
+  if (localStorage.getItem('data')!=null || sessionStorage.getItem('data')!=null){
     isLoggedIn.value = true
   }
   else {
