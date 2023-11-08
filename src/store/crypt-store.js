@@ -14,14 +14,16 @@ export const useCryptStore = defineStore("cryptStore", () => {
   }
 
   const getUserData = () =>{
-    console.log('getUserData')
+    
     if (localStorage.getItem('data')!=null){
+      //if user is remembered
       const decryptedData = decryption(localStorage.getItem('data'))
       const parsedData = JSON.parse(decryptedData)
       console.log('local')
       return parsedData
     }
     else if (sessionStorage.getItem('data')!=null){
+      //if user is not remembered
       const decryptedData = decryption(sessionStorage.getItem('data'))
       const parsedData = JSON.parse(decryptedData)
       console.log('session')

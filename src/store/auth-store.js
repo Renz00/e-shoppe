@@ -117,9 +117,11 @@ export const useAuthStore = defineStore("authStore", () => {
       const {data} = await logout(userData.token)
       if (data.result == 1){
         if (localStorage.getItem('data')!=null){
+          //if user is remembered
           localStorage.removeItem('data')
         }
         else {
+          //if user is not
           sessionStorage.removeItem('data')
         }
         isLoggedIn.value = false

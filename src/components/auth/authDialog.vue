@@ -1,6 +1,6 @@
 <template>
     <v-row justify="center" align="center">
-        <v-dialog v-model="showAuthDialog" width="500" height="600">
+        <v-dialog v-model="showAuthDialog" width="500" height="600" class="pt-10">
             <v-card>
                 <v-card-text>
                     <v-container>

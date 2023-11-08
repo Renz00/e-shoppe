@@ -23,7 +23,6 @@ import { useAuthStore } from '@/store/auth-store'
 const { cartItemCount } = storeToRefs(useProductStore())
 const { getCartItemCount } = useProductStore()
 const { isLoggedIn } = storeToRefs(useAuthStore())
-const { handleLogout } = useAuthStore()
 
 //Used to check if display size is for mobile. mobile.value is Boolean
 const { mobile } = useDisplay()
