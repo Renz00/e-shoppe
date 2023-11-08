@@ -18,6 +18,9 @@ export const useOrderStore = defineStore("orderStore", () => {
     const orderShippingPrice = ref(0)
     const orderGrandTotal = ref(0)
     const fullDeliveryAddress = ref('')
+    const isLoadingOrders = ref(false)
+    const checkoutOverlay = ref(false)
+    const cancelOverlay = ref(false)
     const deliveryAddress = ref({
       'address1': '',
       'address2': '',
@@ -38,9 +41,6 @@ export const useOrderStore = defineStore("orderStore", () => {
       'name': '',
       'id': 0
     })
-    const isLoadingOrders = ref(false)
-    const checkoutOverlay = ref(false)
-    const cancelOverlay = ref(false)
 
     const setFullDeliveryAddress = (address) =>{
         fullDeliveryAddress.value = `${address.address1}, ${address.address2}`
@@ -180,7 +180,6 @@ export const useOrderStore = defineStore("orderStore", () => {
         orderTotalDiscount.value = orders.value.order_discount
         orderShippingPrice.value = orders.value.order_shipping_price
         orderGrandTotal.value = orders.value.order_grand_total
-        console.log(orders.value.order_eta)
         isLoadingOrders.value = false
       }
     }
@@ -230,29 +229,6 @@ export const useOrderStore = defineStore("orderStore", () => {
       }
       isLoadingOrders.value = false
     }
-
-    // const handleStoreToFavourites = async(favData, token) =>{
-    //   isLoadingLike.value = true
-    //   const {data} = await storeToFavourites(favData, token)
-
-    //   if (data.favourite != null){
-    //       likedMessage.value = 'You liked this!'
-    //       liked.value = true
-    //       showFavTooltip.value = true
-    //   }
-    //   else {
-    //       if (data.deleted == true){
-    //           likedMessage.value = 'Removed from favourites'
-    //           liked.value = false
-    //           showFavTooltip.value = true
-
-    //       }
-    //       else {
-    //           console.log('Error storing fav')
-    //       }
-    //   }
-    //   isLoadingLike.value = false
-    // }
 
     return {
         orders,
