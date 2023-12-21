@@ -122,7 +122,12 @@ export const useOrderStore = defineStore("orderStore", () => {
         const userData = getUserData()
         //Check if user is logged in
         if (userData!=false){
-          if (cartItems.length>0 && Object.keys(deliveryAddress.value).length>0){
+          let invalid = false
+          Object.keys(deliveryAddress.value).forEach((key) =>{
+            //if one of the required fields has an empty value
+            if (key!='notes' && deliveryAddress.value[`${key}`]=='') invalid = true
+          })
+          if (cartItems.length>0 && !invalid){
               const order = {
                 "order": {
                     "user_id": userData.id,

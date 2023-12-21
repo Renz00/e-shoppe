@@ -61,7 +61,7 @@ const routes = [
     path: '/:notFound(.*)',
     component: Error404,
     name: 'Error404'
-},
+  },
 ]
 
 const router = createRouter({

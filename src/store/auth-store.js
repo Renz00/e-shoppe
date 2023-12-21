@@ -64,6 +64,7 @@ export const useAuthStore = defineStore("authStore", () => {
     //If user is logged in, encrypt data and store in localStorage
     if (data.user!=null && data.token != null){
       const dataObject = data.user
+      console.log(dataObject)
       //Add token to data object
       dataObject['token'] = data.token
       const encryptedData = encryption(JSON.stringify(dataObject))
@@ -99,6 +100,7 @@ export const useAuthStore = defineStore("authStore", () => {
       if (data.result == 1){
         //If user has been successfully registered, call handleLogin method
         const creds = {
+          'id': data.user_id,
           'email': newUser.email,
           'password': newUser.password,
           'remember': false
