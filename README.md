@@ -55,6 +55,10 @@ This is an ecommerce website for a fictional online store. <br/>
     <li>3. Run npm run dev</li>
 </ul>
 
+<br/>
+
+Backedn repository: https://github.com/Renz00/e-shoppe-api
+
 
 
 
