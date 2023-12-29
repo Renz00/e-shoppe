@@ -57,7 +57,7 @@ This is an ecommerce website for a fictional online store. <br/>
 
 <br/>
 
-Backedn repository: https://github.com/Renz00/e-shoppe-api
+Backend repository: https://github.com/Renz00/e-shoppe-api
 
 
 
