@@ -1,10 +1,3 @@
-# things to do
-1. Implement track orders
-
-# Testing
-1. Use Jest Framework for testing
-
-
 This is an ecommerce website for a fictional online store. <br/>
 <strong>Author:</strong> Renz De la Torre
 
