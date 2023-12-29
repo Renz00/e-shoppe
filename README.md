@@ -47,6 +47,16 @@ This is an ecommerce website for a fictional online store. <br/>
     <li>Backend API - Laravel 10</li>
     <li>Database - MySQL</li>
 </ul>
+<br/>
+<strong>Installation :</strong><br />
+<ul>
+    <li>1. Run git clone https://github.com/Renz00/e-shoppe</li>
+    <li>2. Run npm install</li>
+    <li>3. Run npm run dev</li>
+</ul>
+
+
+
 
 
 
